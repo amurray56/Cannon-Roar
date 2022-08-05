@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Examples/Scenes/Main.unity
-    guid: 17d10320f148ee64488837d5f8008cfd
+    path: Assets/Scenes/Cannon Roar.unity
+    guid: 8f3de2790b610804a986ed4769be7cd9
   m_configObjects: {}
