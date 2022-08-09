@@ -13,6 +13,7 @@ public class Cannon : MonoBehaviour
     private Vector3 worldPosition;
     private float timer;
     public float timeBetweenShots = 1.5f;
+    private Vector3 mousePos;
 
     IVRPointer vRPointer;
 
@@ -34,12 +35,13 @@ public class Cannon : MonoBehaviour
             timer = 0f;
         }
 
-       
-        Vector3 mousePos = vRPointer.Transform.position;
+        if (vRPointer != null)
+            mousePos = vRPointer.Transform.position;
+        else
+            mousePos = Input.mousePosition;
+
         worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 1000f));
         Quaternion direction = Quaternion.LookRotation(worldPosition);
         rb.MoveRotation(direction);
     }
-
-    
 }
