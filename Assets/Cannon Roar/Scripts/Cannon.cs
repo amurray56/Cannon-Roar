@@ -4,18 +4,23 @@ using UnityEngine;
 using Liminal.SDK.VR;
 using Liminal.SDK.VR.Input;
 using Liminal.SDK.VR.Pointers;
+using UnityEngine.XR;
 
 public class Cannon : MonoBehaviour
 {
-    public GameObject cannonBall;
-    public GameObject barrelEnd;
+    [SerializeField]
+    private GameObject cannonBall;
+    [SerializeField]
+    private GameObject barrelEnd;
     private Rigidbody rb;
     private Vector3 worldPosition;
     private float timer;
     public float timeBetweenShots = 1.5f;
     private Vector3 mousePos;
-    public GameObject cannonBase;
-    public GameObject cannonFork;
+    [SerializeField]
+    private Transform cannon;
+    [SerializeField]
+    private Transform cBase;
 
     IVRPointer vRPointer;
 
@@ -38,14 +43,17 @@ public class Cannon : MonoBehaviour
         }
 
         if (vRPointer != null)
-            mousePos = vRPointer.Transform.position;
+        {
+            mousePos = vRPointer.CurrentRaycastResult.worldPosition;
+        }
         else
+        {
             mousePos = Input.mousePosition;
+        }
 
-        worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 30));
-        cannonBase.transform.rotation = new Quaternion(0, worldPosition.x, 0, 10);
-        cannonFork.transform.rotation = new Quaternion(worldPosition.y, worldPosition.x, 0, 10);
-        //Quaternion direction = Quaternion.LookRotation(worldPosition);
-        //rb.MoveRotation(direction);
+        worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, -1000));
+        cBase.LookAt(new Vector3(worldPosition.x, 0, worldPosition.z));
+        cannon.LookAt(worldPosition);
+
     }
 }
