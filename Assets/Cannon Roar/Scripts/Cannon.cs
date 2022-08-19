@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Liminal.SDK.VR;
 using Liminal.SDK.VR.Input;
 using Liminal.SDK.VR.Pointers;
@@ -42,15 +43,8 @@ public class Cannon : MonoBehaviour
             timer = 0f;
         }
 
-        if (vRPointer != null)
-        {
-            mousePos = vRPointer.CurrentRaycastResult.worldPosition;
-        }
-        else
-        {
-            mousePos = Input.mousePosition;
-        }
-
+        
+        mousePos = Input.mousePosition;
         worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, -1000));
         cBase.LookAt(new Vector3(worldPosition.x, 0, worldPosition.z));
         cannon.LookAt(worldPosition);
