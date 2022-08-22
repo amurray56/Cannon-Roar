@@ -19,6 +19,7 @@ public class BoatMove : MonoBehaviour
     {
         //Sets rigidBody
         rBody = GetComponent<Rigidbody>();
+
         //Set Initial position to first waypoint
         currentWaypoint = waypointScript.NextWaypoint(currentWaypoint);
         transform.position = currentWaypoint.position;
