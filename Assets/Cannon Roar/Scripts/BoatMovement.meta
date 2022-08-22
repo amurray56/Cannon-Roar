@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Cannon Roar/Prefabs/BoatType1.prefab.meta
+guid: 1bc181485c041e54baaa4a797a1c31b5
+PrefabImporter:
+=======
 guid: 7a97a930f4ca049c09edf1e757878783
 folderAsset: yes
 DefaultImporter:
+>>>>>>> main:Assets/Cannon Roar/Scripts/BoatMovement.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
