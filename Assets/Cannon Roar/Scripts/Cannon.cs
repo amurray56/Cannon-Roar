@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Liminal.SDK.VR;
 using Liminal.SDK.VR.Input;
-using Liminal.SDK.VR.Avatars.Controllers;
 
 public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
 {
@@ -22,12 +21,12 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     [SerializeField]
     private Transform cBase;
 
-    private ParticleSystem particleSystem;
-    private AudioSource audio;
+    private new ParticleSystem particleSystem;
+    private new AudioSource audio;
 
     public GameObject reticle;
     private bool grabHandle;
-    private IVRControllerVisual vRControllerVisual;
+    private Transform vrController;
 
     // Start is called before the first frame update
     void Start()
@@ -51,37 +50,22 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
             audio.Play();
             timer = 0f;
         }
-
-        if (timer >= 0.5f)
-            particleSystem.Stop();
         
         if (grabHandle)
         {
             //vRControllerVisual = GameObject.Find("VRAvatar").GetComponentInChildren<IVRControllerVisual>();
-            mousePos = reticle.transform.position; //vRControllerVisual.transform.TransformDirection(vRControllerVisual.transform.position);
-            worldPosition = reticle.transform.position + reticle.transform.forward * -1000; //Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, mousePos.z));
+            //mousePos = reticle.transform.position; //vRControllerVisual.transform.TransformDirection(vRControllerVisual.transform.position);
+            //worldPosition = reticle.transform.position + reticle.transform.forward * -1000; //Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, mousePos.z));
+            //cBase.LookAt(new Vector3(worldPosition.x, 0, worldPosition.z));
+            //cannon.LookAt(worldPosition);
+
+            vrController = GameObject.Find("PrimaryHand").transform;
+            worldPosition = vrController.transform.position + vrController.transform.forward * -1000;
             cBase.LookAt(new Vector3(worldPosition.x, 0, worldPosition.z));
             cannon.LookAt(worldPosition);
-            
-            /*
-            //adjust the velocity of target to move to hand
-            holdingTarget.velocity = (transform.position - holdingTarget.transform.position) / Time.fixedDeltaTime;
 
-            //Find rotation values and convert to eulers and radians
-            holdingTarget.maxAngularVelocity = 20f;
-            Quaternion deltaRot = transform.rotation * Quaternion.Inverse(holdingTarget.transform.rotation);
-
-            Vector3 eulerRot = new Vector3(Mathf.DeltaAngle(0, deltaRot.eulerAngles.x),
-               Mathf.DeltaAngle(0, deltaRot.eulerAngles.y), Mathf.DeltaAngle(0, deltaRot.eulerAngles.z));
-
-
-            eulerRot *= Mathf.Deg2Rad;
-
-            //adjust the angular velocity of target to rotate to hand
-            holdingTarget.angularVelocity = eulerRot / Time.fixedDeltaTime;
-            */
         }
-        
+
     }
 
     
