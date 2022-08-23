@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:Assets/Cannon Roar/Materials.meta
 guid: 508e26ef275cc114b97d8cf850ed5e25
+=======
+guid: 955c399806148f545ae7570dc5460099
+>>>>>>> Stashed changes:Assets/Examples/SerializableDictionary.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

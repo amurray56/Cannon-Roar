@@ -28,6 +28,7 @@ public class CannonBall : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             other.GetComponent<EnemyHealth>().TakeDamage(damage);
+            other.GetComponent<BoxCollider>().isTrigger = true;
         }
     }
 }
