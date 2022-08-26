@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Liminal.SDK.VR;
 using Liminal.SDK.VR.Input;
-using Liminal.SDK.VR.Avatars;
+using Liminal.SDK.VR.Avatars.Controllers;
 
 public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
 {
@@ -24,23 +24,28 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     private new AudioSource audio;
 
     private bool grabHandle;
-    private Transform vrController;
+    private bool grabHandleComplete;
 
-    VRAvatarLimb limb;
+    public GameObject handle;
+    public GameObject hand;
+    private Transform primaryHand;
+    private Transform grabPosition;
 
     // Start is called before the first frame update
     void Start()
     {
+        grabHandleComplete = false;
         grabHandle = false;
         particleSystem = GetComponentInChildren<ParticleSystem>();
         audio = GetComponent<AudioSource>();
+        primaryHand = GameObject.Find("PrimaryHand").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
         IVRInputDevice primaryInput = VRDevice.Device.PrimaryInputDevice;
-
+        IVRInputDevice secondaryInput = VRDevice.Device.SecondaryInputDevice;
         timer += Time.deltaTime;
         if (Input.GetMouseButtonDown(0) && timer >= timeBetweenShots && grabHandle || primaryInput.GetButtonDown(VRButton.Trigger) && timer >= timeBetweenShots && grabHandle)
         {
@@ -52,23 +57,37 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
 
         if (grabHandle)
         {
-            vrController = GameObject.Find("PrimaryHand").transform;
-            worldPosition = vrController.transform.position + vrController.transform.forward * -1000;
-            cBase.LookAt(new Vector3(worldPosition.x, 0, worldPosition.z));
-            cannon.LookAt(new Vector3(worldPosition.x, worldPosition.y + 500, worldPosition.z));
+            if (!grabHandleComplete)
+            {
+                hand.transform.position = Vector3.Lerp(hand.transform.position, grabPosition.position, 50 * Time.deltaTime);
+                
+                if (hand.transform.position == grabPosition.position)
+                    grabHandleComplete = true;
+            }
+            else
+            {
+                hand.transform.position = handle.transform.position;
+                worldPosition = hand.transform.position + hand.transform.forward * -1000;
+                cBase.LookAt(new Vector3(worldPosition.x, 0, worldPosition.z));
+                cannon.LookAt(new Vector3(worldPosition.x, worldPosition.y + 500, worldPosition.z));
+            }
         }
 
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            grabHandle = false;
+            grabHandleComplete = false;
+            hand.transform.position = primaryHand.position;
+        }
     }
-
-
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == 0 && eventData.pointerEnter.name == "handle")
         {
+            grabPosition = handle.transform;
+            timer = 0f;
             grabHandle = !grabHandle;
         }
     }
-
-    
 }
