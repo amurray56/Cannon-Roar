@@ -29,12 +29,13 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     public GameObject handle;
     public GameObject hand;
     private Transform primaryHand;
-    private Transform grabPosition;
+
+    public GameObject handleHand;
 
     // Start is called before the first frame update
     void Start()
     {
-        grabHandleComplete = false;
+        grabHandleComplete = true;
         grabHandle = false;
         particleSystem = GetComponentInChildren<ParticleSystem>();
         audio = GetComponent<AudioSource>();
@@ -47,36 +48,42 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
         IVRInputDevice primaryInput = VRDevice.Device.PrimaryInputDevice;
         IVRInputDevice secondaryInput = VRDevice.Device.SecondaryInputDevice;
         timer += Time.deltaTime;
-        if (Input.GetMouseButtonDown(0) && timer >= timeBetweenShots && grabHandle || primaryInput.GetButtonDown(VRButton.Trigger) && timer >= timeBetweenShots && grabHandle)
+
+        if (!grabHandleComplete)
         {
-            Instantiate(cannonBall, barrelEnd.transform.position, barrelEnd.transform.rotation);
-            particleSystem.Play();
-            audio.Play();
-            timer = 0f;
+            hand.transform.position = Vector3.Lerp(hand.transform.position, handle.transform.position, 50 * Time.deltaTime);
+
+            if (hand.transform.position == handle.transform.position)
+            {
+                handleHand.SetActive(true);
+                hand.GetComponent<MeshRenderer>().enabled = false;
+                grabHandleComplete = true;
+                grabHandle = true;
+            }
         }
 
         if (grabHandle)
         {
-            if (!grabHandleComplete)
+            if (Input.GetMouseButtonDown(0) && timer >= timeBetweenShots || primaryInput.GetButtonDown(VRButton.Trigger) && timer >= timeBetweenShots)
             {
-                hand.transform.position = Vector3.Lerp(hand.transform.position, grabPosition.position, 50 * Time.deltaTime);
-                
-                if (hand.transform.position == grabPosition.position)
-                    grabHandleComplete = true;
+                Instantiate(cannonBall, barrelEnd.transform.position, barrelEnd.transform.rotation);
+                particleSystem.Play();
+                audio.Play();
+                timer = 0f;
             }
-            else
-            {
-                hand.transform.position = handle.transform.position;
-                worldPosition = hand.transform.position + hand.transform.forward * -1000;
-                cBase.LookAt(new Vector3(worldPosition.x, 0, worldPosition.z));
-                cannon.LookAt(new Vector3(worldPosition.x, worldPosition.y + 500, worldPosition.z));
-            }
+
+            hand.transform.position = handle.transform.position;
+            worldPosition = hand.transform.position + hand.transform.forward * -1000;
+            cBase.LookAt(new Vector3(worldPosition.x, 0, worldPosition.z));
+            cannon.LookAt(new Vector3(worldPosition.x, worldPosition.y + 500, worldPosition.z));
         }
 
         if (Input.GetKeyDown(KeyCode.A))
         {
             grabHandle = false;
-            grabHandleComplete = false;
+            grabHandleComplete = true;
+            handleHand.SetActive(false);
+            hand.GetComponent<MeshRenderer>().enabled = true;
             hand.transform.position = primaryHand.position;
         }
     }
@@ -85,9 +92,8 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     {
         if (eventData.button == 0 && eventData.pointerEnter.name == "handle")
         {
-            grabPosition = handle.transform;
+            grabHandleComplete = false;
             timer = 0f;
-            grabHandle = !grabHandle;
         }
     }
 }
