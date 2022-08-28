@@ -180,7 +180,7 @@ namespace ShaderForge {
 
 		public SF_EditorNodeData CheckHotkeyInput(bool mouseOverSomeNode) {
 			
-			bool mouseInNodeView = SF_Editor.instance.nodeView.MouseInsideNodeView(false);
+		
 
 
 			if(Event.current.type == EventType.Repaint){
@@ -189,7 +189,7 @@ namespace ShaderForge {
 
 			bool useScroll = SF_Settings.quickPickScrollWheel;
 
-			if(holding && Event.current.type == EventType.ScrollWheel && HotkeyFriends.Count > 0 && mouseInNodeView){
+			if(holding && Event.current.type == EventType.ScrollWheel && HotkeyFriends.Count > 0 ){
 
 				if(useScroll){
 					hotkeySelectorIndex += (int)Mathf.Sign(Event.current.delta.y);
@@ -205,7 +205,7 @@ namespace ShaderForge {
 				return null;
 
 			if( Event.current.keyCode == key ) {
-				if( Event.current.type == EventType.KeyDown && !SF_GUI.HoldingControl() && holding == false && mouseInNodeView ){
+				if( Event.current.type == EventType.KeyDown && !SF_GUI.HoldingControl() && holding == false  ){
 
 					hotkeySelectorIndex = defaultHotkeySelectorIndex;
 					smoothHotkeySelectorIndex = defaultHotkeySelectorIndex;
