@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: WaterTest1
   m_Shader: {fileID: 4800000, guid: 27c46b84fb5f2a74094ea93ef925987d, type: 3}
-  m_ShaderKeywords: _MAINFOAMPOWER_ON _VERTTEXOFFSET_ON
+  m_ShaderKeywords: _MAINFOAMPOWER_ON _REALTIMEREFLECT_ON _VERTTEXOFFSET_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -23,32 +23,42 @@ Material:
         m_Texture: {fileID: 2800000, guid: 008fa5a1ead8d264ea337858c84f95fa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ReflectionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _WaveNormalMap:
         m_Texture: {fileID: 2800000, guid: b40a3a0ee26f2124db0eaf98c3b6ce96, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _ColorPosition1: 0.25
-    - _ColorPosition2: 0.26
-    - _FoamDistance: 7.69
-    - _FoamScale: 20
-    - _FoamScale2: 20
+    - _ColorPosition1: 1
+    - _ColorPosition2: 1
+    - _FoamDistance: 4.81
+    - _FoamScale: 30
+    - _FoamScale2: 100
     - _FoamScale_copy: 5
     - _FoamSpeed: 0.1
-    - _FoamSpeed2: 0.025
+    - _FoamSpeed2: 0.1
     - _FoamSpeed_copy: 0.2
-    - _Frenol_Exponent: 0.372
-    - _MainFoamOpacity: 0.69
+    - _Frenol_Exponent: 6.64
+    - _LightColorIntensity: 0.198
+    - _MainFoamOpacity: 0.83
     - _MainFoamPower: 1
-    - _SecondaryFoamDistance: 5.75
-    - _SecondaryFoamIntesity: 0.491
+    - _RealtimeReflect: 1
+    - _ReflectionItensity: 0.79
+    - _SecondaryFoamDistance: 5.07
+    - _SecondaryFoamIntesity: 0.706
+    - _TurbulanceScale: 5
+    - _TurbulenceDistortion: 3.96
     - _VerttexOffset: 1
-    - _WaveAmplitude: 4.34
-    - _WaveIntesity: 0.1
-    - _WaveSpeed: 2
+    - _WaveAmplitude: 6.99
+    - _WaveIntesity: 0.01
+    - _WaveSpeed: 1
+    - _WavesDistortion: 1.65
     m_Colors:
-    - _DepthColor1: {r: 0.5712887, g: 0.8892044, b: 0.9245283, a: 1}
-    - _DepthColor2: {r: 0.2232111, g: 0.64278543, b: 0.8301887, a: 1}
-    - _DepthColor3: {r: 0.13536847, g: 0.40795496, b: 0.735849, a: 1}
+    - _DepthColor1: {r: 0.57079923, g: 0.91462713, b: 0.9528302, a: 1}
+    - _DepthColor2: {r: 0.30015132, g: 0.7116353, b: 0.8962264, a: 1}
+    - _DepthColor3: {r: 0.115877524, g: 0.42099974, b: 0.7924528, a: 1}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Fresnol_Color: {r: 0.2460395, g: 0.8476266, b: 0.9150943, a: 1}
+    - _Fresnol_Color: {r: 0.34456214, g: 0.7901166, b: 0.8396226, a: 1}
