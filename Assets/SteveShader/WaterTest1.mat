@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WaterTest1
+  m_Shader: {fileID: 4800000, guid: 27c46b84fb5f2a74094ea93ef925987d, type: 3}
+  m_ShaderKeywords: _MAINFOAMPOWER_ON _REALTIMEREFLECT_ON _VERTTEXOFFSET_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _FoamAsset:
+        m_Texture: {fileID: 2800000, guid: 008fa5a1ead8d264ea337858c84f95fa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WaveNormalMap:
+        m_Texture: {fileID: 2800000, guid: b40a3a0ee26f2124db0eaf98c3b6ce96, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ColorPosition1: 1
+    - _ColorPosition2: 1
+    - _FoamDistance: 4.81
+    - _FoamScale: 30
+    - _FoamScale2: 100
+    - _FoamScale_copy: 5
+    - _FoamSpeed: 0.1
+    - _FoamSpeed2: 0.1
+    - _FoamSpeed_copy: 0.2
+    - _Frenol_Exponent: 5.9
+    - _LightColorIntensity: 0.353
+    - _MainFoamOpacity: 0.83
+    - _MainFoamPower: 1
+    - _RealtimeReflect: 1
+    - _ReflectionItensity: 0.53
+    - _SecondaryFoamDistance: 5.07
+    - _SecondaryFoamIntesity: 0.676
+    - _TurbulanceScale: 2
+    - _TurbulenceDistortion: 2.71
+    - _VerttexOffset: 1
+    - _WaveAmplitude: 10
+    - _WaveIntesity: 0.5
+    - _WaveSpeed: 1
+    - _WavesDistortion: 0.52
+    m_Colors:
+    - _DepthColor1: {r: 0.57079923, g: 0.91462713, b: 0.9528302, a: 1}
+    - _DepthColor2: {r: 0.30015132, g: 0.7116353, b: 0.8962264, a: 1}
+    - _DepthColor3: {r: 0.115877524, g: 0.42099974, b: 0.7924528, a: 1}
+    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Fresnol_Color: {r: 0.34456214, g: 0.7901166, b: 0.8396226, a: 1}
