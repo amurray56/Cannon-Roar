@@ -41,21 +41,21 @@ Material:
     - _FoamSpeed: 0.1
     - _FoamSpeed2: 0.1
     - _FoamSpeed_copy: 0.2
-    - _Frenol_Exponent: 6.64
-    - _LightColorIntensity: 0.198
+    - _Frenol_Exponent: 5.9
+    - _LightColorIntensity: 0.353
     - _MainFoamOpacity: 0.83
     - _MainFoamPower: 1
     - _RealtimeReflect: 1
-    - _ReflectionItensity: 0.79
+    - _ReflectionItensity: 0.53
     - _SecondaryFoamDistance: 5.07
-    - _SecondaryFoamIntesity: 0.706
-    - _TurbulanceScale: 5
-    - _TurbulenceDistortion: 3.96
+    - _SecondaryFoamIntesity: 0.676
+    - _TurbulanceScale: 2
+    - _TurbulenceDistortion: 2.71
     - _VerttexOffset: 1
-    - _WaveAmplitude: 6.99
-    - _WaveIntesity: 0.01
+    - _WaveAmplitude: 10
+    - _WaveIntesity: 0.5
     - _WaveSpeed: 1
-    - _WavesDistortion: 1.65
+    - _WavesDistortion: 0.52
     m_Colors:
     - _DepthColor1: {r: 0.57079923, g: 0.91462713, b: 0.9528302, a: 1}
     - _DepthColor2: {r: 0.30015132, g: 0.7116353, b: 0.8962264, a: 1}
