@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using Liminal.SDK.VR;
 using Liminal.SDK.VR.Input;
 using Liminal.SDK.VR.Avatars.Controllers;
+using Liminal.SDK.VR.Avatars;
 
 public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
 {
@@ -31,6 +32,7 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     private Transform primaryHand;
 
     public GameObject handleHand;
+    private GameObject handController;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +42,8 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
         particleSystem = GetComponentInChildren<ParticleSystem>();
         audio = GetComponent<AudioSource>();
         primaryHand = GameObject.Find("PrimaryHand").transform;
+        handController = GameObject.Find("HandController");
+        handController.GetComponent<VRAvatarControllerSettings>().ControllerVisualSettings.Visible = false;
     }
 
     // Update is called once per frame

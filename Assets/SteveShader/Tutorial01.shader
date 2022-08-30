@@ -151,9 +151,9 @@ Shader "SteveTest/Tutorial01" {
                 float node_7350 = (node_1657*_WaveIntesity_var);
                 float Waves = node_7350;
                 float _WavesDistortion_var = UNITY_ACCESS_INSTANCED_PROP( Props, _WavesDistortion );
-                float4 node_4879 = _Time;
+                float4 node_9826 = _Time;
                 float _TurbulanceScale_var = UNITY_ACCESS_INSTANCED_PROP( Props, _TurbulanceScale );
-                float2 node_8977 = ((i.uv0*_TurbulanceScale_var)+node_4879.g*float2(0.5,0.5));
+                float2 node_8977 = ((i.uv0*_TurbulanceScale_var)+node_9826.g*float2(0.5,0.5));
                 float3 node_4250 = UnpackNormal(tex2D(_WaveNormalMap,TRANSFORM_TEX(node_8977, _WaveNormalMap)));
                 float _TurbulenceDistortion_var = UNITY_ACCESS_INSTANCED_PROP( Props, _TurbulenceDistortion );
                 float node_4865 = ((Waves*_WavesDistortion_var)+(node_4250.g*_TurbulenceDistortion_var));
