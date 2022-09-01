@@ -5484,12 +5484,14 @@ MonoBehaviour:
   cannonBall: {fileID: 3924472261470737640, guid: 21d89cbdd88d3eb44bad38615be0d4ce,
     type: 3}
   barrelEnd: {fileID: 264864498}
-  timeBetweenShots: 1.5
-  cannon: {fileID: 909183356}
-  cBase: {fileID: 2806316670087399744}
   handle: {fileID: 2101756323}
   hand: {fileID: 1180705710}
   handleHand: {fileID: 1365792300}
+  handController: {fileID: 0}
+  timeBetweenShots: 1.5
+  primaryHandAnchor: {fileID: 1260162968866365234}
+  cannon: {fileID: 909183356}
+  cBase: {fileID: 2806316670087399744}
 --- !u!1 &1112975445
 GameObject:
   m_ObjectHideFlags: 0
