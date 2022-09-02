@@ -716,7 +716,7 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
-    Build: 1
+    Build: 0
     UNet: 1
   luminIcon:
     m_Name: 
@@ -737,10 +737,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 734fea03-bc96-4627-9715-d7d017ca77f7
+  cloudProjectId: 02cf3f83-4e68-4993-9b79-c4c98a3ff900
   framebufferDepthMemorylessMode: 0
-  projectName: Liminal
-  organizationId: liminal-vr
+  projectName: Cannon Roar
+  organizationId: amurray56
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
