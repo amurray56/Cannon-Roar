@@ -62,12 +62,13 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
         IVRInputDevice primaryInput = VRDevice.Device.PrimaryInputDevice;
         IVRInputDevice secondaryInput = VRDevice.Device.SecondaryInputDevice;
         timer += Time.deltaTime;
-
+        
         if (!grabHandleComplete)
         {
+            handController.transform.position = Vector3.Lerp(handController.transform.position, handle.transform.position, 50 * Time.deltaTime);
             hand.transform.position = Vector3.Lerp(hand.transform.position, handle.transform.position, 50 * Time.deltaTime);
 
-            if (hand.transform.position == handle.transform.position)
+            if (handController.transform.position == handle.transform.position)
             {
                 handleHand.SetActive(true);
                 hand.GetComponent<MeshRenderer>().enabled = false;
@@ -86,8 +87,8 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
                 timer = 0f;
             }
 
-            hand.transform.position = handle.transform.position;
-            worldPosition = hand.transform.position + hand.transform.forward * -1000; // the -1000 makes it face in the correct direction, otherwise it faces backwards with a positive number
+            handController.transform.position = handle.transform.position;
+            worldPosition = handController.transform.position + handController.transform.forward * -1000; // the -1000 makes it face in the correct direction, otherwise it faces backwards with a positive number
             cBase.LookAt(new Vector3(worldPosition.x, 0, worldPosition.z));
             cannon.LookAt(new Vector3(worldPosition.x, worldPosition.y + 500, worldPosition.z)); // the plus 500 to the .y position lowered the cannon as it was pointing directly up in the air without it
         }
@@ -98,6 +99,7 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
             grabHandleComplete = true;
             handleHand.SetActive(false);
             hand.GetComponent<MeshRenderer>().enabled = true;
+            handController.transform.position = primaryHandAnchor.position;
             hand.transform.position = primaryHandAnchor.position;
         }
     }
