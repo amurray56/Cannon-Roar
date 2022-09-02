@@ -13,7 +13,8 @@ namespace LowPolyWater
 
         MeshFilter meshFilter;
         Mesh mesh;
-        Vector3[] vertices;
+        [SerializeField]
+        public Vector3[] vertices;
 
         private void Awake()
         {

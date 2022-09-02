@@ -465,5 +465,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4128826358152955441, guid: bac126c5240856d4283e397ce1adcfc8,
+        type: 3}
+      propertyPath: waveOriginPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128826358152955441, guid: bac126c5240856d4283e397ce1adcfc8,
+        type: 3}
+      propertyPath: waveOriginPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128826358152955441, guid: bac126c5240856d4283e397ce1adcfc8,
+        type: 3}
+      propertyPath: waveOriginPosition.z
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bac126c5240856d4283e397ce1adcfc8, type: 3}
