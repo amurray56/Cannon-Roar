@@ -52,7 +52,7 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
         grabHandle = false;
         particleSystem = GetComponentInChildren<ParticleSystem>();
         audio = GetComponent<AudioSource>();
-        handController = GameObject.Find("HandController");
+        //handController = GameObject.Find("HandController");
         handController.GetComponent<VRAvatarControllerSettings>().ControllerVisualSettings.Visible = false;
     }
 
