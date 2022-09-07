@@ -31,6 +31,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 008fa5a1ead8d264ea337858c84f95fa, type: 3}
         m_Scale: {x: 0.05, y: 0.05}
         m_Offset: {x: 0, y: 0}
+    - _WaveTexture:
+        m_Texture: {fileID: 2800000, guid: 88ebb7ac3f5f708438fb79728d661fc3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _node_3961:
         m_Texture: {fileID: 2800000, guid: 6ab14c773be5a439c9c551658a9fae23, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -43,14 +47,16 @@ Material:
     - _Displacement_speed_U: 0
     - _Displacement_speed_V: 0.01
     - _Distortion: 0.427
-    - _Fresnel: 0
+    - _Fresnel: 0.15
     - _Gloss: 0.8
     - _Metallic: 0
     - _Opacity: 0.818
     - _Reflection: 0.455
-    - _Tes: 9.1
+    - _Tes: 1
     - _UV_1: 900
     - _UV_2: 2500
     - _UV_D: 75
+    - _WaveAmplitude: 2
+    - _WaveSpeed: 0.5
     m_Colors:
     - _Color: {r: 0, g: 0.7497224, b: 0.990566, a: 1}
