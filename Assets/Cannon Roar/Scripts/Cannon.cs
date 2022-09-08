@@ -12,15 +12,13 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     private GameObject cannonBall; // prefab of the cannonballs
     [SerializeField]
     private GameObject barrelEnd; // the empty game object placed at the end of the barrel of the cannon that the cannonball prefab will instantiate from
-    [SerializeField]
-    private GameObject handle; // The handle of the cannon
-    [SerializeField]
-    private GameObject hand; // The hand model
-    [SerializeField]
-    private GameObject handleHand; // A prefab of the handle with the hand placed in the center, using this to remove the jittering of the hand that would happen when the hand was moved directly to the handle position. by Disabling the mesh renderer of the hand when and enabling this prefab, the hand movement looks much smoother
+    public GameObject handle; // The handle of the cannon
+    public GameObject hand; // The hand model
+    public GameObject handleHand; // A prefab of the handle with the hand placed in the center, using this to remove the jittering of the hand that would happen when the hand was moved directly to the handle position. by Disabling the mesh renderer of the hand when and enabling this prefab, the hand movement looks much smoother
 
     //Settings
-    private float timer; // Timer that continously adds Time.deltaTime and resets back to 0 on cannon fire, no need to adjust this number 
+    [HideInInspector]
+    public float timer; // Timer that continously adds Time.deltaTime and resets back to 0 on cannon fire, no need to adjust this number 
     [SerializeField]
     private float timeBetweenShots = 1.5f; // Change this float to increase or decrease the rate at which the cannon can be fired.
 
@@ -28,10 +26,11 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     private Vector3 worldPosition; // An empty position that uses the hand position plus a forward direction that allows the cannon to look forward based on where the hand is 
     [SerializeField]
     private Transform primaryHandAnchor; // The Transform position of the Primary Hand Anchor on the VR Avatar, used to return the hand to the original position when the player lets go of the cannon
-    [SerializeField]
-    private Transform cannon; // The Transform position of the empty game object named Pivot in the heirarchy located under the cannon game object, this is for rotating the cannon barrel on the X Axis
+    public Transform cannon; // The Transform position of the empty game object named Pivot in the heirarchy located under the cannon game object, this is for rotating the cannon barrel on the X Axis
     [SerializeField]
     private Transform cBase; // The transform position of the base of the cannon that will rotate on the Y Axis
+    [SerializeField]
+    private Transform cannonCenter;
 
     //Audio & Particle Effects
     private new ParticleSystem particleSystem; // Fire or smoke, whatever looks cool
@@ -39,7 +38,8 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
 
     //Bools for grabbing the handle on the cannon
     private bool grabHandle; // When this bool is active the cannon will move with the hand
-    private bool grabHandleComplete; // Because of the lerp added to the hand when grabbing the handle, this ensures the hand has arrived at the handle position before allowing the grab handle bool to be true
+    [HideInInspector]
+    public bool grabHandleComplete; // Because of the lerp added to the hand when grabbing the handle, this ensures the hand has arrived at the handle position before allowing the grab handle bool to be true
 
     // Start is called before the first frame update
     void Start()
@@ -48,14 +48,12 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
         grabHandle = false;
         particleSystem = GetComponentInChildren<ParticleSystem>();
         audio = GetComponent<AudioSource>();
-        //handController = GameObject.Find("HandController");
-        //handController.GetComponent<VRAvatarControllerSettings>().ControllerVisualSettings.Visible = false;
+        cannon.position = cannonCenter.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        IVRInputDevice primaryInput = VRDevice.Device.PrimaryInputDevice;
         IVRInputDevice secondaryInput = VRDevice.Device.SecondaryInputDevice;
         timer += Time.deltaTime;
         
@@ -74,27 +72,49 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
 
         if (grabHandle)
         {
-            if (Input.GetMouseButtonDown(0) && timer >= timeBetweenShots || primaryInput.GetButtonDown(VRButton.Trigger) && timer >= timeBetweenShots)
-            {
-                Instantiate(cannonBall, barrelEnd.transform.position, barrelEnd.transform.rotation);
-                particleSystem.Play();
-                audio.Play();
-                timer = 0f;
-            }
-
-            hand.transform.position = handle.transform.position;
+            FireCannon();
+            hand.transform.position = cannon.position;
             worldPosition = hand.transform.position + hand.transform.forward * -1000; // the -1000 makes it face in the correct direction, otherwise it faces backwards with a positive number
             cBase.LookAt(new Vector3(worldPosition.x, 0, worldPosition.z));
-            cannon.LookAt(new Vector3(worldPosition.x, worldPosition.y + 500, worldPosition.z)); // the plus 500 to the .y position lowered the cannon as it was pointing directly up in the air without it
+            cannon.LookAt(new Vector3(worldPosition.x, worldPosition.y - 100, worldPosition.z)); // the plus 500 to the .y position lowered the cannon as it was pointing directly up in the air without it
         }
 
-        if (Input.GetKeyDown(KeyCode.A) || secondaryInput.GetButtonDown(VRButton.Trigger))
+        if (Input.GetKeyDown(KeyCode.A)) //|| secondaryInput.GetButtonDown(VRButton.Trigger)
         {
             grabHandle = false;
             grabHandleComplete = true;
             handleHand.SetActive(false);
             hand.GetComponent<MeshRenderer>().enabled = true;
             hand.transform.position = primaryHandAnchor.position;
+        }
+
+        if(Input.GetKey(KeyCode.W))
+        {
+            hand.transform.position += hand.transform.forward * Time.deltaTime;
+        }
+
+        if(Input.GetKeyUp(KeyCode.W) && !grabHandle)
+        {
+            hand.transform.position = primaryHandAnchor.position;
+        }
+
+        if (Input.GetKey(KeyCode.S) && grabHandle && cannon.localPosition.z <= 0.01f && timer >= timeBetweenShots)
+        {
+            cannon.transform.position += cannon.transform.forward * Time.deltaTime;
+        }
+
+        if (Input.GetKeyUp(KeyCode.S) && grabHandle)
+        {
+            cannon.position = cannonCenter.position;
+        }
+
+        if(cannon.localPosition.z > 0.01f && timer >= timeBetweenShots)
+        {
+            Instantiate(cannonBall, barrelEnd.transform.position, barrelEnd.transform.rotation);
+            particleSystem.Play();
+            audio.Play();
+            timer = 0f;
+            cannon.position = cannonCenter.position;
         }
     }
 
@@ -104,6 +124,18 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
         if (eventData.button == 0 && eventData.pointerEnter.name == "handle")
         {
             grabHandleComplete = false;
+            timer = 0f;
+        }
+    }
+
+    private void FireCannon()
+    {
+        IVRInputDevice primaryInput = VRDevice.Device.PrimaryInputDevice;
+        if (Input.GetMouseButtonDown(0) && timer >= timeBetweenShots || primaryInput.GetButtonDown(VRButton.Trigger) && timer >= timeBetweenShots)
+        {
+            Instantiate(cannonBall, barrelEnd.transform.position, barrelEnd.transform.rotation);
+            particleSystem.Play();
+            audio.Play();
             timer = 0f;
         }
     }
