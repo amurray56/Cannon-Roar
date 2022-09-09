@@ -80,8 +80,8 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
                 handController.transform.rotation = handleHand.transform.rotation;
             }
             worldPosition = hand.transform.position + hand.transform.forward * -1000; // the -1000 makes it face in the correct direction, otherwise it faces backwards with a positive number
-            cBase.LookAt(new Vector3(worldPosition.x, 0, worldPosition.z));
-            cannon.LookAt(new Vector3(worldPosition.x, worldPosition.y - 100, worldPosition.z)); // the plus 500 to the .y position lowered the cannon as it was pointing directly up in the air without it
+            cBase.LookAt(new Vector3(-worldPosition.x, 0, worldPosition.z));
+            cannon.LookAt(new Vector3(-worldPosition.x, -worldPosition.y, worldPosition.z)); // the plus 500 to the .y position lowered the cannon as it was pointing directly up in the air without it
         }
 
         if (Input.GetKeyDown(KeyCode.A)) //|| secondaryInput.GetButtonDown(VRButton.Trigger)
