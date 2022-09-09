@@ -74,12 +74,12 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
         if (grabHandle)
         {
             FireCannon();
-            if(timer < timeBetweenShots)
+            if (timer < timeBetweenShots || handController.transform.position.z > handleHand.transform.position.z)
             {
                 handController.transform.position = handleHand.transform.position;
                 handController.transform.rotation = handleHand.transform.rotation;
             }
-            worldPosition = hand.transform.position + hand.transform.forward * -1000; // the -1000 makes it face in the correct direction, otherwise it faces backwards with a positive number
+            worldPosition = hand.transform.position - hand.transform.forward * 1000; // the -1000 makes it face in the correct direction, otherwise it faces backwards with a positive number
             cBase.LookAt(new Vector3(-worldPosition.x, 0, worldPosition.z));
             cannon.LookAt(new Vector3(-worldPosition.x, -worldPosition.y, worldPosition.z)); // the plus 500 to the .y position lowered the cannon as it was pointing directly up in the air without it
         }
@@ -111,14 +111,9 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
             hand.transform.position = primaryHandAnchor.position;
         }
 
-        if (handController.transform.localPosition.z < handleHand.transform.localPosition.z - 0.01f && grabHandle && timer >= timeBetweenShots)
+        if (handController.transform.position.z < handleHand.transform.position.z && grabHandle && timer >= timeBetweenShots)
         {
             cannon.transform.position += cannon.transform.forward * Time.deltaTime;
-        }
-        else if (handController.transform.localPosition.z > handleHand.transform.localPosition.z && grabHandle)
-        {
-            handController.transform.position = handleHand.transform.position;
-            handController.transform.rotation = handleHand.transform.rotation;
         }
 
         if (Input.GetKey(KeyCode.S) && grabHandle)
