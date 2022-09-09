@@ -9,6 +9,8 @@ public class Handle : MonoBehaviour
         if (hand.CompareTag("Player"))
         {
             gameObject.GetComponentInParent<Cannon>().grabHandleComplete = false;
+            gameObject.GetComponentInParent<Cannon>().handController.transform.parent = gameObject.GetComponentInParent<Cannon>().handleHand.transform;
+            gameObject.GetComponentInParent<Cannon>().timer = 0f;
         }
     }
 }
