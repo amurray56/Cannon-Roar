@@ -12,8 +12,6 @@ public class BoatMove1 : MonoBehaviour
 
     private Transform currentWaypoint;
 
-    private Transform boat;
-
     NavMeshAgent agent;
 
     // Start is called before the first frame update
@@ -28,7 +26,6 @@ public class BoatMove1 : MonoBehaviour
 
         //Sets the next target waypoint
         currentWaypoint = waypointScript.NextWaypoint(currentWaypoint);
-       
 
     }
 
@@ -41,10 +38,7 @@ public class BoatMove1 : MonoBehaviour
         {
             currentWaypoint = waypointScript.NextWaypoint(currentWaypoint);
         }
-
-        currentWaypoint = waypointScript.NextWaypoint(currentWaypoint);
-        Vector3.RotateTowards(boat.position, currentWaypoint.position, 6.83f, float.PositiveInfinity);
-
+        
     }
    
 }
