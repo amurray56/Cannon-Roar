@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 0.05, y: 0.05}
         m_Offset: {x: 0, y: 0}
     - _Refraction:
-        m_Texture: {fileID: 2800000, guid: 008fa5a1ead8d264ea337858c84f95fa, type: 3}
+        m_Texture: {fileID: 2800000, guid: 30e32e41c3b30c24b8d39476758ed0f5, type: 3}
         m_Scale: {x: 0.05, y: 0.05}
         m_Offset: {x: 0, y: 0}
     - _WaveTexture:
