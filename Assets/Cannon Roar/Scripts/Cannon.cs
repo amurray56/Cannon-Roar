@@ -79,9 +79,18 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
                 handController.transform.position = handleHand.transform.position;
                 handController.transform.rotation = handleHand.transform.rotation;
             }
+            hand.transform.position = handleHand.transform.position;
             worldPosition = hand.transform.position - hand.transform.forward * 1000; // the -1000 makes it face in the correct direction, otherwise it faces backwards with a positive number
-            cBase.LookAt(new Vector3(-worldPosition.x, 0, worldPosition.z));
-            cannon.LookAt(new Vector3(-worldPosition.x, -worldPosition.y, worldPosition.z)); // the plus 500 to the .y position lowered the cannon as it was pointing directly up in the air without it
+            //if (cBase.localRotation.y >= -0.38 && cBase.localRotation.y <= 0.38)
+            //{
+                cBase.LookAt(new Vector3(-worldPosition.x, 0, worldPosition.z));
+                cannon.LookAt(new Vector3(-worldPosition.x, -worldPosition.y, worldPosition.z)); // the plus 500 to the .y position lowered the cannon as it was pointing directly up in the air without it
+                Debug.Log(cBase.localRotation.y);
+            //}
+            //else if (cBase.localRotation.y < -0.38)
+                //cBase.localRotation = new Quaternion(cBase.localRotation.x, cBase.localRotation.y + 0.01f, cBase.localRotation.z, 1);
+            //else if (cBase.localRotation.y > 0.38)
+                //cBase.localRotation = new Quaternion(cBase.localRotation.x, cBase.localRotation.y - 0.01f, cBase.localRotation.z, 1);
         }
 
         if (Input.GetKeyDown(KeyCode.A)) //|| secondaryInput.GetButtonDown(VRButton.Trigger)
@@ -94,6 +103,7 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
             handController.transform.position = hand.transform.position;
             handController.transform.rotation = hand.transform.rotation;
             hand.transform.position = primaryHandAnchor.position;
+            hand.transform.rotation = primaryHandAnchor.rotation;
         }
 
         if(Input.GetKey(KeyCode.W) && !grabHandle)
@@ -111,7 +121,7 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
             hand.transform.position = primaryHandAnchor.position;
         }
 
-        if (handController.transform.position.z < handleHand.transform.position.z && grabHandle && timer >= timeBetweenShots)
+        if (handController.transform.position.z + 0.000001 < handleHand.transform.position.z && grabHandle && timer >= timeBetweenShots)
         {
             cannon.transform.position += cannon.transform.forward * Time.deltaTime;
         }
