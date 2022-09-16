@@ -55,6 +55,7 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     // Update is called once per frame
     void Update()
     {
+        IVRInputDevice primaryInput = VRDevice.Device.PrimaryInputDevice;
         IVRInputDevice secondaryInput = VRDevice.Device.SecondaryInputDevice;
         timer += Time.deltaTime;
         
@@ -64,6 +65,7 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
 
             if (hand.transform.position == handleHand.transform.position)
             {
+                hand.transform.position = handleHand.transform.position;
                 handleHand.SetActive(true);
                 hand.GetComponent<MeshRenderer>().enabled = false;
                 grabHandleComplete = true;
@@ -73,27 +75,20 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
 
         if (grabHandle)
         {
-            FireCannon();
+            //FireCannon();
             if (timer < timeBetweenShots || handController.transform.position.z > handleHand.transform.position.z)
             {
                 handController.transform.position = handleHand.transform.position;
                 handController.transform.rotation = handleHand.transform.rotation;
             }
-            hand.transform.position = handleHand.transform.position;
+
+            hand.transform.position = handController.transform.position;
             worldPosition = hand.transform.position - hand.transform.forward * 1000; // the -1000 makes it face in the correct direction, otherwise it faces backwards with a positive number
-            //if (cBase.localRotation.y >= -0.38 && cBase.localRotation.y <= 0.38)
-            //{
-                cBase.LookAt(new Vector3(-worldPosition.x, 0, worldPosition.z));
-                cannon.LookAt(new Vector3(-worldPosition.x, -worldPosition.y, worldPosition.z)); // the plus 500 to the .y position lowered the cannon as it was pointing directly up in the air without it
-                Debug.Log(cBase.localRotation.y);
-            //}
-            //else if (cBase.localRotation.y < -0.38)
-                //cBase.localRotation = new Quaternion(cBase.localRotation.x, cBase.localRotation.y + 0.01f, cBase.localRotation.z, 1);
-            //else if (cBase.localRotation.y > 0.38)
-                //cBase.localRotation = new Quaternion(cBase.localRotation.x, cBase.localRotation.y - 0.01f, cBase.localRotation.z, 1);
+            cBase.LookAt(new Vector3(-worldPosition.x, 0, worldPosition.z));
+            cannon.LookAt(new Vector3(-worldPosition.x, -worldPosition.y, worldPosition.z)); // the plus 500 to the .y position lowered the cannon as it was pointing directly up in the air without it
         }
 
-        if (Input.GetKeyDown(KeyCode.A)) //|| secondaryInput.GetButtonDown(VRButton.Trigger)
+        if (Input.GetKeyDown(KeyCode.A) || primaryInput.GetButtonDown(VRButton.Trigger))
         {
             grabHandle = false;
             grabHandleComplete = true;
@@ -121,7 +116,7 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
             hand.transform.position = primaryHandAnchor.position;
         }
 
-        if (handController.transform.position.z + 0.000001 < handleHand.transform.position.z && grabHandle && timer >= timeBetweenShots)
+        if (handController.transform.position.z < handleHand.transform.position.z - 0.000001f && grabHandle && timer >= timeBetweenShots)
         {
             cannon.transform.position += cannon.transform.forward * Time.deltaTime;
         }
@@ -129,7 +124,7 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
         if (Input.GetKey(KeyCode.S) && grabHandle)
             handController.transform.position -= handController.transform.forward * Time.deltaTime;
 
-        if(cannon.localPosition.z > 0.01f && timer >= timeBetweenShots)
+        if(cannon.position.z < cannonCenter.position.z - 0.15f && timer >= timeBetweenShots)
         {
             Instantiate(cannonBall, barrelEnd.transform.position, barrelEnd.transform.rotation);
             particleSystem.Play();
