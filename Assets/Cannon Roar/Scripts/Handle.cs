@@ -10,7 +10,8 @@ public class Handle : MonoBehaviour
         {
             gameObject.GetComponentInParent<Cannon>().grabHandleComplete = false;
             gameObject.GetComponentInParent<Cannon>().handController.transform.parent = gameObject.GetComponentInParent<Cannon>().handleHand.transform;
-            //gameObject.GetComponentInParent<Cannon>().handle.transform.parent = gameObject.GetComponentInParent<Cannon>().handController.transform;
+            gameObject.GetComponentInParent<Cannon>().handController.transform.position = gameObject.GetComponentInParent<Cannon>().handleHand.transform.position;
+            gameObject.GetComponentInParent<Cannon>().handController.transform.rotation = gameObject.GetComponentInParent<Cannon>().handleHand.transform.rotation;
             gameObject.GetComponentInParent<Cannon>().timer = 0f;
         }
     }

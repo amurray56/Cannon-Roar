@@ -32,6 +32,8 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     [SerializeField]
     private Transform cBase; // The transform position of the base of the cannon that will rotate on the Y Axis
     public Transform cannonCenter;
+    private float rotationX;
+    private float rotationY;
 
     //Audio & Particle Effects
     private new ParticleSystem particleSystem; // Fire or smoke, whatever looks cool
@@ -45,6 +47,7 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     // Start is called before the first frame update
     void Start()
     {
+        handleHand.GetComponent<MeshRenderer>().enabled = false;
         grabHandleComplete = true;
         grabHandle = false;
         particleSystem = GetComponentInChildren<ParticleSystem>();
@@ -66,7 +69,7 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
             if (hand.transform.position == handleHand.transform.position)
             {
                 hand.transform.position = handleHand.transform.position;
-                handleHand.SetActive(true);
+                handleHand.GetComponent<MeshRenderer>().enabled = true;
                 hand.GetComponent<MeshRenderer>().enabled = false;
                 grabHandleComplete = true;
                 grabHandle = true;
@@ -76,23 +79,19 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
         if (grabHandle)
         {
             //FireCannon();
-            if (timer < timeBetweenShots || handController.transform.position.z > handleHand.transform.position.z)
-            {
-                handController.transform.position = handleHand.transform.position;
-                handController.transform.rotation = handleHand.transform.rotation;
-            }
-
-            hand.transform.position = handController.transform.position;
+            handController.transform.position = new Vector3(handleHand.transform.position.x, handleHand.transform.position.y, handController.transform.position.z);
             worldPosition = hand.transform.position - hand.transform.forward * 1000; // the -1000 makes it face in the correct direction, otherwise it faces backwards with a positive number
-            cBase.LookAt(new Vector3(-worldPosition.x, 0, worldPosition.z));
-            cannon.LookAt(new Vector3(-worldPosition.x, -worldPosition.y, worldPosition.z)); // the plus 500 to the .y position lowered the cannon as it was pointing directly up in the air without it
+            rotationX = Mathf.Clamp(worldPosition.x * 0.1f, -30, 30);
+            rotationY = Mathf.Clamp(worldPosition.y * 0.1f, -45, 10);
+            cBase.transform.localEulerAngles = new Vector3(0, rotationX, 0);
+            cannon.transform.localEulerAngles = new Vector3(rotationY, cBase.transform.rotation.y, 0); // the plus 500 to the .y position lowered the cannon as it was pointing directly up in the air without it
         }
 
         if (Input.GetKeyDown(KeyCode.A) || primaryInput.GetButtonDown(VRButton.Trigger))
         {
             grabHandle = false;
             grabHandleComplete = true;
-            handleHand.SetActive(false);
+            handleHand.GetComponent<MeshRenderer>().enabled = false;
             hand.GetComponent<MeshRenderer>().enabled = true;
             handController.transform.parent = hand.transform;
             handController.transform.position = hand.transform.position;
@@ -116,13 +115,15 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
             hand.transform.position = primaryHandAnchor.position;
         }
 
-        if (handController.transform.position.z < handleHand.transform.position.z - 0.000001f && grabHandle && timer >= timeBetweenShots)
+        if (handController.transform.position.z < handleHand.transform.position.z && grabHandle && timer >= timeBetweenShots)
         {
             cannon.transform.position += cannon.transform.forward * Time.deltaTime;
         }
 
         if (Input.GetKey(KeyCode.S) && grabHandle)
+        {
             handController.transform.position -= handController.transform.forward * Time.deltaTime;
+        }
 
         if(cannon.position.z < cannonCenter.position.z - 0.15f && timer >= timeBetweenShots)
         {
