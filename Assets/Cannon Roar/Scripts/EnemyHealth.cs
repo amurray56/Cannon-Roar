@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyHealth : MonoBehaviour
 {
     private Rigidbody rb;
+    private NavMeshAgent agent;
     public int health = 1;
     private float time;
 
@@ -12,6 +14,8 @@ public class EnemyHealth : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
+
     }
 
     // Update is called once per frame
@@ -34,6 +38,7 @@ public class EnemyHealth : MonoBehaviour
     {
         Vector3 position = rb.transform.position;
         Vector3 endPosition = new Vector3(position.x, -100, position.z);
+        agent.enabled = !agent.enabled;
         while (position != endPosition)
         {
             time += Time.deltaTime;

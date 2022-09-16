@@ -14,11 +14,15 @@ public class BoatMove1 : MonoBehaviour
 
     NavMeshAgent agent;
 
+    EnemyHealth enemyHealth;
+
     // Start is called before the first frame update
     void Start()
     {
         //Sets rigidBody
         agent = GetComponent<NavMeshAgent>();
+
+        enemyHealth = GetComponent<EnemyHealth>();
 
         //Set Initial position to first waypoint
         currentWaypoint = waypointScript.NextWaypoint(currentWaypoint);
@@ -32,13 +36,20 @@ public class BoatMove1 : MonoBehaviour
     private void FixedUpdate()
     {
 
-        agent.SetDestination(currentWaypoint.position);
-
-        if (Vector3.Distance(transform.position, currentWaypoint.position) < disThreshold)
+        if(enemyHealth.health == 0)
         {
-            currentWaypoint = waypointScript.NextWaypoint(currentWaypoint);
+            return;
         }
-        
+        else
+        {
+            agent.SetDestination(currentWaypoint.position);
+
+            if (Vector3.Distance(transform.position, currentWaypoint.position) < disThreshold)
+            {
+                currentWaypoint = waypointScript.NextWaypoint(currentWaypoint);
+            }
+        }
+       
     }
    
 }
