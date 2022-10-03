@@ -23,6 +23,9 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     public float timer; // Timer that continously adds Time.deltaTime and resets back to 0 on cannon fire, no need to adjust this number 
     [SerializeField]
     private float timeBetweenShots = 1.5f; // Change this float to increase or decrease the rate at which the cannon can be fired.
+    private Vector3 handPosition;
+    private float distanceToTrigger;
+    private bool cannonFiring;
 
     //Transform information for hand movement
     private Vector3 worldPosition; // An empty position that uses the hand position plus a forward direction that allows the cannon to look forward based on where the hand is 
@@ -79,15 +82,27 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
         if (grabHandle)
         {
             //FireCannon();
-            handController.transform.position = new Vector3(handleHand.transform.position.x, handleHand.transform.position.y, handController.transform.position.z);
-            worldPosition = hand.transform.position - hand.transform.forward * 1000; // the -1000 makes it face in the correct direction, otherwise it faces backwards with a positive number
-            rotationX = Mathf.Clamp(worldPosition.x * 0.1f, -30, 30);
-            rotationY = Mathf.Clamp(worldPosition.y * 0.1f, -45, 10);
-            cBase.transform.localEulerAngles = new Vector3(0, rotationX, 0);
-            cannon.transform.localEulerAngles = new Vector3(rotationY, cBase.transform.rotation.y, 0); // the plus 500 to the .y position lowered the cannon as it was pointing directly up in the air without it
+
+            if (primaryInput.GetButton(VRButton.Trigger))
+            {
+                cannonFiring = false;
+                handPosition = handController.transform.position;
+
+            }
+            else
+                cannonFiring = true;
+
+            if (cannonFiring)
+            {
+                worldPosition = hand.transform.position - hand.transform.forward * 1000; // the -1000 makes it face in the correct direction, otherwise it faces backwards with a positive number
+                rotationX = Mathf.Clamp(worldPosition.x * 0.1f, -30, 30);
+                rotationY = Mathf.Clamp(worldPosition.y * 0.1f, -45, 10);
+                cBase.transform.localEulerAngles = new Vector3(0, rotationX, 0);
+                cannon.transform.localEulerAngles = new Vector3(rotationY, cBase.transform.rotation.y, 0); // the plus 500 to the .y position lowered the cannon as it was pointing directly up in the air without it
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.A) || primaryInput.GetButtonDown(VRButton.Trigger))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             grabHandle = false;
             grabHandleComplete = true;
