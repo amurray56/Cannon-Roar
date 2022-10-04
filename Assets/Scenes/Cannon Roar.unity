@@ -6343,6 +6343,7 @@ MonoBehaviour:
   hand: {fileID: 916611642}
   handleHand: {fileID: 2172040453681582761}
   handController: {fileID: 341378294}
+  head: {fileID: 1260162969540576883}
   timer: 0
   timeBetweenShots: 1.5
   primaryHandAnchor: {fileID: 1260162968866365234}
@@ -13536,12 +13537,12 @@ PrefabInstance:
     - target: {fileID: 8788892273753554760, guid: d78664373faf5d340b16dbebb23d6db3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.005974548
+      value: 0.006
       objectReference: {fileID: 0}
     - target: {fileID: 8788892273753554760, guid: d78664373faf5d340b16dbebb23d6db3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.039376903
+      value: 0.035
       objectReference: {fileID: 0}
     - target: {fileID: 8788892273753554760, guid: d78664373faf5d340b16dbebb23d6db3,
         type: 3}

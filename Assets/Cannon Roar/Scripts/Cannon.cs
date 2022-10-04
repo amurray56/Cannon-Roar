@@ -17,6 +17,7 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     public GameObject hand; // The hand model
     public GameObject handleHand; // A prefab of the handle with the hand placed in the center, using this to remove the jittering of the hand that would happen when the hand was moved directly to the handle position. by Disabling the mesh renderer of the hand when and enabling this prefab, the hand movement looks much smoother
     public GameObject handController;
+    public GameObject head;
 
     //Settings
     [HideInInspector]
@@ -37,6 +38,7 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     public Transform cannonCenter;
     private float rotationX;
     private float rotationY;
+    private Vector3 handlePosition;
 
     //Audio & Particle Effects
     private new ParticleSystem particleSystem; // Fire or smoke, whatever looks cool
@@ -56,6 +58,7 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
         particleSystem = GetComponentInChildren<ParticleSystem>();
         audio = GetComponent<AudioSource>();
         cannon.position = cannonCenter.position;
+        handlePosition = handleHand.transform.position;
     }
 
     // Update is called once per frame
@@ -72,6 +75,7 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
             if (hand.transform.position == handleHand.transform.position)
             {
                 hand.transform.position = handleHand.transform.position;
+                handController.transform.localPosition = handleHand.transform.localPosition;
                 handleHand.GetComponent<MeshRenderer>().enabled = true;
                 hand.GetComponent<MeshRenderer>().enabled = false;
                 grabHandleComplete = true;
@@ -83,22 +87,20 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
         {
             //FireCannon();
 
-            if (primaryInput.GetButton(VRButton.Trigger))
-            {
-                cannonFiring = false;
-                handPosition = handController.transform.position;
+            worldPosition = hand.transform.position - hand.transform.forward * 1000;
+            rotationX = Mathf.Clamp(worldPosition.x * 0.1f, -30, 30);
+            rotationY = Mathf.Clamp(worldPosition.y * 0.1f, -45, 10);
+            cBase.transform.localEulerAngles = new Vector3(0, rotationX, 0);
+            cannon.transform.localEulerAngles = new Vector3(rotationY, cBase.transform.rotation.y, 0);
 
-            }
-            else
-                cannonFiring = true;
+            float handleZ = Mathf.Clamp(-handController.transform.localPosition.z * 0.1f, 0.035f, 0.042f);
+            float handleX = Mathf.Clamp(handleHand.transform.localPosition.x, 0, 0);
+            float handleY = Mathf.Clamp(handleHand.transform.localPosition.y, 0.006f, 0.006f);
+            handleHand.transform.localPosition = new Vector3(handleX, handleY, handleZ);
 
-            if (cannonFiring)
+            if(handController.transform.localPosition.z < -1f || handController.transform.localPosition.z > 1f)
             {
-                worldPosition = hand.transform.position - hand.transform.forward * 1000; // the -1000 makes it face in the correct direction, otherwise it faces backwards with a positive number
-                rotationX = Mathf.Clamp(worldPosition.x * 0.1f, -30, 30);
-                rotationY = Mathf.Clamp(worldPosition.y * 0.1f, -45, 10);
-                cBase.transform.localEulerAngles = new Vector3(0, rotationX, 0);
-                cannon.transform.localEulerAngles = new Vector3(rotationY, cBase.transform.rotation.y, 0); // the plus 500 to the .y position lowered the cannon as it was pointing directly up in the air without it
+                handController.transform.localPosition = handleHand.transform.localPosition;
             }
         }
 
@@ -130,25 +132,25 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
             hand.transform.position = primaryHandAnchor.position;
         }
 
-        if (handController.transform.position.z < handleHand.transform.position.z && grabHandle && timer >= timeBetweenShots)
-        {
-            cannon.transform.position += cannon.transform.forward * Time.deltaTime;
-        }
+        //if (handController.transform.position.z <= head.transform.position.z + 0.15f && grabHandle && timer >= timeBetweenShots)
+        //{
+            //cannon.transform.position += cannon.transform.forward * Time.deltaTime;
+        //}
 
         if (Input.GetKey(KeyCode.S) && grabHandle)
         {
             handController.transform.position -= handController.transform.forward * Time.deltaTime;
         }
 
-        if(cannon.position.z < cannonCenter.position.z - 0.15f && timer >= timeBetweenShots)
+        if(handleHand.transform.localPosition.z >= 0.042f && timer >= timeBetweenShots)
         {
             Instantiate(cannonBall, barrelEnd.transform.position, barrelEnd.transform.rotation);
             particleSystem.Play();
             audio.Play();
             timer = 0f;
-            cannon.position = cannonCenter.position;
-            handController.transform.position = handleHand.transform.position;
-            handController.transform.rotation = handleHand.transform.rotation;
+            handleHand.transform.localPosition = new Vector3(0, 0.006f, 0.035f);
+            handController.transform.localPosition = handleHand.transform.localPosition;
+            handController.transform.localRotation = handleHand.transform.localRotation;
         }
     }
 
