@@ -13,21 +13,16 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     private GameObject cannonBall; // prefab of the cannonballs
     [SerializeField]
     private GameObject barrelEnd; // the empty game object placed at the end of the barrel of the cannon that the cannonball prefab will instantiate from
-    public GameObject handle; // The handle of the cannon
     public GameObject hand; // The hand model
     public GameObject handleHand; // A prefab of the handle with the hand placed in the center, using this to remove the jittering of the hand that would happen when the hand was moved directly to the handle position. by Disabling the mesh renderer of the hand when and enabling this prefab, the hand movement looks much smoother
     public GameObject handController;
     public GameObject head;
-    public GameObject cannonFire;
 
     //Settings
     [HideInInspector]
     public float timer; // Timer that continously adds Time.deltaTime and resets back to 0 on cannon fire, no need to adjust this number 
     [SerializeField]
     private float timeBetweenShots = 1.5f; // Change this float to increase or decrease the rate at which the cannon can be fired.
-    private Quaternion handPosition;
-    private float distanceToTrigger;
-    private bool cannonFiring;
 
     //Transform information for hand movement
     private Vector3 worldPosition; // An empty position that uses the hand position plus a forward direction that allows the cannon to look forward based on where the hand is 
@@ -39,7 +34,6 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     public Transform cannonCenter;
     private float rotationX;
     private float rotationY;
-    private Vector3 handlePosition;
 
     //Audio & Particle Effects
     private new ParticleSystem particleSystem; // Fire or smoke, whatever looks cool
@@ -58,8 +52,6 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
         grabHandle = false;
         particleSystem = GetComponentInChildren<ParticleSystem>();
         audio = GetComponent<AudioSource>();
-        handPosition = handleHand.transform.rotation;
-        handlePosition = handleHand.transform.position;
     }
 
     // Update is called once per frame
@@ -71,17 +63,17 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
         
         if (!grabHandleComplete)
         {
-            hand.transform.position = Vector3.Lerp(hand.transform.position, handleHand.transform.position, 50 * Time.deltaTime);
+            //hand.transform.position = Vector3.Lerp(hand.transform.position, handleHand.transform.position, 50 * Time.deltaTime);
 
-            if (hand.transform.position == handleHand.transform.position)
-            {
+            //if (hand.transform.position == handleHand.transform.position)
+            //{
                 hand.transform.position = handleHand.transform.position;
                 handController.transform.position = handleHand.transform.position;
                 handleHand.GetComponent<MeshRenderer>().enabled = true;
                 hand.GetComponent<MeshRenderer>().enabled = false;
                 grabHandleComplete = true;
                 grabHandle = true;
-            }
+            //}
         }
 
         if (grabHandle)
@@ -92,11 +84,15 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
             cBase.transform.localEulerAngles = new Vector3(0, rotationX, 0);
             cannon.transform.localEulerAngles = new Vector3(rotationY, cBase.transform.rotation.y, 0);
 
-            float handleX = Mathf.Clamp(handleHand.transform.position.x, -32.5f, -31.9f);
-            float handleY = Mathf.Clamp(handleHand.transform.position.y, 3.6f, 4.2f);
+            float handleX = Mathf.Clamp(hand.transform.position.x * 0.1f, -30, 30);
+            float handleY = Mathf.Clamp(hand.transform.position.y * 0.1f, -45, 10);
             float handleZ = Mathf.Clamp(hand.transform.position.z, -4.7f, -4f);
             hand.transform.position = new Vector3(handleHand.transform.position.x, handleHand.transform.position.y, handleZ);
-            Debug.Log(hand.transform.position);
+
+            float handX = Mathf.Clamp(hand.transform.rotation.x, -0.5f, 0.5f);
+            float handY = Mathf.Clamp(hand.transform.rotation.y, -0.5f, 0.5f);
+            float handZ = Mathf.Clamp(hand.transform.rotation.z, -1f, 1f);
+            hand.transform.rotation = new Quaternion(handX, handY, handZ, hand.transform.rotation.w);
         }
 
         if (Input.GetKeyDown(KeyCode.A))
@@ -130,6 +126,11 @@ public class Cannon : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
         if (hand.transform.position.z <= -4.6f && grabHandle && timer >= timeBetweenShots)
         {
             handleHand.transform.position -= handleHand.transform.forward * Time.deltaTime;
+        }
+
+        if (hand.transform.position.z > -4.6f && handleHand.transform.localPosition.z > 0.028f && grabHandle && timer >= timeBetweenShots)
+        {
+            handleHand.transform.position += handleHand.transform.forward * Time.deltaTime;
         }
 
         if (Input.GetKey(KeyCode.S) && grabHandle)
