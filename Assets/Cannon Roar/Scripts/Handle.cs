@@ -6,9 +6,6 @@ public class Handle : MonoBehaviour
 {
     private void OnTriggerEnter(Collider hand)
     {
-        if(hand.CompareTag("Player"))
-            GetComponentInParent<Cannon>().handInside = true;
-
         if (hand.CompareTag("Player") && !GetComponentInParent<Cannon>().initialGrab)
         {
             GetComponentInParent<Cannon>().grabHandleComplete = false;
@@ -17,14 +14,6 @@ public class Handle : MonoBehaviour
             GetComponentInParent<Cannon>().handController.transform.rotation = gameObject.GetComponentInParent<Cannon>().handleHand.transform.rotation;
             GetComponentInParent<Cannon>().timer = 0f;
             GetComponentInParent<Cannon>().initialGrab = true;
-        }
-    }
-
-    void OnTriggerExit(Collider hand)
-    {
-        if (hand.CompareTag("Player"))
-        {
-            GetComponentInParent<Cannon>().handInside = false;
         }
     }
 }
