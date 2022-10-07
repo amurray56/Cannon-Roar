@@ -10280,6 +10280,7 @@ MonoBehaviour:
   hand: {fileID: 916611642}
   handleHand: {fileID: 2172040453681582761}
   handController: {fileID: 341378294}
+  primaryHand: {fileID: 1260162970263012946}
   timer: 0
   timeBetweenShots: 1.5
   primaryHandAnchor: {fileID: 1260162968866365234}

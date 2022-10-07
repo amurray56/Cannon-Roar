@@ -16,6 +16,7 @@ public class Cannon : MonoBehaviour
     public GameObject hand; // The hand model
     public GameObject handleHand; // A prefab of the handle with the hand placed in the center, using this to remove the jittering of the hand that would happen when the hand was moved directly to the handle position. by Disabling the mesh renderer of the hand when and enabling this prefab, the hand movement looks much smoother
     public GameObject handController;
+    public GameObject primaryHand;
 
     //Settings
     [HideInInspector]
@@ -74,7 +75,7 @@ public class Cannon : MonoBehaviour
 
         if (grabHandle)
         {
-            hand.transform.LookAt(hand.transform.position + hand.transform.forward);
+            primaryHand.transform.LookAt(primaryHand.transform.position + primaryHand.transform.forward);
             worldPosition = hand.transform.position - hand.transform.forward * 1000;
             rotationX = Mathf.Clamp(worldPosition.x * 0.1f, -20, 20);
             rotationY = Mathf.Clamp(worldPosition.y * 0.1f, 0, 20);
