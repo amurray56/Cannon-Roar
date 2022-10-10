@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: 955c399806148f545ae7570dc5460099
+=======
+<<<<<<< Updated upstream:Assets/Oculus/VR/Editor.meta
+guid: da2c5051efca2e04d96a89216ae06a89
+=======
+guid: 955c399806148f545ae7570dc5460099
+>>>>>>> Stashed changes:Assets/Examples/SerializableDictionary.meta
+>>>>>>> Stashed changes
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -79,8 +79,12 @@ public class Cannon : MonoBehaviour
             worldPosition = hand.transform.position - hand.transform.forward * 1000;
             rotationX = Mathf.Clamp(worldPosition.x * 0.1f, -20, 20);
             rotationY = Mathf.Clamp(worldPosition.y * 0.1f, 0, 20);
-            cBase.transform.localEulerAngles = new Vector3(0, rotationX, 0);
-            cannon.transform.localEulerAngles = new Vector3(rotationY, cBase.transform.rotation.y, 0);
+
+            if (handleHand.transform.localPosition.z <= 0.029f)
+            {
+                cBase.transform.localEulerAngles = new Vector3(0, rotationX, 0);
+                cannon.transform.localEulerAngles = new Vector3(rotationY, cBase.transform.rotation.y, 0);
+            }
 
             float handleZ = Mathf.Clamp(hand.transform.position.z, -4.5f, -4.1f);
             hand.transform.position = new Vector3(handleHand.transform.position.x, handleHand.transform.position.y, handleZ);
