@@ -80,15 +80,15 @@ public class Cannon : MonoBehaviour
 
         if (grabHandle)
         {
-            primaryHand.transform.LookAt(primaryHand.transform.position + primaryHand.transform.forward);
+            //hand.transform.LookAt(hand.transform.position + hand.transform.forward);
             worldPosition = hand.transform.position - hand.transform.forward * 100f;
             rotationX = Mathf.Clamp(worldPosition.x, -20, 20);
             rotationY = Mathf.Clamp(worldPosition.y, 0, 20);
             cBase.transform.localEulerAngles = new Vector3(0, rotationX, 0);
             cannon.transform.localEulerAngles = new Vector3(rotationY, cBase.transform.rotation.y, 0);
 
-            float handleZ = Mathf.Clamp(hand.transform.position.z, -4.6f, -4.1f);
-            //hand.transform.position = new Vector3(handleHand.transform.position.x, handleHand.transform.position.y, handleZ);
+            float handleZ = Mathf.Clamp(hand.transform.position.z, handleHand.transform.position.z - 0.1f, handleHand.transform.position.z + 0.1f);
+            //hand.transform.position = new Vector3(hand.transform.position.x, hand.transform.position.y, handleZ);
         }
 
         if (Input.GetKeyDown(KeyCode.A) || primaryInput.GetButtonDown(VRButton.Trigger))
@@ -125,12 +125,12 @@ public class Cannon : MonoBehaviour
             hand.transform.position = primaryHandAnchor.position;
         }
 
-        if (hand.transform.position.z > handleHand.transform.position.z && handleHand.transform.localPosition.z >= 0.028f && grabHandle && timer >= timeBetweenShots)
+        if (hand.transform.position.z > handleHand.transform.position.z && handleHand.transform.localPosition.z >= 0.028f && grabHandle)
         {
             handleHand.transform.position += handleHand.transform.forward * Time.deltaTime;
         }
 
-        if (hand.transform.position.z < handleHand.transform.position.z && handleHand.transform.localPosition.z <= 0.035f && grabHandle && timer >= timeBetweenShots)
+        if (hand.transform.position.z < handleHand.transform.position.z && handleHand.transform.localPosition.z <= 0.035f && grabHandle)
         {
             handleHand.transform.position -= handleHand.transform.forward * Time.deltaTime;
         }
