@@ -66,7 +66,7 @@ public class Cannon : MonoBehaviour
         
         if (!grabHandleComplete)
         {
-            hand.transform.position = Vector3.Lerp(hand.transform.position, handleHand.transform.position, 50 * Time.deltaTime);
+            hand.transform.position = Vector3.Lerp(hand.transform.position, handleHand.transform.position, 100 * Time.deltaTime);
             if (hand.transform.position == handleHand.transform.position)
             {
                 handController.transform.position = handleHand.transform.position;
@@ -81,14 +81,16 @@ public class Cannon : MonoBehaviour
         if (grabHandle)
         {
             //hand.transform.LookAt(hand.transform.position + hand.transform.forward);
-            worldPosition = hand.transform.position - hand.transform.forward * 100f;
-            rotationX = Mathf.Clamp(worldPosition.x, -20, 20);
-            rotationY = Mathf.Clamp(worldPosition.y, 0, 20);
+            worldPosition = hand.transform.position - hand.transform.forward * 1000f;
+            rotationX = Mathf.Clamp(worldPosition.x * 0.05f, -20, 20);
+            rotationY = Mathf.Clamp(worldPosition.y * 0.05f, 0, 20);
             cBase.transform.localEulerAngles = new Vector3(0, rotationX, 0);
             cannon.transform.localEulerAngles = new Vector3(rotationY, cBase.transform.rotation.y, 0);
 
-            float handleZ = Mathf.Clamp(hand.transform.position.z, handleHand.transform.position.z - 0.1f, handleHand.transform.position.z + 0.1f);
-            //hand.transform.position = new Vector3(hand.transform.position.x, hand.transform.position.y, handleZ);
+            float handleX = Mathf.Clamp(hand.transform.position.x, handleHand.transform.position.x - 0.01f, handleHand.transform.position.x + 0.01f);
+            float handleY = Mathf.Clamp(hand.transform.position.y, handleHand.transform.position.y - 0.01f, handleHand.transform.position.y + 0.01f);
+            float handleZ = Mathf.Clamp(hand.transform.position.z, handleHand.transform.position.z - 0.01f, handleHand.transform.position.z + 0.01f);
+            hand.transform.position = new Vector3(handleX, handleY, handleZ);
         }
 
         if (Input.GetKeyDown(KeyCode.A) || primaryInput.GetButtonDown(VRButton.Trigger))
@@ -127,12 +129,12 @@ public class Cannon : MonoBehaviour
 
         if (hand.transform.position.z > handleHand.transform.position.z && handleHand.transform.localPosition.z >= 0.028f && grabHandle)
         {
-            handleHand.transform.position += handleHand.transform.forward * Time.deltaTime;
+            handleHand.transform.position += handleHand.transform.forward * 0.25f * Time.deltaTime;
         }
 
         if (hand.transform.position.z < handleHand.transform.position.z && handleHand.transform.localPosition.z <= 0.035f && grabHandle)
         {
-            handleHand.transform.position -= handleHand.transform.forward * Time.deltaTime;
+            handleHand.transform.position -= handleHand.transform.forward * 0.25f * Time.deltaTime;
         }
 
         if (handleHand.transform.localPosition.z <= 0.028f)
