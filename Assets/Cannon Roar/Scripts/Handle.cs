@@ -9,9 +9,6 @@ public class Handle : MonoBehaviour
         if (hand.CompareTag("Player") && !GetComponentInParent<Cannon>().initialGrab)
         {
             GetComponentInParent<Cannon>().grabHandleComplete = false;
-            GetComponentInParent<Cannon>().handController.transform.parent = gameObject.GetComponentInParent<Cannon>().handleHand.transform;
-            GetComponentInParent<Cannon>().handController.transform.position = gameObject.GetComponentInParent<Cannon>().handleHand.transform.position;
-            GetComponentInParent<Cannon>().handController.transform.rotation = gameObject.GetComponentInParent<Cannon>().handleHand.transform.rotation;
             GetComponentInParent<Cannon>().timer = 0f;
             GetComponentInParent<Cannon>().initialGrab = true;
         }

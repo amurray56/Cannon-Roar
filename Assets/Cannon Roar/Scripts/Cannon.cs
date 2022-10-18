@@ -15,7 +15,6 @@ public class Cannon : MonoBehaviour
     private GameObject barrelEnd; // the empty game object placed at the end of the barrel of the cannon that the cannonball prefab will instantiate from
     public GameObject hand; // The hand model
     public GameObject handleHand; // A prefab of the handle with the hand placed in the center, using this to remove the jittering of the hand that would happen when the hand was moved directly to the handle position. by Disabling the mesh renderer of the hand when and enabling this prefab, the hand movement looks much smoother
-    public GameObject handController;
     public GameObject primaryHand;
 
     //Settings
@@ -69,7 +68,6 @@ public class Cannon : MonoBehaviour
             hand.transform.position = Vector3.Lerp(hand.transform.position, handleHand.transform.position, 100 * Time.deltaTime);
             if (hand.transform.position == handleHand.transform.position)
             {
-                handController.transform.position = handleHand.transform.position;
                 handleHand.GetComponent<MeshRenderer>().enabled = true;
                 hand.GetComponent<MeshRenderer>().enabled = false;
                 cannonReload = false;
@@ -80,17 +78,34 @@ public class Cannon : MonoBehaviour
 
         if (grabHandle)
         {
-            //hand.transform.LookAt(hand.transform.position + hand.transform.forward);
-            worldPosition = hand.transform.position - hand.transform.forward * 1000f;
-            rotationX = Mathf.Clamp(worldPosition.x * 0.05f, -20, 20);
-            rotationY = Mathf.Clamp(worldPosition.y * 0.05f, 0, 20);
-            cBase.transform.localEulerAngles = new Vector3(0, rotationX, 0);
-            cannon.transform.localEulerAngles = new Vector3(rotationY, cBase.transform.rotation.y, 0);
+            worldPosition = primaryHand.transform.localPosition - primaryHand.transform.forward * 1000f;
+            rotationX = Mathf.Clamp(primaryHand.transform.localPosition.x, -30, 30);
+            rotationY = Mathf.Clamp(primaryHand.transform.localPosition.y, -10, 20);
 
-            float handleX = Mathf.Clamp(hand.transform.position.x, handleHand.transform.position.x - 0.01f, handleHand.transform.position.x + 0.01f);
-            float handleY = Mathf.Clamp(hand.transform.position.y, handleHand.transform.position.y - 0.01f, handleHand.transform.position.y + 0.01f);
-            float handleZ = Mathf.Clamp(hand.transform.position.z, handleHand.transform.position.z - 0.01f, handleHand.transform.position.z + 0.01f);
-            //hand.transform.position = new Vector3(handleX, handleY, handleZ);
+            cBase.transform.localRotation = new Quaternion(0, -primaryHand.transform.localPosition.x, 0, cBase.transform.localRotation.w);
+            cannon.transform.localRotation = new Quaternion(primaryHand.transform.localPosition.y, cannon.transform.localRotation.y, 0, cannon.transform.localRotation.w);
+
+            if (primaryHand.transform.position.z > handleHand.transform.position.z + 0.025f && handleHand.transform.localPosition.z <= -0.028f && grabHandle)
+            {
+                handleHand.transform.position += handleHand.transform.forward * 0.5f * Time.fixedDeltaTime;
+            }
+
+            else if (primaryHand.transform.position.z < handleHand.transform.position.z - 0.025f && handleHand.transform.localPosition.z >= -0.035f && grabHandle)
+            {
+                handleHand.transform.position -= handleHand.transform.forward * 0.5f * Time.fixedDeltaTime;
+            }
+
+            if (handleHand.transform.localPosition.z >= -0.028f)
+                cannonReload = false;
+
+            if (handleHand.transform.localPosition.z <= -0.035f && timer >= timeBetweenShots && !cannonReload)
+            {
+                Instantiate(cannonBall, barrelEnd.transform.position, barrelEnd.transform.rotation);
+                particleSystem.Play();
+                audio.Play();
+                timer = 0f;
+                cannonReload = true;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.A) || primaryInput.GetButtonDown(VRButton.Trigger))
@@ -99,9 +114,6 @@ public class Cannon : MonoBehaviour
             grabHandleComplete = true;
             handleHand.GetComponent<MeshRenderer>().enabled = false;
             hand.GetComponent<MeshRenderer>().enabled = true;
-            handController.transform.parent = hand.transform;
-            handController.transform.position = hand.transform.position;
-            handController.transform.rotation = hand.transform.rotation;
             hand.transform.position = primaryHandAnchor.position;
             hand.transform.rotation = primaryHandAnchor.rotation;
             initialGrab = false;
@@ -125,30 +137,6 @@ public class Cannon : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.S) && !grabHandle)
         {
             hand.transform.position = primaryHandAnchor.position;
-        }
-
-        if (hand.transform.position.z > handleHand.transform.position.z + 0.1f && handleHand.transform.localPosition.z >= 0.028f && grabHandle)
-        {
-            handleHand.transform.position += handleHand.transform.forward * Time.deltaTime;
-        }
-
-        else if (hand.transform.position.z < handleHand.transform.position.z && handleHand.transform.localPosition.z <= 0.035f && grabHandle)
-        {
-            handleHand.transform.position -= handleHand.transform.forward * Time.deltaTime;
-        }
-
-        if (handleHand.transform.localPosition.z <= 0.028f)
-            cannonReload = false;
-
-        if(handleHand.transform.localPosition.z >= 0.035f && timer >= timeBetweenShots && !cannonReload)
-        {
-            Instantiate(cannonBall, barrelEnd.transform.position, barrelEnd.transform.rotation);
-            particleSystem.Play();
-            audio.Play();
-            timer = 0f;
-            //handleHand.transform.localPosition = new Vector3(0, 0.006f, 0.028f);
-            //hand.transform.position = handleHand.transform.position;
-            cannonReload = true;
         }
     }
 }
