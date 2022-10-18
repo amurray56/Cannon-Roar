@@ -44,7 +44,6 @@ public class Cannon : MonoBehaviour
     public bool grabHandleComplete; // Sets up the hand position when grabbing the handle
     [HideInInspector]
     public bool initialGrab; // This is for the script on the handle not triggering every time the hand moves in and out of the collider
-    private bool cannonReload;
 
     // Start is called before the first frame update
     void Start()
@@ -66,29 +65,29 @@ public class Cannon : MonoBehaviour
         
         if (!grabHandleComplete)
         {
-            hand.transform.position = Vector3.Lerp(hand.transform.position, handleHand.transform.position, 50 * Time.deltaTime);
-            if (hand.transform.position == handleHand.transform.position)
-            {
-                handController.transform.position = handleHand.transform.position;
-                handleHand.GetComponent<MeshRenderer>().enabled = true;
-                hand.GetComponent<MeshRenderer>().enabled = false;
-                cannonReload = false;
-                grabHandleComplete = true;
-                grabHandle = true;
-            }
+            hand.transform.position = handleHand.transform.position;
+            handController.transform.position = handleHand.transform.position;
+            handleHand.GetComponent<MeshRenderer>().enabled = true;
+            hand.GetComponent<MeshRenderer>().enabled = false;
+            grabHandleComplete = true;
+            grabHandle = true;
         }
 
         if (grabHandle)
         {
-            //hand.transform.LookAt(hand.transform.position + hand.transform.forward);
-            worldPosition = hand.transform.position - hand.transform.forward * 100f;
-            rotationX = Mathf.Clamp(worldPosition.x, -20, 20);
-            rotationY = Mathf.Clamp(worldPosition.y, 0, 20);
-            cBase.transform.localEulerAngles = new Vector3(0, rotationX, 0);
-            cannon.transform.localEulerAngles = new Vector3(rotationY, cBase.transform.rotation.y, 0);
+            primaryHand.transform.LookAt(primaryHand.transform.position + primaryHand.transform.forward);
+            worldPosition = hand.transform.position - hand.transform.forward * 1000;
+            rotationX = Mathf.Clamp(worldPosition.x * 0.1f, -20, 20);
+            rotationY = Mathf.Clamp(worldPosition.y * 0.1f, 0, 20);
 
-            float handleZ = Mathf.Clamp(hand.transform.position.z, handleHand.transform.position.z - 0.1f, handleHand.transform.position.z + 0.1f);
-            //hand.transform.position = new Vector3(hand.transform.position.x, hand.transform.position.y, handleZ);
+            if (handleHand.transform.localPosition.z <= 0.029f)
+            {
+                cBase.transform.localEulerAngles = new Vector3(0, rotationX, 0);
+                cannon.transform.localEulerAngles = new Vector3(rotationY, cBase.transform.rotation.y, 0);
+            }
+
+            float handleZ = Mathf.Clamp(hand.transform.position.z, -4.5f, -4.1f);
+            hand.transform.position = new Vector3(handleHand.transform.position.x, handleHand.transform.position.y, handleZ);
         }
 
         if (Input.GetKeyDown(KeyCode.A) || primaryInput.GetButtonDown(VRButton.Trigger))
@@ -125,28 +124,24 @@ public class Cannon : MonoBehaviour
             hand.transform.position = primaryHandAnchor.position;
         }
 
-        if (hand.transform.position.z > handleHand.transform.position.z && handleHand.transform.localPosition.z >= 0.028f && grabHandle)
+        if (hand.transform.position.z > handleHand.transform.position.z && handleHand.transform.localPosition.z >= 0.028f && grabHandle && timer >= timeBetweenShots)
         {
             handleHand.transform.position += handleHand.transform.forward * Time.deltaTime;
         }
 
-        if (hand.transform.position.z < handleHand.transform.position.z && handleHand.transform.localPosition.z <= 0.035f && grabHandle)
+        if (hand.transform.position.z < handleHand.transform.position.z && handleHand.transform.localPosition.z <= 0.035f && grabHandle && timer >= timeBetweenShots)
         {
             handleHand.transform.position -= handleHand.transform.forward * Time.deltaTime;
         }
 
-        if (handleHand.transform.localPosition.z <= 0.028f)
-            cannonReload = false;
-
-        if(handleHand.transform.localPosition.z >= 0.035f && timer >= timeBetweenShots && !cannonReload)
+        if(handleHand.transform.localPosition.z >= 0.035f && timer >= timeBetweenShots)
         {
             Instantiate(cannonBall, barrelEnd.transform.position, barrelEnd.transform.rotation);
             particleSystem.Play();
             audio.Play();
             timer = 0f;
-            //handleHand.transform.localPosition = new Vector3(0, 0.006f, 0.028f);
-            //hand.transform.position = handleHand.transform.position;
-            cannonReload = true;
+            handleHand.transform.localPosition = new Vector3(0, 0.006f, 0.028f);
+            hand.transform.position = handleHand.transform.position;
         }
     }
 }
