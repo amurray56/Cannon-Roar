@@ -90,7 +90,7 @@ public class Cannon : MonoBehaviour
             float handleX = Mathf.Clamp(hand.transform.position.x, handleHand.transform.position.x - 0.01f, handleHand.transform.position.x + 0.01f);
             float handleY = Mathf.Clamp(hand.transform.position.y, handleHand.transform.position.y - 0.01f, handleHand.transform.position.y + 0.01f);
             float handleZ = Mathf.Clamp(hand.transform.position.z, handleHand.transform.position.z - 0.01f, handleHand.transform.position.z + 0.01f);
-            hand.transform.position = new Vector3(handleX, handleY, handleZ);
+            //hand.transform.position = new Vector3(handleX, handleY, handleZ);
         }
 
         if (Input.GetKeyDown(KeyCode.A) || primaryInput.GetButtonDown(VRButton.Trigger))
@@ -127,14 +127,14 @@ public class Cannon : MonoBehaviour
             hand.transform.position = primaryHandAnchor.position;
         }
 
-        if (hand.transform.position.z > handleHand.transform.position.z && handleHand.transform.localPosition.z >= 0.028f && grabHandle)
+        if (hand.transform.position.z > handleHand.transform.position.z + 0.1f && handleHand.transform.localPosition.z >= 0.028f && grabHandle)
         {
-            handleHand.transform.position += handleHand.transform.forward * 0.25f * Time.deltaTime;
+            handleHand.transform.position += handleHand.transform.forward * Time.deltaTime;
         }
 
-        if (hand.transform.position.z < handleHand.transform.position.z && handleHand.transform.localPosition.z <= 0.035f && grabHandle)
+        else if (hand.transform.position.z < handleHand.transform.position.z && handleHand.transform.localPosition.z <= 0.035f && grabHandle)
         {
-            handleHand.transform.position -= handleHand.transform.forward * 0.25f * Time.deltaTime;
+            handleHand.transform.position -= handleHand.transform.forward * Time.deltaTime;
         }
 
         if (handleHand.transform.localPosition.z <= 0.028f)
