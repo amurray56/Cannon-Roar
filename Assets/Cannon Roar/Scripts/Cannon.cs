@@ -23,14 +23,12 @@ public class Cannon : MonoBehaviour
     public float timeBetweenShots = 1.5f; // Change this float to increase or decrease the rate at which the cannon can be fired.
 
     //Transform information for hand movement
-    private Vector3 worldPosition; // An empty position that uses the hand position plus a forward direction that allows the cannon to look forward based on where the hand is 
     [SerializeField]
     private Transform primaryHandAnchor; // The Transform position of the Primary Hand Anchor on the VR Avatar, used to return the hand to the original position when the player lets go of the cannon
-    public Transform cannon; // The Transform position of the empty game object named Pivot in the heirarchy located under the cannon game object, this is for rotating the cannon barrel on the X Axis
+    [SerializeField]
+    private Transform cannon; // The Transform position of the empty game object named Pivot in the heirarchy located under the cannon game object, this is for rotating the cannon barrel on the X Axis
     [SerializeField]
     private Transform cBase; // The transform position of the base of the cannon that will rotate on the Y Axis
-    private float rotationX;
-    private float rotationY;
 
     //Audio & Particle Effects
     private new ParticleSystem particleSystem; // Fire or smoke, whatever looks cool
@@ -78,21 +76,19 @@ public class Cannon : MonoBehaviour
 
         if (grabHandle)
         {
-            worldPosition = primaryHand.transform.localPosition - primaryHand.transform.forward * 1000f;
-            rotationX = Mathf.Clamp(primaryHand.transform.localPosition.x, -30, 30);
-            rotationY = Mathf.Clamp(primaryHand.transform.localPosition.y, -10, 20);
-
-            cBase.transform.localRotation = new Quaternion(0, -primaryHand.transform.localPosition.x, 0, cBase.transform.localRotation.w);
-            cannon.transform.localRotation = new Quaternion(primaryHand.transform.localPosition.y, cannon.transform.localRotation.y, 0, cannon.transform.localRotation.w);
+            float handX = Mathf.Clamp(primaryHand.transform.localPosition.x, -0.3f, 0.3f);
+            float handY = Mathf.Clamp(primaryHand.transform.localPosition.y, -0.3f, 0.2f);
+            cBase.transform.localRotation = new Quaternion(0, -handX, 0, cBase.transform.localRotation.w);
+            cannon.transform.localRotation = new Quaternion(handY, cannon.transform.localRotation.y, 0, cannon.transform.localRotation.w);
 
             if (primaryHand.transform.position.z > handleHand.transform.position.z + 0.025f && handleHand.transform.localPosition.z <= -0.028f && grabHandle)
             {
-                handleHand.transform.position += handleHand.transform.forward * 0.5f * Time.fixedDeltaTime;
+                handleHand.transform.position += 0.5f * handleHand.transform.forward * Time.fixedDeltaTime;
             }
 
             else if (primaryHand.transform.position.z < handleHand.transform.position.z - 0.025f && handleHand.transform.localPosition.z >= -0.035f && grabHandle)
             {
-                handleHand.transform.position -= handleHand.transform.forward * 0.5f * Time.fixedDeltaTime;
+                handleHand.transform.position -= 0.5f * handleHand.transform.forward * Time.fixedDeltaTime;
             }
 
             if (handleHand.transform.localPosition.z >= -0.028f)
@@ -119,24 +115,9 @@ public class Cannon : MonoBehaviour
             initialGrab = false;
         }
 
-        if(Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
             hand.transform.position += hand.transform.forward * Time.deltaTime;
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            hand.transform.position -= hand.transform.forward * Time.deltaTime;
-        }
-
-        if (Input.GetKeyUp(KeyCode.W) && !grabHandle)
-        {
-            hand.transform.position = primaryHandAnchor.position;
-        }
-
-        if (Input.GetKeyUp(KeyCode.S) && !grabHandle)
-        {
-            hand.transform.position = primaryHandAnchor.position;
         }
     }
 }
