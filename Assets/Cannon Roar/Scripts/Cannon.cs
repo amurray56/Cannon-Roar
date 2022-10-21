@@ -76,15 +76,15 @@ public class Cannon : MonoBehaviour
 
         if (grabHandle)
         {
-            if (primaryInput.GetButton(VRButton.Trigger))
+            if (primaryInput.GetButton(VRButton.Trigger) || Input.GetKey(KeyCode.Q))
             {
                 float handX = Mathf.Clamp(primaryHand.transform.localPosition.x, -0.5f, 0.5f);
                 float handY = Mathf.Clamp(primaryHand.transform.localPosition.y, -0.4f, 0.2f);
                 //cBase.transform.localRotation = new Quaternion(0, -handX, 0, cBase.transform.localRotation.w);
                 //cannon.transform.localRotation = new Quaternion(handY, cannon.transform.localRotation.y, 0, cannon.transform.localRotation.w);
 
-                cBase.transform.localRotation = Quaternion.Slerp(cBase.transform.localRotation, new Quaternion(0, -handX, 0, cBase.transform.localRotation.w), 0.25f * Time.deltaTime);
-                cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handY, cannon.transform.localRotation.y, 0, cannon.transform.localRotation.w), 0.25f * Time.deltaTime);
+                cBase.transform.localRotation = Quaternion.Slerp(cBase.transform.localRotation, new Quaternion(0, -handX, 0, cBase.transform.localRotation.w), 0.25f * Time.smoothDeltaTime);
+                cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handY, cannon.transform.localRotation.y, 0, cannon.transform.localRotation.w), 0.25f * Time.smoothDeltaTime);
             }
             else
             {
@@ -93,18 +93,18 @@ public class Cannon : MonoBehaviour
                 //cBase.transform.localRotation = new Quaternion(0, -handX, 0, cBase.transform.localRotation.w);
                 //cannon.transform.localRotation = new Quaternion(handY, cannon.transform.localRotation.y, 0, cannon.transform.localRotation.w);
 
-                cBase.transform.localRotation = Quaternion.Slerp(cBase.transform.localRotation, new Quaternion(0, -handX, 0, cBase.transform.localRotation.w), 4 * Time.deltaTime);
-                cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handY, cannon.transform.localRotation.y, 0, cannon.transform.localRotation.w), 4 * Time.deltaTime);
+                cBase.transform.localRotation = Quaternion.Slerp(cBase.transform.localRotation, new Quaternion(0, -handX, 0, cBase.transform.localRotation.w), 4 * Time.smoothDeltaTime);
+                cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handY, cannon.transform.localRotation.y, 0, cannon.transform.localRotation.w), 4 * Time.smoothDeltaTime);
             }
 
             if (primaryHand.transform.position.z > handleHand.transform.position.z + 0.025f && handleHand.transform.localPosition.z <= -0.028f)
             {
-                handleHand.transform.position += 0.5f * handleHand.transform.forward * Time.fixedDeltaTime;
+                handleHand.transform.position += handleHand.transform.forward * 0.5f * Time.smoothDeltaTime;
             }
 
             else if (primaryHand.transform.position.z < handleHand.transform.position.z - 0.025f && handleHand.transform.localPosition.z >= -0.035f)
             {
-                handleHand.transform.position -= 0.5f * handleHand.transform.forward * Time.fixedDeltaTime;
+                handleHand.transform.position -= handleHand.transform.forward * 0.5f * Time.smoothDeltaTime;
             }
 
             if (handleHand.transform.localPosition.z >= -0.0315f)
