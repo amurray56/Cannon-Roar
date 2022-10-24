@@ -63,7 +63,7 @@ public class Cannon : MonoBehaviour
         
         if (!grabHandleComplete)
         {
-            hand.transform.position = Vector3.Lerp(hand.transform.position, handleHand.transform.position, 100 * Time.deltaTime);
+            hand.transform.position = Vector3.Lerp(hand.transform.position, handleHand.transform.position, 50 * Time.deltaTime);
             if (hand.transform.position == handleHand.transform.position)
             {
                 handleHand.GetComponent<MeshRenderer>().enabled = true;
@@ -80,8 +80,6 @@ public class Cannon : MonoBehaviour
             {
                 float handX = Mathf.Clamp(primaryHand.transform.localPosition.x, -0.5f, 0.5f);
                 float handY = Mathf.Clamp(primaryHand.transform.localPosition.y, -0.4f, 0.2f);
-                //cBase.transform.localRotation = new Quaternion(0, -handX, 0, cBase.transform.localRotation.w);
-                //cannon.transform.localRotation = new Quaternion(handY, cannon.transform.localRotation.y, 0, cannon.transform.localRotation.w);
 
                 cBase.transform.localRotation = Quaternion.Slerp(cBase.transform.localRotation, new Quaternion(0, -handX, 0, cBase.transform.localRotation.w), 0.25f * Time.smoothDeltaTime);
                 cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handY, cannon.transform.localRotation.y, 0, cannon.transform.localRotation.w), 0.25f * Time.smoothDeltaTime);
@@ -90,8 +88,6 @@ public class Cannon : MonoBehaviour
             {
                 float handX = Mathf.Clamp(primaryHand.transform.localPosition.x, -0.5f, 0.5f);
                 float handY = Mathf.Clamp(primaryHand.transform.localPosition.y, -0.4f, 0.2f);
-                //cBase.transform.localRotation = new Quaternion(0, -handX, 0, cBase.transform.localRotation.w);
-                //cannon.transform.localRotation = new Quaternion(handY, cannon.transform.localRotation.y, 0, cannon.transform.localRotation.w);
 
                 cBase.transform.localRotation = Quaternion.Slerp(cBase.transform.localRotation, new Quaternion(0, -handX, 0, cBase.transform.localRotation.w), 4 * Time.smoothDeltaTime);
                 cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handY, cannon.transform.localRotation.y, 0, cannon.transform.localRotation.w), 4 * Time.smoothDeltaTime);
@@ -129,11 +125,6 @@ public class Cannon : MonoBehaviour
             hand.transform.position = primaryHandAnchor.position;
             hand.transform.rotation = primaryHandAnchor.rotation;
             initialGrab = false;
-        }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            hand.transform.position += hand.transform.forward * Time.deltaTime;
         }
     }
 }
