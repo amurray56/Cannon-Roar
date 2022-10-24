@@ -208,7 +208,6 @@ MonoBehaviour:
   barrelEnd: {fileID: 6741994792110827124}
   hand: {fileID: 0}
   handleHand: {fileID: 4878739534977513007}
-  handController: {fileID: 0}
   primaryHand: {fileID: 0}
   timer: 0
   timeBetweenShots: 1.5
@@ -5700,7 +5699,7 @@ PrefabInstance:
     - target: {fileID: 8788892273753554760, guid: d78664373faf5d340b16dbebb23d6db3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.028
+      value: -0.028
       objectReference: {fileID: 0}
     - target: {fileID: 8788892273753554760, guid: d78664373faf5d340b16dbebb23d6db3,
         type: 3}
@@ -5710,7 +5709,7 @@ PrefabInstance:
     - target: {fileID: 8788892273753554760, guid: d78664373faf5d340b16dbebb23d6db3,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8788892273753554760, guid: d78664373faf5d340b16dbebb23d6db3,
         type: 3}
@@ -5720,7 +5719,7 @@ PrefabInstance:
     - target: {fileID: 8788892273753554760, guid: d78664373faf5d340b16dbebb23d6db3,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8788892273753554760, guid: d78664373faf5d340b16dbebb23d6db3,
         type: 3}
@@ -5735,7 +5734,7 @@ PrefabInstance:
     - target: {fileID: 8788892273753554760, guid: d78664373faf5d340b16dbebb23d6db3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8788892273753554760, guid: d78664373faf5d340b16dbebb23d6db3,
         type: 3}
@@ -5756,11 +5755,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.047763858
-      objectReference: {fileID: 0}
-    - target: {fileID: 6314017133571717511, guid: d78664373faf5d340b16dbebb23d6db3,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d78664373faf5d340b16dbebb23d6db3, type: 3}
