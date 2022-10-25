@@ -63,7 +63,7 @@ public class Cannon : MonoBehaviour
         
         if (!grabHandleComplete)
         {
-            hand.transform.position = Vector3.Lerp(hand.transform.position, handleHand.transform.position, 50 * Time.deltaTime);
+            hand.transform.position = Vector3.Lerp(hand.transform.position, handleHand.transform.position, 100 * Time.deltaTime);
             if (hand.transform.position == handleHand.transform.position)
             {
                 handleHand.GetComponent<MeshRenderer>().enabled = true;
@@ -82,7 +82,7 @@ public class Cannon : MonoBehaviour
                 float handY = Mathf.Clamp(primaryHand.transform.localPosition.y, -0.4f, 0.2f);
 
                 cBase.transform.localRotation = Quaternion.Slerp(cBase.transform.localRotation, new Quaternion(0, -handX, 0, cBase.transform.localRotation.w), 0.25f * Time.smoothDeltaTime);
-                cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handY, cannon.transform.localRotation.y, 0, cannon.transform.localRotation.w), 0.25f * Time.smoothDeltaTime);
+                cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handY, 0, 0, cannon.transform.localRotation.w), 0.25f * Time.smoothDeltaTime);
             }
             else
             {
@@ -90,15 +90,15 @@ public class Cannon : MonoBehaviour
                 float handY = Mathf.Clamp(primaryHand.transform.localPosition.y, -0.4f, 0.2f);
 
                 cBase.transform.localRotation = Quaternion.Slerp(cBase.transform.localRotation, new Quaternion(0, -handX, 0, cBase.transform.localRotation.w), 4 * Time.smoothDeltaTime);
-                cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handY, cannon.transform.localRotation.y, 0, cannon.transform.localRotation.w), 4 * Time.smoothDeltaTime);
+                cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handY, 0, 0, cannon.transform.localRotation.w), 4 * Time.smoothDeltaTime);
             }
 
-            if (primaryHand.transform.position.z > handleHand.transform.position.z + 0.025f && handleHand.transform.localPosition.z <= -0.028f)
+            if (primaryHand.transform.position.z > handleHand.transform.position.z && handleHand.transform.localPosition.z <= -0.028f)
             {
                 handleHand.transform.position += handleHand.transform.forward * 0.5f * Time.smoothDeltaTime;
             }
 
-            else if (primaryHand.transform.position.z < handleHand.transform.position.z - 0.025f && handleHand.transform.localPosition.z >= -0.035f)
+            else if (primaryHand.transform.position.z < handleHand.transform.position.z - 0.075f && handleHand.transform.localPosition.z >= -0.035f)
             {
                 handleHand.transform.position -= handleHand.transform.forward * 0.5f * Time.smoothDeltaTime;
             }
