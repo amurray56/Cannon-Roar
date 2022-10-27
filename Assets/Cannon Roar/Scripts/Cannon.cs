@@ -76,19 +76,16 @@ public class Cannon : MonoBehaviour
 
         if (grabHandle)
         {
+            float handX = Mathf.Clamp(primaryHand.transform.localPosition.x, -0.5f, 0.5f);
+            float handY = Mathf.Clamp(primaryHand.transform.localPosition.y, -0.4f, 0.2f);
+
             if (primaryInput.GetButton(VRButton.Trigger) || Input.GetKey(KeyCode.Q))
             {
-                float handX = Mathf.Clamp(primaryHand.transform.localPosition.x, -0.5f, 0.5f);
-                float handY = Mathf.Clamp(primaryHand.transform.localPosition.y, -0.4f, 0.2f);
-
                 cBase.transform.localRotation = Quaternion.Slerp(cBase.transform.localRotation, new Quaternion(0, -handX, 0, cBase.transform.localRotation.w), 0.25f * Time.smoothDeltaTime);
                 cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handY, 0, 0, cannon.transform.localRotation.w), 0.25f * Time.smoothDeltaTime);
             }
             else
             {
-                float handX = Mathf.Clamp(primaryHand.transform.localPosition.x, -0.5f, 0.5f);
-                float handY = Mathf.Clamp(primaryHand.transform.localPosition.y, -0.4f, 0.2f);
-
                 cBase.transform.localRotation = Quaternion.Slerp(cBase.transform.localRotation, new Quaternion(0, -handX, 0, cBase.transform.localRotation.w), 4 * Time.smoothDeltaTime);
                 cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handY, 0, 0, cannon.transform.localRotation.w), 4 * Time.smoothDeltaTime);
             }
