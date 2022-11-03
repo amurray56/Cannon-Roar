@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Gradient2
-    second: {fileID: 2100000, guid: ab2cf85323b49854e8fdf14585503164, type: 2}
+      name: gradient
+    second: {fileID: 2100000, guid: 5fd92d3526054b14db6da4937178314f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
