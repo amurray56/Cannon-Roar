@@ -16,6 +16,7 @@ public class Cannon : MonoBehaviour
     public GameObject hand; // The hand model
     public GameObject handleHand; // A prefab of the handle with the hand placed in the center, using this to remove the jittering of the hand that would happen when the hand was moved directly to the handle position. by Disabling the mesh renderer of the hand when and enabling this prefab, the hand movement looks much smoother
     public GameObject primaryHand;
+    public GameObject cannonPos;
 
     //Settings
     [HideInInspector]
@@ -76,7 +77,7 @@ public class Cannon : MonoBehaviour
 
         if (grabHandle)
         {
-            Quaternion rotation = Quaternion.LookRotation(cannon.transform.position - (primaryHand.transform.position - cannon.transform.position) * 1000);
+            Quaternion rotation = Quaternion.LookRotation(cannonPos.transform.position - (primaryHand.transform.position - cannonPos.transform.position) * 1000);
             float handX = Mathf.Clamp(rotation.x, -0.4f, 0.2f);
             float handY = Mathf.Clamp(rotation.y, -0.4f, 0.4f);
 
@@ -97,20 +98,20 @@ public class Cannon : MonoBehaviour
                 //cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handY, 0, 0, cannon.transform.localRotation.w), 4 * Time.smoothDeltaTime);
             }
 
-            if (primaryHand.transform.position.z > handleHand.transform.position.z && handleHand.transform.localPosition.z <= -0.028f)
+            if (primaryHand.transform.position.z > handleHand.transform.position.z && cannonPos.transform.localPosition.z <= 0.38f)
             {
-                handleHand.transform.position += handleHand.transform.forward * 0.5f * Time.smoothDeltaTime;
+                cannonPos.transform.position += cannonPos.transform.forward * 0.5f * Time.smoothDeltaTime;
             }
 
-            else if (primaryHand.transform.position.z < handleHand.transform.position.z - 0.075f && handleHand.transform.localPosition.z >= -0.035f)
+            else if (primaryHand.transform.position.z < handleHand.transform.position.z - 0.075f && cannonPos.transform.localPosition.z >= 0.28f)
             {
-                handleHand.transform.position -= handleHand.transform.forward * 0.5f * Time.smoothDeltaTime;
+                cannonPos.transform.position -= cannonPos.transform.forward * 0.5f * Time.smoothDeltaTime;
             }
 
-            if (handleHand.transform.localPosition.z >= -0.0315f)
+            if (cannonPos.transform.localPosition.z >= 0.33f)
                 cannonReload = false;
 
-            if (handleHand.transform.localPosition.z <= -0.035f && timer >= timeBetweenShots && !cannonReload)
+            if (cannonPos.transform.localPosition.z <= 0.28f && timer >= timeBetweenShots && !cannonReload)
             {
                 Instantiate(cannonBall, barrelEnd.transform.position, barrelEnd.transform.rotation);
                 particleSystem.Play();
