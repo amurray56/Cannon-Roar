@@ -27,8 +27,6 @@ public class WaypointStop : MonoBehaviour
             Gizmos.DrawLine(transform.GetChild(i).position, transform.GetChild(i + 1).position);
         }
 
-        Gizmos.DrawLine(transform.GetChild(transform.childCount - 1).position, transform.GetChild(0).position);
-
     }
 
     public Transform NextWaypoint(Transform currentWaypoint)
