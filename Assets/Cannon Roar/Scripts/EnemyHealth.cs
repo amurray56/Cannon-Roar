@@ -10,6 +10,9 @@ public class EnemyHealth : MonoBehaviour
     public int health = 1;
     private float time;
 
+    [HideInInspector]
+    public BoatSpawner enemySpawnerScript;
+
     // Start is called before the first frame update
     void Start()
     {
