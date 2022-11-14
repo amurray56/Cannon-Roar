@@ -20746,6 +20746,56 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 74e7caa6bc99f4eae87a9b4b3cf58bd0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7896e34a123da94295358069f39362f, type: 3}
+--- !u!1 &962118671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 962118672}
+  - component: {fileID: 962118673}
+  m_Layer: 0
+  m_Name: BoatLeftSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &962118672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962118671}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -261.33, y: 4.51, z: 160.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1931093836}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &962118673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962118671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20cb0705e0b442f4a98afdfe2724a019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boatPatrol: {fileID: 4472863559622552140, guid: fc931028cb402a64aa3948c1b6f887f7,
+    type: 3}
+  spawnTime: 3
+  enemyCount: 0
+  maxNumberOfEnemiesAtOneTime: 2
+  maxNumberOfEnemiesOtherSpawnerLifeTime: 1
+  enemiesFromThisSpawnerList: []
 --- !u!43 &965151602
 Mesh:
   m_ObjectHideFlags: 0
@@ -21404,10 +21454,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boatPatrol: {fileID: 2270935751615639025, guid: bd59a11ebdcbb434db490a4a7a7d43b7,
     type: 3}
-  spawnTime: 2
+  spawnTime: 4
   enemyCount: 0
-  maxNumberOfEnemiesAtOneTime: 3
-  maxNumberOfEnemiesOtherSpawnerLifeTime: 10
+  maxNumberOfEnemiesAtOneTime: 2
+  maxNumberOfEnemiesOtherSpawnerLifeTime: 1
   enemiesFromThisSpawnerList: []
 --- !u!4 &1300091940 stripped
 Transform:
@@ -21797,6 +21847,56 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 74e7caa6bc99f4eae87a9b4b3cf58bd0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7896e34a123da94295358069f39362f, type: 3}
+--- !u!1 &1461948029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1461948030}
+  - component: {fileID: 1461948031}
+  m_Layer: 0
+  m_Name: BoatRightSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1461948030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461948029}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 177.42, y: 4.51, z: 127.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1931093836}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1461948031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461948029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20cb0705e0b442f4a98afdfe2724a019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boatPatrol: {fileID: 6756549722320351326, guid: 8cbcb4f6f898988419f9cba7f6d4fbf6,
+    type: 3}
+  spawnTime: 3
+  enemyCount: 0
+  maxNumberOfEnemiesAtOneTime: 2
+  maxNumberOfEnemiesOtherSpawnerLifeTime: 1
+  enemiesFromThisSpawnerList: []
 --- !u!1 &1493626333
 GameObject:
   m_ObjectHideFlags: 0
@@ -22916,6 +23016,8 @@ Transform:
   - {fileID: 1136773388}
   - {fileID: 2580347963823927659}
   - {fileID: 1291323202}
+  - {fileID: 962118672}
+  - {fileID: 1461948030}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

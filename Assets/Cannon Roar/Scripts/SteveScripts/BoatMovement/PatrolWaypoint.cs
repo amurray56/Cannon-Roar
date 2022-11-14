@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class PatrolWaypoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
     [Range(0f, 2f)]
     [SerializeField]
     private float waypointSize = 2f;

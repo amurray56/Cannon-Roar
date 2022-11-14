@@ -26,10 +26,6 @@ public class MoveToStop : MonoBehaviour
 
         //Set Initial position to first waypoint
         currentWaypoint = waypointScript.NextWaypoint(currentWaypoint);
-        transform.position = currentWaypoint.position;
-
-        //Sets the next target waypoint
-        currentWaypoint = waypointScript.NextWaypoint(currentWaypoint);
 
     }
 
