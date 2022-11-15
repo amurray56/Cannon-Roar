@@ -8,6 +8,7 @@ public class WaypointStop : MonoBehaviour
     [Range(0f, 2f)]
     [SerializeField]
     private float waypointSize = 2f;
+    public bool lastWaypoint;
 
     private void OnDrawGizmos()
     {
@@ -36,9 +37,15 @@ public class WaypointStop : MonoBehaviour
         {
             return transform.GetChild(currentWaypoint.GetSiblingIndex() + 1);
         }
+
+        if (currentWaypoint.GetSiblingIndex() >= transform.childCount - 1)
+        {
+            lastWaypoint = true;
+            return transform.GetChild(transform.childCount - 1);
+        }
         else
         {
-            return transform.GetChild(transform.childCount - 1);
+            return null;
         }
         
     }

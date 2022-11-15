@@ -42,7 +42,16 @@ public class MoveToStop : MonoBehaviour
 
             if (Vector3.Distance(transform.position, currentWaypoint.position) < disThreshold)
             {
-                currentWaypoint = waypointScript.NextWaypoint(currentWaypoint);
+                if(waypointScript.lastWaypoint == true)
+                {
+                    agent.stoppingDistance = 2f;
+                    return;
+                }
+                else
+                {
+                    currentWaypoint = waypointScript.NextWaypoint(currentWaypoint);
+                }
+                
             }
         }
        
