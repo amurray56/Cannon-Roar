@@ -17,6 +17,7 @@ public class Cannon : MonoBehaviour
     public GameObject handleHand; // A prefab of the handle with the hand placed in the center, using this to remove the jittering of the hand that would happen when the hand was moved directly to the handle position. by Disabling the mesh renderer of the hand when and enabling this prefab, the hand movement looks much smoother
     public GameObject primaryHand;
     public GameObject cannonPos;
+    private CannonBall cb;
 
     //Settings
     [HideInInspector]
@@ -64,15 +65,11 @@ public class Cannon : MonoBehaviour
         
         if (!grabHandleComplete)
         {
-            //hand.transform.position = Vector3.Lerp(hand.transform.position, handleHand.transform.position, 100 * Time.deltaTime);
-            //if (hand.transform.position == handleHand.transform.position)
-            //{
                 handleHand.GetComponent<MeshRenderer>().enabled = true;
                 hand.GetComponent<MeshRenderer>().enabled = false;
                 cannonReload = false;
                 grabHandleComplete = true;
                 grabHandle = true;
-            //}
         }
 
         if (grabHandle)
@@ -85,17 +82,11 @@ public class Cannon : MonoBehaviour
             {
                 cBase.transform.rotation = Quaternion.Slerp(cBase.transform.rotation, new Quaternion(0, handY, 0, cBase.transform.rotation.w), 0.25f * Time.smoothDeltaTime);
                 cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handX, 0, 0, cannon.transform.localRotation.w), 0.25f * Time.smoothDeltaTime);
-
-                //cBase.transform.localRotation = Quaternion.Slerp(cBase.transform.localRotation, new Quaternion(0, -handX, 0, cBase.transform.localRotation.w), 0.25f * Time.smoothDeltaTime);
-                //cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handY, 0, 0, cannon.transform.localRotation.w), 0.25f * Time.smoothDeltaTime);
             }
             else
             {
                 cBase.transform.rotation = Quaternion.Slerp(cBase.transform.rotation, new Quaternion(0, handY, 0, cBase.transform.rotation.w), 4 * Time.smoothDeltaTime);
                 cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handX, 0, 0, cannon.transform.localRotation.w), 4 * Time.smoothDeltaTime);
-
-                //cBase.transform.localRotation = Quaternion.Slerp(cBase.transform.localRotation, new Quaternion(0, -handX, 0, cBase.transform.localRotation.w), 4 * Time.smoothDeltaTime);
-                //cannon.transform.localRotation = Quaternion.Slerp(cannon.transform.localRotation, new Quaternion(handY, 0, 0, cannon.transform.localRotation.w), 4 * Time.smoothDeltaTime);
             }
 
             if (primaryHand.transform.position.z > handleHand.transform.position.z && cannonPos.transform.localPosition.z <= 0.38f)
@@ -113,7 +104,7 @@ public class Cannon : MonoBehaviour
 
             if (cannonPos.transform.localPosition.z <= 0.28f && timer >= timeBetweenShots && !cannonReload)
             {
-                Instantiate(cannonBall, barrelEnd.transform.position, barrelEnd.transform.rotation);
+                FireCannon();
                 particleSystem.Play();
                 audio.Play();
                 timer = 0f;
@@ -131,5 +122,17 @@ public class Cannon : MonoBehaviour
             hand.transform.rotation = primaryHandAnchor.rotation;
             initialGrab = false;
         }
+    }
+
+    private void FireCannon()
+    {
+        GameObject returnedGameObject = PoolManager.current.GetPooledObject(cannonBall.name);
+        if (returnedGameObject == null) return;
+        returnedGameObject.SetActive(true);
+        cb = returnedGameObject.GetComponent<CannonBall>();
+        returnedGameObject.transform.position = barrelEnd.transform.position;
+        returnedGameObject.transform.rotation = barrelEnd.transform.rotation;
+        cb.rb.isKinematic = false;
+        cb.rb.AddForce(cb.transform.forward * cb.force, ForceMode.Impulse);
     }
 }
