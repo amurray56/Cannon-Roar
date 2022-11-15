@@ -7,11 +7,13 @@ public class CannonBall : MonoBehaviour
     public Rigidbody rb;
     public float force = 1;
     public int damage = 1;
+    public TrailRenderer trailRenderer;
 
     // Start is called before the first frame update
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        trailRenderer = GetComponent<TrailRenderer>();
     }
 
     // Update is called once per frame
@@ -21,6 +23,7 @@ public class CannonBall : MonoBehaviour
         {
             gameObject.SetActive(false);
             rb.isKinematic = true;
+            trailRenderer.enabled = false;
         }
     }
 
