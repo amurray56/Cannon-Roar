@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class CannonBall : MonoBehaviour
 {
-    private Rigidbody rb;
+    public Rigidbody rb;
     public float force = 1;
     public int damage = 1;
+    public TrailRenderer trailRenderer;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
-
-        rb.AddForce(transform.forward * force, ForceMode.Impulse);
+        trailRenderer = GetComponent<TrailRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (transform.position.y <= -50)
-            Destroy(gameObject);
+        {
+            gameObject.SetActive(false);
+            rb.isKinematic = true;
+            trailRenderer.enabled = false;
+        }
     }
 
     void OnTriggerEnter(Collider other)
