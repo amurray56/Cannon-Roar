@@ -9,7 +9,6 @@ public class Handle : MonoBehaviour
         if (hand.CompareTag("Player") && !GetComponentInParent<Cannon>().initialGrab)
         {
             GetComponentInParent<Cannon>().grabHandleComplete = false;
-            GetComponentInParent<Cannon>().timer = 0f;
             GetComponentInParent<Cannon>().initialGrab = true;
         }
     }

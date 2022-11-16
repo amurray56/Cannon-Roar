@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 2757471579877396224}
   - component: {fileID: 4667652216011381712}
   - component: {fileID: 4755320209262560744}
+  - component: {fileID: 7450482121290844302}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -105,7 +106,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4501444337506319324}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -31.142, y: 2.31, z: -3.073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -177,7 +178,6 @@ MonoBehaviour:
   handleHand: {fileID: 4239867883970703582}
   primaryHand: {fileID: 0}
   cannonPos: {fileID: 8604246687157912997}
-  timer: 0
   timeBetweenShots: 1.5
   primaryHandAnchor: {fileID: 0}
   cannon: {fileID: 7862864045773934880}
@@ -281,6 +281,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!220 &7450482121290844302
+LightProbeGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4501444337506319324}
+  m_Enabled: 1
+  m_SourcePositions:
+  - {x: 1, y: 1, z: 1}
+  - {x: 1, y: 1, z: -1}
+  - {x: 1, y: -1, z: 1}
+  - {x: 1, y: -1, z: -1}
+  - {x: -1, y: 1, z: 1}
+  - {x: -1, y: 1, z: -1}
+  - {x: -1, y: -1, z: 1}
+  - {x: -1, y: -1, z: -1}
+  m_Dering: 1
 --- !u!1 &7309608593390569778
 GameObject:
   m_ObjectHideFlags: 0

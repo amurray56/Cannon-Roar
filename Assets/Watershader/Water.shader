@@ -136,13 +136,13 @@ Shader "Shader Forge/Water" {
                 float3x3 tangentTransform = float3x3( i.tangentDir, i.bitangentDir, i.normalDir);
                 float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
                 float3 node_621 = float3(0,0,1);
-                float4 node_9262 = _Time;
+                float4 node_5400 = _Time;
                 float _UV_1_var = UNITY_ACCESS_INSTANCED_PROP( Props, _UV_1 );
-                float2 node_1275 = ((i.uv0*_UV_1_var)+node_9262.g*float2(1,1));
+                float2 node_1275 = ((i.uv0*_UV_1_var)+node_5400.g*float2(1,1));
                 float4 _Refraction_var = tex2D(_Refraction,TRANSFORM_TEX(node_1275, _Refraction));
                 float _Reflection_var = UNITY_ACCESS_INSTANCED_PROP( Props, _Reflection );
                 float _UV_2_var = UNITY_ACCESS_INSTANCED_PROP( Props, _UV_2 );
-                float2 node_752 = ((i.uv0*_UV_2_var)+node_9262.g*float2(1,1));
+                float2 node_752 = ((i.uv0*_UV_2_var)+node_5400.g*float2(1,1));
                 float3 _BumpMap_var = UnpackNormal(tex2D(_BumpMap,TRANSFORM_TEX(node_752, _BumpMap)));
                 float3 node_3409_nrm_base = lerp(node_621,_Refraction_var.rgb,_Reflection_var) + float3(0,0,1);
                 float3 node_3409_nrm_detail = _BumpMap_var.rgb * float3(-1,-1,1);

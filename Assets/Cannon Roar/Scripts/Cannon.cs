@@ -20,8 +20,6 @@ public class Cannon : MonoBehaviour
     private CannonBall cb;
 
     //Settings
-    [HideInInspector]
-    public float timer; // Timer that continously adds Time.deltaTime and resets back to 0 on cannon fire, no need to adjust this number 
     public float timeBetweenShots = 1.5f; // Change this float to increase or decrease the rate at which the cannon can be fired.
 
     //Transform information for hand movement
@@ -61,7 +59,6 @@ public class Cannon : MonoBehaviour
     {
         IVRInputDevice primaryInput = VRDevice.Device.PrimaryInputDevice;
         IVRInputDevice secondaryInput = VRDevice.Device.SecondaryInputDevice;
-        timer += Time.deltaTime;
         
         if (!grabHandleComplete)
         {
@@ -102,13 +99,9 @@ public class Cannon : MonoBehaviour
             if (cannonPos.transform.localPosition.z >= 0.33f)
                 cannonReload = false;
 
-            if (cannonPos.transform.localPosition.z <= 0.28f && timer >= timeBetweenShots && !cannonReload)
+            if (cannonPos.transform.localPosition.z <= 0.28f && !cannonReload)
             {
                 FireCannon();
-                particleSystem.Play();
-                audio.Play();
-                timer = 0f;
-                cannonReload = true;
             }
         }
 
@@ -135,5 +128,8 @@ public class Cannon : MonoBehaviour
         cb.rb.isKinematic = false;
         cb.trailRenderer.enabled = true;
         cb.rb.AddForce(cb.transform.forward * cb.force, ForceMode.Impulse);
+        particleSystem.Play();
+        audio.Play();
+        cannonReload = true;
     }
 }
