@@ -34,7 +34,11 @@ public class EnemyHealth : MonoBehaviour
     {
         health -= damage;
         if (health <= 0)
+        {
+            enemySpawnerScript.enemyCount--;
             StartCoroutine(SinkShip());
+        }
+      
     }
 
     IEnumerator SinkShip()

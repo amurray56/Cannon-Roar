@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 7995444463453025243}
   - component: {fileID: 6461837998279707153}
   m_Layer: 0
-  m_Name: PatrolBoatleft
+  m_Name: PatrolBoatLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

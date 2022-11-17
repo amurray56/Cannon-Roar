@@ -51,8 +51,8 @@ public class BoatSpawner : MonoBehaviour
     {
         enemyCount++;
         GameObject newBoatPatrol = Instantiate(boatPatrol, spawnPoint, Quaternion.identity);
-        //EnemyHealth enemyHealth = newBoatPatrol.GetComponent<EnemyHealth>();
-        //enemyHealth.enemySpawnerScript = GetComponent<BoatSpawner>();
+        EnemyHealth enemyHealth = newBoatPatrol.GetComponentInChildren<EnemyHealth>();
+        enemyHealth.enemySpawnerScript = GetComponent<BoatSpawner>();
         //Allows is to track the number of enemies currently alive
         enemiesFromThisSpawnerList.Add(newBoatPatrol);
     }
