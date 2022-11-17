@@ -26,7 +26,8 @@ public class EnemyHealth : MonoBehaviour
     {
         if(transform.position.y <= -99)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            BoatSpawner.current.enemiesFromThisSpawnerList.Remove(gameObject);
         }
     }
 

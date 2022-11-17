@@ -126,7 +126,7 @@ public class Cannon : MonoBehaviour
         returnedGameObject.transform.position = barrelEnd.transform.position;
         returnedGameObject.transform.rotation = barrelEnd.transform.rotation;
         cb.rb.isKinematic = false;
-        cb.trailRenderer.enabled = true;
+        returnedGameObject.GetComponent<TrailRenderer>().enabled = true;
         cb.rb.AddForce(cb.transform.forward * cb.force, ForceMode.Impulse);
         particleSystem.Play();
         audio.Play();

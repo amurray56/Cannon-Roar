@@ -6,7 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 public class EnemyShoot : MonoBehaviour
 {
     public GameObject cannonball;
-    public GameObject barrellEnd;
+    public GameObject[] barrellEnd;
     private float timer;
     public float timeBetweenShots;
     public GameObject player;
@@ -14,10 +14,12 @@ public class EnemyShoot : MonoBehaviour
     public GameObject targetManager;
     public int targetPicker;
     public GameObject[] targets;
+    private int barrelPicker;
     // Start is called before the first frame update
     void Start()
     {
         targetManager = GameObject.Find("TargetManager");
+        player = GameObject.FindGameObjectWithTag("Player");
         targets = targetManager.GetComponent<TargetManager>().targets;
     }
 
@@ -27,20 +29,29 @@ public class EnemyShoot : MonoBehaviour
         RaycastHit hit;
         timer += Time.deltaTime;
 
-        if (timer > timeBetweenShots && Physics.Raycast(barrellEnd.transform.position, player.transform.position - barrellEnd.transform.position, out hit, 1000f))
+        if (timer > timeBetweenShots)
         {
-            if (hit.collider.tag == "Player")
+            barrelPicker = Random.Range(0, barrellEnd.Length);
+            if (Physics.Raycast(barrellEnd[barrelPicker].transform.position, player.transform.position - barrellEnd[barrelPicker].transform.position, out hit, 1000f))
             {
-                GameObject returnedGameObject = PoolManager.current.GetPooledObject(cannonball.name);
-                if (returnedGameObject == null) return;
-                cb = returnedGameObject.GetComponent<EnemyCannonBall>();
-                cb.startPos = barrellEnd.transform.position;
-                returnedGameObject.transform.position = barrellEnd.transform.position;
-                returnedGameObject.transform.rotation = barrellEnd.transform.rotation;
-                targetPicker = Random.Range(0, targets.Length);
-                cb.targetPos = targets[targetPicker].transform.position;
-                returnedGameObject.SetActive(true);
-                timer = 0f;
+                if (hit.collider.tag != "Player")
+                {
+                    return;
+                }
+                else
+                {
+                    GameObject returnedGameObject = PoolManager.current.GetPooledObject(cannonball.name);
+                    if (returnedGameObject == null) return;
+                    cb = returnedGameObject.GetComponent<EnemyCannonBall>();
+                    cb.startPos = barrellEnd[barrelPicker].transform.position;
+                    returnedGameObject.transform.position = barrellEnd[barrelPicker].transform.position;
+                    returnedGameObject.transform.rotation = barrellEnd[barrelPicker].transform.rotation;
+                    targetPicker = Random.Range(0, targets.Length);
+                    cb.targetPos = targets[targetPicker].transform.position;
+                    returnedGameObject.SetActive(true);
+                    timer = 0f;
+                }
+                    
             }
         }
     }

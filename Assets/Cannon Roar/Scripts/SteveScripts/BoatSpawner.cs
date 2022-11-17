@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BoatSpawner : MonoBehaviour
 {
+    public static BoatSpawner current;
     [SerializeField]
     private GameObject boatPatrol;
     
@@ -49,11 +50,14 @@ public class BoatSpawner : MonoBehaviour
 
     void EnemySpawn()
     {
+        GameObject returnedGameObject = PoolManager.current.GetPooledObject(boatPatrol.name);
         enemyCount++;
-        GameObject newBoatPatrol = Instantiate(boatPatrol, spawnPoint, Quaternion.identity, transform);
-        EnemyHealth enemyHealth = newBoatPatrol.GetComponentInChildren<EnemyHealth>();
+        returnedGameObject.transform.position = spawnPoint;
+        returnedGameObject.transform.rotation = Quaternion.identity;
+        EnemyHealth enemyHealth = returnedGameObject.GetComponentInChildren<EnemyHealth>();
         enemyHealth.enemySpawnerScript = GetComponent<BoatSpawner>();
         //Allows is to track the number of enemies currently alive
-        enemiesFromThisSpawnerList.Add(newBoatPatrol);
+        enemiesFromThisSpawnerList.Add(returnedGameObject);
+        returnedGameObject.SetActive(true);
     }
 }
