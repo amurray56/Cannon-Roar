@@ -126,6 +126,7 @@ public class Cannon : MonoBehaviour
         cb.transform.rotation = barrelEnd.transform.rotation;
         returnedGameObject.SetActive(true);
         cb.rb.isKinematic = false;
+        cb.trailRenderer.Clear();
         cb.trailRenderer.enabled = true;
         cb.rb.AddForce(cb.transform.forward * cb.force, ForceMode.Impulse);
         particleSystem.Play();

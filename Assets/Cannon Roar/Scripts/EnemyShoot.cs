@@ -21,6 +21,7 @@ public class EnemyShoot : MonoBehaviour
         targetManager = GameObject.Find("TargetManager");
         player = GameObject.FindGameObjectWithTag("Player");
         targets = targetManager.GetComponent<TargetManager>().targets;
+        Invoke("TimeBetweenShotsIncrease", 125f);
     }
 
     // Update is called once per frame
@@ -54,5 +55,10 @@ public class EnemyShoot : MonoBehaviour
                     
             }
         }
+    }
+
+    private void TimeBetweenShotsIncrease()
+    {
+        timeBetweenShots = 0.1f;
     }
 }
