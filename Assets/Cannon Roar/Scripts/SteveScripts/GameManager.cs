@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
 
     public float timer;
 
+    public AudioSource secondTrack;
+
     void OnEnable()//addition
     {
         Debug.Log("OnEnable called");
@@ -45,7 +47,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-
+        Invoke("PlayTrack", 124f);
     }
 
     private void Update()
@@ -72,5 +74,10 @@ public class GameManager : MonoBehaviour
             gameMusicAudioSource.Play();
             return true;
         }
+    }
+
+    private void PlayTrack()
+    {
+        secondTrack.Play();
     }
 }

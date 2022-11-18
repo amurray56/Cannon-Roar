@@ -307,7 +307,6 @@ GameObject:
   - component: {fileID: 3209058177746295581}
   - component: {fileID: 4099386241397778390}
   - component: {fileID: 2122034443036215323}
-  - component: {fileID: 8969405756225612934}
   - component: {fileID: 8320729604627551746}
   m_Layer: 0
   m_Name: PirateShip
@@ -410,24 +409,6 @@ MonoBehaviour:
   enemySpawnerScript: {fileID: 0}
   boxCollider: {fileID: 0}
   isDead: 0
---- !u!220 &8969405756225612934
-LightProbeGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8829255948184301283}
-  m_Enabled: 1
-  m_SourcePositions:
-  - {x: 1, y: 1, z: 1}
-  - {x: 1, y: 1, z: -1}
-  - {x: 1, y: -1, z: 1}
-  - {x: 1, y: -1, z: -1}
-  - {x: -1, y: 1, z: 1}
-  - {x: -1, y: 1, z: -1}
-  - {x: -1, y: -1, z: 1}
-  - {x: -1, y: -1, z: -1}
-  m_Dering: 1
 --- !u!114 &8320729604627551746
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -18,13 +18,14 @@ public class EnemyCannonBall : MonoBehaviour
     private float distance;
     public float maxDistance = 180f;
 
+    private AudioSource audioSource;
+
     void Start()
     {
-        //startPos = transform.position;
         targetManager = GameObject.Find("TargetManager");
         targets = targetManager.GetComponent<TargetManager>().targets;
-        //targetPicker = Random.Range(0, targets.Length);
-        //targetPos = targets[targetPicker].transform.position;
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
     }
 
     void Update()

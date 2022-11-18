@@ -39,7 +39,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1055158051888263374}
-  - component: {fileID: 6412708439852195665}
   - component: {fileID: 640958090331417967}
   m_Layer: 0
   m_Name: MoveStopright
@@ -64,24 +63,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!220 &6412708439852195665
-LightProbeGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5156620533977616694}
-  m_Enabled: 1
-  m_SourcePositions:
-  - {x: 1, y: 1, z: 1}
-  - {x: 1, y: 1, z: -1}
-  - {x: 1, y: -1, z: 1}
-  - {x: 1, y: -1, z: -1}
-  - {x: -1, y: 1, z: 1}
-  - {x: -1, y: 1, z: -1}
-  - {x: -1, y: -1, z: 1}
-  - {x: -1, y: -1, z: -1}
-  m_Dering: 1
 --- !u!114 &640958090331417967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +79,7 @@ MonoBehaviour:
   health: 1
   enemySpawnerScript: {fileID: 0}
   boxCollider: {fileID: 0}
+  isDead: 0
 --- !u!1 &6935047093692042721
 GameObject:
   m_ObjectHideFlags: 0

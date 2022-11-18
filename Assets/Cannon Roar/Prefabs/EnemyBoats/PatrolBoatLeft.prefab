@@ -367,7 +367,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7995444463453025243}
-  - component: {fileID: 6461837998279707153}
   - component: {fileID: 4607026332652175205}
   m_Layer: 0
   m_Name: PatrolBoatLeft
@@ -392,24 +391,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!220 &6461837998279707153
-LightProbeGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8735845969026699447}
-  m_Enabled: 1
-  m_SourcePositions:
-  - {x: 1, y: 1, z: 1}
-  - {x: 1, y: 1, z: -1}
-  - {x: 1, y: -1, z: 1}
-  - {x: 1, y: -1, z: -1}
-  - {x: -1, y: 1, z: 1}
-  - {x: -1, y: 1, z: -1}
-  - {x: -1, y: -1, z: 1}
-  - {x: -1, y: -1, z: -1}
-  m_Dering: 1
 --- !u!114 &4607026332652175205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,8 +405,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
   health: 1
-  boxCollider: {fileID: 0}
   enemySpawnerScript: {fileID: 0}
+  boxCollider: {fileID: 0}
+  isDead: 0
 --- !u!1001 &7166400846523452210
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -582,6 +564,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8573449938727066915}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7028022186680307477 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1689852317572993590, guid: 2f8f49aff434568488f9f56ba598008e,
+    type: 3}
+  m_PrefabInstance: {fileID: 8573449938727066915}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &290145906093034939 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8286004708089155736, guid: 2f8f49aff434568488f9f56ba598008e,
@@ -603,12 +591,6 @@ Transform:
 --- !u!1 &7836182674842695233 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1892837667292998498, guid: 2f8f49aff434568488f9f56ba598008e,
-    type: 3}
-  m_PrefabInstance: {fileID: 8573449938727066915}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7028022186680307477 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1689852317572993590, guid: 2f8f49aff434568488f9f56ba598008e,
     type: 3}
   m_PrefabInstance: {fileID: 8573449938727066915}
   m_PrefabAsset: {fileID: 0}
