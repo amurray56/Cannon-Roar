@@ -12,21 +12,23 @@ public class MoveToStop : MonoBehaviour
 
     private Transform currentWaypoint;
 
-    NavMeshAgent agent;
+    [HideInInspector]
+    public NavMeshAgent agent;
 
     EnemyHealth enemyHealth;
 
     // Start is called before the first frame update
+    void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        waypointScript = GetComponentInChildren<WaypointStop>();
+        enemyHealth = GetComponentInParent<EnemyHealth>();
+    }
+
     void Start()
     {
-        //Sets rigidBody
-        agent = GetComponent<NavMeshAgent>();
-
-        enemyHealth = GetComponent<EnemyHealth>();
-
         //Set Initial position to first waypoint
-        currentWaypoint = waypointScript.NextWaypoint(currentWaypoint);
-
+        currentWaypoint = waypointScript.transform.GetChild(0);
     }
 
     private void FixedUpdate()

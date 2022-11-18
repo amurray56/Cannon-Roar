@@ -120,7 +120,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7071820426093874350}
-  - component: {fileID: 553724108891138192}
   - component: {fileID: 1194821134931808111}
   - component: {fileID: 2743432479501699360}
   - component: {fileID: 4674259068926392238}
@@ -148,20 +147,6 @@ Transform:
   m_Father: {fileID: 7280709489304478611}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &553724108891138192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2498333756590954838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a333df5f1d712c841b3a0478712aacc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 1
-  enemySpawnerScript: {fileID: 0}
 --- !u!114 &1194821134931808111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypointScript: {fileID: 5424604972659812689}
   disThreshold: 10
+  agent: {fileID: 0}
 --- !u!195 &2743432479501699360
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -397,6 +383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7280709489304478611}
   - component: {fileID: 5932032049658550873}
+  - component: {fileID: 3402316057649555617}
   m_Layer: 0
   m_Name: PatrolBoatmid
   m_TagString: Untagged
@@ -412,7 +399,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8269793415418953983}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -140.5, y: 4.6, z: 269.9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7071820426093874350}
@@ -438,6 +425,22 @@ LightProbeGroup:
   - {x: -1, y: -1, z: 1}
   - {x: -1, y: -1, z: -1}
   m_Dering: 1
+--- !u!114 &3402316057649555617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8269793415418953983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a333df5f1d712c841b3a0478712aacc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  health: 1
+  boxCollider: {fileID: 0}
+  enemySpawnerScript: {fileID: 0}
 --- !u!1001 &1853374754665865626
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -597,6 +600,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f8f49aff434568488f9f56ba598008e, type: 3}
+--- !u!1 &6839226700729906943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1689852317572993590, guid: 2f8f49aff434568488f9f56ba598008e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5303656824125285577}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4280551227874227281 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8286004708089155736, guid: 2f8f49aff434568488f9f56ba598008e,
@@ -624,12 +633,6 @@ GameObject:
 --- !u!1 &6043525158053482411 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1892837667292998498, guid: 2f8f49aff434568488f9f56ba598008e,
-    type: 3}
-  m_PrefabInstance: {fileID: 5303656824125285577}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6839226700729906943 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1689852317572993590, guid: 2f8f49aff434568488f9f56ba598008e,
     type: 3}
   m_PrefabInstance: {fileID: 5303656824125285577}
   m_PrefabAsset: {fileID: 0}

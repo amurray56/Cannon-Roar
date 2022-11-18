@@ -117,7 +117,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7627945349635202278}
-  - component: {fileID: 887483938760734936}
   - component: {fileID: 1975703278390435623}
   - component: {fileID: 3309408615680694632}
   - component: {fileID: 8655817250371160925}
@@ -145,20 +144,6 @@ Transform:
   m_Father: {fileID: 7995444463453025243}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &887483938760734936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2978037708591237406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a333df5f1d712c841b3a0478712aacc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 1
-  enemySpawnerScript: {fileID: 0}
 --- !u!114 &1975703278390435623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,6 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypointScript: {fileID: 4663426489880983833}
   disThreshold: 10
+  agent: {fileID: 0}
 --- !u!195 &3309408615680694632
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -382,6 +368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7995444463453025243}
   - component: {fileID: 6461837998279707153}
+  - component: {fileID: 4607026332652175205}
   m_Layer: 0
   m_Name: PatrolBoatLeft
   m_TagString: Untagged
@@ -397,7 +384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8735845969026699447}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -261.33, y: 4.51, z: 160.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7627945349635202278}
@@ -423,6 +410,22 @@ LightProbeGroup:
   - {x: -1, y: -1, z: 1}
   - {x: -1, y: -1, z: -1}
   m_Dering: 1
+--- !u!114 &4607026332652175205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8735845969026699447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a333df5f1d712c841b3a0478712aacc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  health: 1
+  boxCollider: {fileID: 0}
+  enemySpawnerScript: {fileID: 0}
 --- !u!1001 &7166400846523452210
 PrefabInstance:
   m_ObjectHideFlags: 0

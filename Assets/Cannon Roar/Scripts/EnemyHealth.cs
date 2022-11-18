@@ -5,19 +5,28 @@ using UnityEngine.AI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    private NavMeshAgent agent;
+    [HideInInspector]
+    public NavMeshAgent agent;
     public int health = 1;
     private float time;
     private EnemyShoot enemyShoot;
-
     [HideInInspector]
-    public BoatSpawner enemySpawnerScript;
+    public SpawnerManager enemySpawnerScript;
+    [HideInInspector] 
+    public BoxCollider boxCollider;
+    private BoxCollider waterCollider;
+    private MeshCollider environment;
+    public bool isDead;
+
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
-        enemyShoot = GetComponent<EnemyShoot>();
+        boxCollider = GetComponentInChildren<BoxCollider>();
+        agent = GetComponentInChildren<NavMeshAgent>();
+        enemyShoot = GetComponentInChildren<EnemyShoot>();
+        waterCollider = GameObject.Find("water").GetComponent<BoxCollider>();
+        environment = GameObject.Find("Environment").GetComponent<MeshCollider>();
     }
 
     // Update is called once per frame
@@ -25,8 +34,8 @@ public class EnemyHealth : MonoBehaviour
     {
         if(transform.position.y <= -99)
         {
-            gameObject.SetActive(false);
             enemySpawnerScript.enemiesFromThisSpawnerList.Remove(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -35,18 +44,26 @@ public class EnemyHealth : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            enemyShoot.enabled = false;
-            enemySpawnerScript.enemyCount--;
-            StartCoroutine(SinkShip());
+            Death();
         }
-      
+    }
+
+    public void Death()
+    {
+        isDead = true;
+        enemyShoot.enabled = false;
+        enemySpawnerScript.enemyCount--;
+        agent.enabled = false;
+        StartCoroutine(SinkShip());
     }
 
     IEnumerator SinkShip()
     {
+        Physics.IgnoreCollision(boxCollider, waterCollider);
+        Physics.IgnoreCollision(boxCollider, environment);
         Vector3 position = transform.position;
         Vector3 endPosition = new Vector3(position.x, -100, position.z);
-        agent.enabled = !agent.enabled;
+        //agent.enabled = !agent.enabled;
         while (position != endPosition)
         {
             time += Time.deltaTime;

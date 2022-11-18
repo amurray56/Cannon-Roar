@@ -8,20 +8,24 @@ public class CannonBall : MonoBehaviour
     public float force = 1;
     public int damage = 1;
     [HideInInspector] public TrailRenderer trailRenderer;
+    private SphereCollider sphereCollider;
 
     // Start is called before the first frame update
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         trailRenderer = GetComponent<TrailRenderer>();
+        sphereCollider = GetComponent<SphereCollider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.y <= -50)
+        if (transform.position.y <= 1)
         {
-            
+            rb.isKinematic = true;
+            trailRenderer.enabled = false;
+            gameObject.SetActive(false);
         }
     }
 
@@ -29,18 +33,15 @@ public class CannonBall : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<EnemyHealth>().TakeDamage(damage);
-            other.GetComponent<BoxCollider>().isTrigger = true;
+            other.GetComponentInParent<EnemyHealth>().TakeDamage(damage);
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if(collision.gameObject.tag == "Water")
         {
-            gameObject.SetActive(false);
-            rb.isKinematic = true;
-            trailRenderer.enabled = false;
+            Physics.IgnoreCollision(collision.collider, sphereCollider);
         }
     }
 }

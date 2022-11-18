@@ -8,6 +8,9 @@ TagManager:
   - Ground
   - FiringTrigger
   - Target
+  - Water
+  - Waypoint
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

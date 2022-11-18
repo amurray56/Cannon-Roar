@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BoatSpawner : MonoBehaviour
 {
-    public static BoatSpawner current;
+    public BoatSpawner current;
     [SerializeField]
     private GameObject boatPatrol;
     
@@ -19,15 +20,10 @@ public class BoatSpawner : MonoBehaviour
     [HideInInspector] //hides variable below
     public List<GameObject> enemiesFromThisSpawnerList = new List<GameObject>();
 
-    private Vector3 spawnPoint;
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
-        spawnPoint = gameObject.transform.position;
+        current = this;
         InvokeRepeating("checkIfObjectShouldBeSpawned", spawnTime, spawnTime);
     }
 
@@ -52,13 +48,25 @@ public class BoatSpawner : MonoBehaviour
     {
         GameObject returnedGameObject = PoolManager.current.GetPooledObject(boatPatrol.name);
         enemyCount++;
-        returnedGameObject.transform.position = spawnPoint;
-        returnedGameObject.transform.rotation = Quaternion.identity;
-        EnemyHealth enemyHealth = returnedGameObject.GetComponentInChildren<EnemyHealth>();
-        enemyHealth.enemySpawnerScript = GetComponent<BoatSpawner>();
+        returnedGameObject.SetActive(true);
+        if (returnedGameObject.name == "MoveStopright(Clone)")
+        {
+            returnedGameObject.GetComponentInChildren<WaypointStop>().NextWaypoint(null);
+        }
+        else
+        {
+            returnedGameObject.GetComponentInChildren<PatrolWaypoint>().NextWaypoint(null);
+        }
+        returnedGameObject.transform.position = transform.position;
+        returnedGameObject.transform.rotation = transform.rotation;
+        //returnedGameObject.GetComponent<EnemyHealth>().enemySpawnerScript = current;
+        returnedGameObject.GetComponent<EnemyHealth>().health = 1;
+        returnedGameObject.GetComponent<EnemyHealth>().agent.enabled = true;
+        returnedGameObject.GetComponent<EnemyHealth>().agent.ResetPath();
+        returnedGameObject.GetComponentInChildren<BoxCollider>().enabled = true;
+        returnedGameObject.GetComponentInChildren<EnemyShoot>().enabled = true;
         //Allows is to track the number of enemies currently alive
         enemiesFromThisSpawnerList.Add(returnedGameObject);
-        returnedGameObject.GetComponentInChildren<EnemyShoot>().enabled = true;
-        returnedGameObject.SetActive(true);
+        
     }
 }

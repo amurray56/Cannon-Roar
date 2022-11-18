@@ -12,7 +12,8 @@ public class Patrol : MonoBehaviour
 
     private Transform currentWaypoint;
 
-    NavMeshAgent agent;
+    [HideInInspector]
+    public NavMeshAgent agent;
 
     EnemyHealth enemyHealth;
 
@@ -22,7 +23,7 @@ public class Patrol : MonoBehaviour
         //Sets rigidBody
         agent = GetComponent<NavMeshAgent>();
 
-        enemyHealth = GetComponent<EnemyHealth>();
+        enemyHealth = GetComponentInParent<EnemyHealth>();
 
         //Set Initial position to first waypoint
         currentWaypoint = waypointScript.NextWaypoint(currentWaypoint);
@@ -33,7 +34,7 @@ public class Patrol : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if(enemyHealth.health == 0)
+        if(enemyHealth.health <= 0)
         {
             return;
         }

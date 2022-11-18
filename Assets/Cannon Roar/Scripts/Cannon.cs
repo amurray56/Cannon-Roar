@@ -131,5 +131,6 @@ public class Cannon : MonoBehaviour
         particleSystem.Play();
         audio.Play();
         cannonReload = true;
+        
     }
 }
