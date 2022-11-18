@@ -9,8 +9,8 @@ public class SpawnerManager : MonoBehaviour
     public float spawnTime;
     public GameObject enemyPrefab;
     //Holds the max number of enemies allowed at any one time
-    public int maxNumberOfEnemiesAtOneTime = 8;
-    public int maxNumberOfEnemies = 16;
+    [SerializeField]
+    private int maxNumberOfEnemiesAtOneTime = 1;
     private int lastNumber = -1;
 
     //Lists
@@ -47,6 +47,7 @@ public class SpawnerManager : MonoBehaviour
     {
         SetUpChildObjects();
         InvokeRepeating("checkIfObjectShouldBeSpawned", spawnTime, spawnTime);
+        InvokeRepeating("AddEnemy", 10, 10);
     }
     //Checks the setup child elements in the spawner
     public void SetUpChildObjects()
@@ -72,14 +73,9 @@ public class SpawnerManager : MonoBehaviour
         if (enableSpawner == true)
         {
             //If we have not reached the limit of enemies from this spawner
-            if (enemiesFromThisSpawnerList.Count < maxNumberOfEnemiesAtOneTime && enemyCount < maxNumberOfEnemies)
+            if (enemiesFromThisSpawnerList.Count < maxNumberOfEnemiesAtOneTime)
             {
                 EnemySetActive();
-            }
-            //If we have reached the max number of enemies and all the enemies from this spawner are dead
-            else if (enemiesFromThisSpawnerList.Count == 0 && enemyCount >= maxNumberOfEnemies)
-            {
-                DestroySpawner();
             }
         }
     }
@@ -123,5 +119,11 @@ public class SpawnerManager : MonoBehaviour
             rand = Random.Range(min, max);
         lastNumber = rand;
         return rand;
+    }
+
+    private void AddEnemy()
+    {
+        if(maxNumberOfEnemiesAtOneTime < 10)
+            maxNumberOfEnemiesAtOneTime++;
     }
 }

@@ -50,6 +50,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void Death()
     {
+        time = 0;
         isDead = true;
         enemyShoot.enabled = false;
         enemySpawnerScript.enemyCount--;
@@ -66,8 +67,8 @@ public class EnemyHealth : MonoBehaviour
         //agent.enabled = !agent.enabled;
         while (position != endPosition)
         {
+            transform.position = Vector3.Lerp(position, new Vector3(position.x, -100, position.z), time / 10);
             time += Time.deltaTime;
-            transform.position = Vector3.Lerp(position, new Vector3(position.x, -100, position.z), time / 5);
             yield return new WaitForEndOfFrame();
         }
         yield return null;

@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     public AudioSource gameMusicAudioSource;
 
+    public float timer;
+
     void OnEnable()//addition
     {
         Debug.Log("OnEnable called");
@@ -48,7 +50,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-
+        
     }
 
     public bool GameMusicToggle()

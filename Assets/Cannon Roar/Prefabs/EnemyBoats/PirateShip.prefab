@@ -344,13 +344,13 @@ NavMeshAgent:
   m_Radius: 0.5
   m_Speed: 6
   m_Acceleration: 8
-  avoidancePriority: 10
+  avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 6.65
+  m_Height: 4
   m_BaseOffset: -2.19
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyTarget: {fileID: 0}
   enemyWaypointSpeed: 10
-  enemyWaypointStoppingDistance: 3
+  enemyWaypointStoppingDistance: 4
   waypoints: []
 --- !u!1001 &8708327493336134628
 PrefabInstance:
@@ -451,6 +451,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4407734449912597694}
     m_Modifications:
+    - target: {fileID: 6798631602690179474, guid: c856d049666fa0c419ce3da4332748d3,
+        type: 3}
+      propertyPath: m_Name
+      value: ColliderManager
+      objectReference: {fileID: 0}
     - target: {fileID: 3091179883253825814, guid: c856d049666fa0c419ce3da4332748d3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -505,11 +510,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6798631602690179474, guid: c856d049666fa0c419ce3da4332748d3,
-        type: 3}
-      propertyPath: m_Name
-      value: ColliderManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c856d049666fa0c419ce3da4332748d3, type: 3}
