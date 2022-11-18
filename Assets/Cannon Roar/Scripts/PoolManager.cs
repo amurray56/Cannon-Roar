@@ -54,7 +54,7 @@ public class PoolManager : MonoBehaviour
         //If a non active version of an object is not available a new one is created and added to the Dictionary for future use
         if (willGrow)
         {
-            GameObject obj = Instantiate(poolerData[nameOfPooledObject][0]);
+            GameObject obj = Instantiate(poolerData[nameOfPooledObject][0], transform);
             obj.transform.position = new Vector3(0, 0, 0);
             obj.SetActive(false);
             poolerData[nameOfPooledObject].Add(obj);

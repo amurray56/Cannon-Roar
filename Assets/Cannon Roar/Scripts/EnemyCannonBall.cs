@@ -18,22 +18,20 @@ public class EnemyCannonBall : MonoBehaviour
     private float distance;
     public float maxDistance = 180f;
 
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
     void Start()
     {
         targetManager = GameObject.Find("TargetManager");
         targets = targetManager.GetComponent<TargetManager>().targets;
-        audioSource = GetComponent<AudioSource>();
-        audioSource.Play();
     }
 
     void Update()
     {
         if (count < 1)
         {
-            count += 0.25f * Time.deltaTime;
-            Vector3 halfway = startPos + (targetPos - startPos) / 2 + Vector3.up * (50 * distance);
+            count += 0.5f * Time.deltaTime;
+            Vector3 halfway = startPos + (targetPos - startPos) / 2 + Vector3.up * (30 * distance);
             Vector3 m1 = Vector3.Lerp(startPos, halfway, count / distance);
             Vector3 m2 = Vector3.Lerp(halfway, targetPos, count / distance);
             transform.position = Vector3.Lerp(m1, m2, count / distance);

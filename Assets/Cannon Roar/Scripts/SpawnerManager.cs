@@ -8,7 +8,7 @@ public class SpawnerManager : MonoBehaviour
     //Settings
     public float spawnTime;
     public GameObject enemyPrefab;
-    private float timer = 120f;
+    private float timer = 124f;
     private bool timerRunning = false;
     //Holds the max number of enemies allowed at any one time
     [SerializeField]
@@ -50,7 +50,7 @@ public class SpawnerManager : MonoBehaviour
         timerRunning = true;
         SetUpChildObjects();
         InvokeRepeating("checkIfObjectShouldBeSpawned", spawnTime, spawnTime);
-        InvokeRepeating("AddEnemy", 10, 10);
+        InvokeRepeating("AddEnemy", 12.22f, 12.22f);
     }
 
     private void Update()
@@ -63,7 +63,7 @@ public class SpawnerManager : MonoBehaviour
             }
             else
             {
-                maxNumberOfEnemiesAtOneTime = 20;
+                maxNumberOfEnemiesAtOneTime = 15;
                 timer = 0f;
                 timerRunning = false;
             }

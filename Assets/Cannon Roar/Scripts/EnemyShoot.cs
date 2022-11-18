@@ -50,6 +50,7 @@ public class EnemyShoot : MonoBehaviour
                     targetPicker = Random.Range(0, targets.Length);
                     cb.targetPos = targets[targetPicker].transform.position;
                     returnedGameObject.SetActive(true);
+                    //cb.audioSource.Play();
                     timer = 0f;
                 }
                     
@@ -59,6 +60,6 @@ public class EnemyShoot : MonoBehaviour
 
     private void TimeBetweenShotsIncrease()
     {
-        timeBetweenShots = 0.1f;
+        timeBetweenShots = 0.25f;
     }
 }
