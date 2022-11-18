@@ -121,12 +121,12 @@ public class Cannon : MonoBehaviour
     {
         GameObject returnedGameObject = PoolManager.current.GetPooledObject(cannonBall.name);
         if (returnedGameObject == null) return;
-        returnedGameObject.SetActive(true);
         cb = returnedGameObject.GetComponent<CannonBall>();
-        returnedGameObject.transform.position = barrelEnd.transform.position;
-        returnedGameObject.transform.rotation = barrelEnd.transform.rotation;
+        cb.transform.position = barrelEnd.transform.position;
+        cb.transform.rotation = barrelEnd.transform.rotation;
+        returnedGameObject.SetActive(true);
         cb.rb.isKinematic = false;
-        returnedGameObject.GetComponent<TrailRenderer>().enabled = true;
+        cb.trailRenderer.enabled = true;
         cb.rb.AddForce(cb.transform.forward * cb.force, ForceMode.Impulse);
         particleSystem.Play();
         audio.Play();

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class CannonBall : MonoBehaviour
 {
-    public Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
     public float force = 1;
     public int damage = 1;
-    public TrailRenderer trailRenderer;
+    [HideInInspector] public TrailRenderer trailRenderer;
 
     // Start is called before the first frame update
     void Awake()
@@ -21,9 +21,7 @@ public class CannonBall : MonoBehaviour
     {
         if (transform.position.y <= -50)
         {
-            gameObject.SetActive(false);
-            rb.isKinematic = true;
-            trailRenderer.enabled = false;
+            
         }
     }
 
@@ -33,6 +31,16 @@ public class CannonBall : MonoBehaviour
         {
             other.GetComponent<EnemyHealth>().TakeDamage(damage);
             other.GetComponent<BoxCollider>().isTrigger = true;
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Ground")
+        {
+            gameObject.SetActive(false);
+            rb.isKinematic = true;
+            trailRenderer.enabled = false;
         }
     }
 }

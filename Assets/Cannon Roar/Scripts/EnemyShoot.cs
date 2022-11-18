@@ -32,7 +32,7 @@ public class EnemyShoot : MonoBehaviour
         if (timer > timeBetweenShots)
         {
             barrelPicker = Random.Range(0, barrellEnd.Length);
-            if (Physics.Raycast(barrellEnd[barrelPicker].transform.position, player.transform.position - barrellEnd[barrelPicker].transform.position, out hit, 1000f))
+            if (Physics.Raycast(barrellEnd[barrelPicker].transform.position, player.transform.position - barrellEnd[barrelPicker].transform.position, out hit, 500f))
             {
                 if (hit.collider.tag != "Player")
                 {
@@ -44,8 +44,8 @@ public class EnemyShoot : MonoBehaviour
                     if (returnedGameObject == null) return;
                     cb = returnedGameObject.GetComponent<EnemyCannonBall>();
                     cb.startPos = barrellEnd[barrelPicker].transform.position;
-                    returnedGameObject.transform.position = barrellEnd[barrelPicker].transform.position;
-                    returnedGameObject.transform.rotation = barrellEnd[barrelPicker].transform.rotation;
+                    cb.transform.position = barrellEnd[barrelPicker].transform.position;
+                    cb.transform.rotation = barrellEnd[barrelPicker].transform.rotation;
                     targetPicker = Random.Range(0, targets.Length);
                     cb.targetPos = targets[targetPicker].transform.position;
                     returnedGameObject.SetActive(true);

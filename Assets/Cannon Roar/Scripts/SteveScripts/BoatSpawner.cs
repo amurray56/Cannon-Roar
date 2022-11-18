@@ -58,6 +58,7 @@ public class BoatSpawner : MonoBehaviour
         enemyHealth.enemySpawnerScript = GetComponent<BoatSpawner>();
         //Allows is to track the number of enemies currently alive
         enemiesFromThisSpawnerList.Add(returnedGameObject);
+        returnedGameObject.GetComponentInChildren<EnemyShoot>().enabled = true;
         returnedGameObject.SetActive(true);
     }
 }

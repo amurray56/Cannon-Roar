@@ -5,10 +5,10 @@ using UnityEngine.AI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    private Rigidbody rb;
     private NavMeshAgent agent;
     public int health = 1;
     private float time;
+    private EnemyShoot enemyShoot;
 
     [HideInInspector]
     public BoatSpawner enemySpawnerScript;
@@ -16,9 +16,8 @@ public class EnemyHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
-
+        enemyShoot = GetComponent<EnemyShoot>();
     }
 
     // Update is called once per frame
@@ -27,7 +26,7 @@ public class EnemyHealth : MonoBehaviour
         if(transform.position.y <= -99)
         {
             gameObject.SetActive(false);
-            BoatSpawner.current.enemiesFromThisSpawnerList.Remove(gameObject);
+            enemySpawnerScript.enemiesFromThisSpawnerList.Remove(gameObject);
         }
     }
 
@@ -36,6 +35,7 @@ public class EnemyHealth : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            enemyShoot.enabled = false;
             enemySpawnerScript.enemyCount--;
             StartCoroutine(SinkShip());
         }
@@ -44,13 +44,13 @@ public class EnemyHealth : MonoBehaviour
 
     IEnumerator SinkShip()
     {
-        Vector3 position = rb.transform.position;
+        Vector3 position = transform.position;
         Vector3 endPosition = new Vector3(position.x, -100, position.z);
         agent.enabled = !agent.enabled;
         while (position != endPosition)
         {
             time += Time.deltaTime;
-            rb.MovePosition(Vector3.Lerp(position, new Vector3(position.x, -100, position.z), time / 5));
+            transform.position = Vector3.Lerp(position, new Vector3(position.x, -100, position.z), time / 5);
             yield return new WaitForEndOfFrame();
         }
         yield return null;
