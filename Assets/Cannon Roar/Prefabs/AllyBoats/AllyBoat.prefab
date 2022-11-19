@@ -281,7 +281,6 @@ MonoBehaviour:
   - {fileID: 7109908228653787240}
   - {fileID: 4751675384766377101}
   - {fileID: 1861017578694790685}
-  timeBetweenShots: 0.25
 --- !u!65 &3264211627690937232
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -293,8 +292,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 16.061329, y: 10.116116, z: 7.9591007}
-  m_Center: {x: 0, y: -0.43375492, z: 0}
+  m_Size: {x: 4.069458, y: 10.116116, z: 15.876755}
+  m_Center: {x: 0.013172984, y: -0.43375492, z: -0.10520458}
 --- !u!114 &7617170421438099336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,7 +309,7 @@ MonoBehaviour:
   enemyTarget: {fileID: 0}
   isDead: 0
   enemyWaypointSpeed: 10
-  enemyWaypointStoppingDistance: 4
+  enemyWaypointStoppingDistance: 5
   waypoints: []
 --- !u!1 &4751675384766377101
 GameObject:
