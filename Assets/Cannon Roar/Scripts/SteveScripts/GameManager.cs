@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI; //Required when using UI elements.
-using System.Collections.Generic; //Required when using lists.
+using UnityEngine.UI;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
 {
     //Make this class accessible from any class - GameController.gameController.Variable or method name
-    public static GameManager gameManager;
+    //public static GameManager gameManager;
 
     //Settings
-    public List<GameObject> enemies = new List<GameObject>();//List of enemies
+    public List<GameObject> enemies = new List<GameObject>();
+    public List<GameObject> allies = new List<GameObject>();
 
     public bool gameMusic = true;
 
@@ -21,38 +22,15 @@ public class GameManager : MonoBehaviour
 
     public AudioSource secondTrack;
 
-    void OnEnable()//addition
-    {
-        Debug.Log("OnEnable called");
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)//addition
-    {
-        enemies.Clear();
-
-        Debug.Log("OnSceneLoaded: " + scene.name);
-        Debug.Log(mode);
-    }
-    private void Awake()
-    {
-        if (gameManager == null)
-        {
-            DontDestroyOnLoad(gameObject);
-            gameManager = this;
-        }
-        else if (gameManager != null)
-        {
-            Destroy(gameObject);
-        }
-    }
     void Start()
     {
         Invoke("PlayTrack", 124f);
+        Invoke("Quit", 255f); 
     }
 
     private void Update()
     {
-        
+        timer = Time.time;
     }
 
     public bool GameMusicToggle()
@@ -79,5 +57,10 @@ public class GameManager : MonoBehaviour
     private void PlayTrack()
     {
         secondTrack.Play();
+    }
+
+    private void Quit()
+    {
+        Application.Quit();
     }
 }

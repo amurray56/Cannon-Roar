@@ -327,7 +327,7 @@ Transform:
   m_LocalScale: {x: 5.9687033, y: 1.8418946, z: 6.1421366}
   m_Children:
   - {fileID: 8808442054071122345}
-  - {fileID: 5925648656227955442}
+  - {fileID: 3684131088592703562}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -377,7 +377,6 @@ MonoBehaviour:
   timeBetweenShots: 1.5
   player: {fileID: 0}
   targetManager: {fileID: 0}
-  targetPicker: 0
   targets: []
 --- !u!65 &4099386241397778390
 BoxCollider:
@@ -390,8 +389,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.6206717, y: 6.1268682, z: 2.1026196}
-  m_Center: {x: -0.01363747, y: 5.7792935, z: 0.14084165}
+  m_Size: {x: 0.6206717, y: 2.9839773, z: 2.1026196}
+  m_Center: {x: -0.01363747, y: 4.207846, z: 0.1408416}
 --- !u!114 &2122034443036215323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,7 +407,6 @@ MonoBehaviour:
   health: 1
   enemySpawnerScript: {fileID: 0}
   boxCollider: {fileID: 0}
-  isDead: 0
 --- !u!114 &8320729604627551746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,10 +420,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyTarget: {fileID: 0}
+  isDead: 0
   enemyWaypointSpeed: 10
   enemyWaypointStoppingDistance: 4
   waypoints: []
---- !u!1001 &8708327493336134628
+--- !u!1001 &1857376463341687132
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -494,9 +493,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c856d049666fa0c419ce3da4332748d3, type: 3}
---- !u!4 &5925648656227955442 stripped
+--- !u!4 &3684131088592703562 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3091179883253825814, guid: c856d049666fa0c419ce3da4332748d3,
     type: 3}
-  m_PrefabInstance: {fileID: 8708327493336134628}
+  m_PrefabInstance: {fileID: 1857376463341687132}
   m_PrefabAsset: {fileID: 0}
