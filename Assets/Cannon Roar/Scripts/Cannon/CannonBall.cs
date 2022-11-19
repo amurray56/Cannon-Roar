@@ -29,16 +29,6 @@ public class CannonBall : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            rb.isKinematic = true;
-            other.GetComponentInParent<EnemyHealth>().TakeDamage(damage);
-            rb.isKinematic = false;
-        }
-    }
-
     void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Water")
@@ -51,6 +41,13 @@ public class CannonBall : MonoBehaviour
             rb.isKinematic = true;
             trailRenderer.enabled = false;
             gameObject.SetActive(false);
+        }
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            //rb.isKinematic = true;
+            collision.gameObject.GetComponentInParent<EnemyHealth>().TakeDamage(damage);
+            //rb.isKinematic = false;
         }
     }
 }

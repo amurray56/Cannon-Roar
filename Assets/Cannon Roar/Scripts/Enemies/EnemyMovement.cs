@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(NavMeshAgent))]
 
 public class EnemyMovement : MonoBehaviour
@@ -30,7 +29,7 @@ public class EnemyMovement : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        enemyCollider = GetComponent<Collider>();
+        enemyCollider = GetComponentInChildren<Collider>();
         enemyHealth = GetComponent<EnemyHealth>();
         spawnerManager = GameObject.Find("SpawnerManager").GetComponent<SpawnerManager>();
     }
