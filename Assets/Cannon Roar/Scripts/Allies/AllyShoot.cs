@@ -8,7 +8,7 @@ public class AllyShoot : MonoBehaviour
     public GameObject cannonBall;
     public GameObject[] barrellEnd;
     private float timer;
-    private float timeBetweenShots = 1f;
+    private float timeBetweenShots = 0.5f;
     private CannonBall cb;
     private int barrelPicker;
 

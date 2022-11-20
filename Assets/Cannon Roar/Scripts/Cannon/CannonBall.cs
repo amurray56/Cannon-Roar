@@ -31,23 +31,21 @@ public class CannonBall : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Water")
+        if(collision.gameObject.CompareTag("Water") || collision.gameObject.CompareTag("Ally"))
         {
             Physics.IgnoreCollision(collision.collider, sphereCollider);
         }
 
-        if(collision.gameObject.tag == "Ground" && transform.position.y <= 1)
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.gameObject.GetComponentInParent<EnemyHealth>().TakeDamage(damage);
+        }
+
+        if (collision.gameObject.CompareTag("Ground") && transform.position.y <= 1)
         {
             rb.isKinematic = true;
             trailRenderer.enabled = false;
             gameObject.SetActive(false);
-        }
-
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            //rb.isKinematic = true;
-            collision.gameObject.GetComponentInParent<EnemyHealth>().TakeDamage(damage);
-            //rb.isKinematic = false;
         }
     }
 }

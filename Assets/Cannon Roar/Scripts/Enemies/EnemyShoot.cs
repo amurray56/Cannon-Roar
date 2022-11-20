@@ -15,12 +15,14 @@ public class EnemyShoot : MonoBehaviour
     private int targetPicker;
     public GameObject[] targets;
     private int barrelPicker;
+    private BoxCollider boxCollider;
     // Start is called before the first frame update
     void Start()
     {
         targetManager = GameObject.Find("TargetManager");
         player = GameObject.FindGameObjectWithTag("Player");
         targets = targetManager.GetComponent<TargetManager>().targets;
+        boxCollider = GetComponentInChildren<BoxCollider>();
         Invoke("TimeBetweenShotsIncrease", 125f);
         Invoke("TimeBetweenShotsIncrease2", 191f);
     }
@@ -34,13 +36,9 @@ public class EnemyShoot : MonoBehaviour
         if (timer > timeBetweenShots)
         {
             barrelPicker = Random.Range(0, barrellEnd.Length);
-            if (Physics.Raycast(barrellEnd[barrelPicker].transform.position, player.transform.position - barrellEnd[barrelPicker].transform.position, out hit, 500f, 1, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(barrellEnd[barrelPicker].transform.position, player.transform.position - barrellEnd[barrelPicker].transform.position, out hit, 500f))
             {
-                if (hit.collider.tag != "Player")
-                {
-                    return;
-                }
-                else
+                if (hit.collider.CompareTag("Player"))
                 {
                     GameObject returnedGameObject = PoolManager.current.GetPooledObject(cannonball.name);
                     if (returnedGameObject == null) return;
@@ -54,7 +52,6 @@ public class EnemyShoot : MonoBehaviour
                     //cb.audioSource.Play();
                     timer = 0f;
                 }
-                    
             }
         }
     }
