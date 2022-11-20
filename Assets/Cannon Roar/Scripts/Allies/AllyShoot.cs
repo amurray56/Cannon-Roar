@@ -5,8 +5,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class AllyShoot : MonoBehaviour
 {
-    public GameObject cannonBall;
-    public GameObject[] barrellEnd;
+    [SerializeField] private GameObject cannonBall;
+    [SerializeField] private GameObject[] barrellEnd;
     private float timer;
     private float timeBetweenShots = 0.5f;
     private CannonBall cb;
@@ -32,13 +32,14 @@ public class AllyShoot : MonoBehaviour
                     GameObject returnedGameObject = PoolManager.current.GetPooledObject(cannonBall.name);
                     if (returnedGameObject == null) return;
                     cb = returnedGameObject.GetComponent<CannonBall>();
-                    cb.transform.position = barrellEnd[barrelPicker].transform.position;
-                    cb.transform.rotation = barrellEnd[barrelPicker].transform.rotation;
+                    cb.rb.transform.position = barrellEnd[barrelPicker].transform.position;
+                    cb.rb.transform.rotation = barrellEnd[barrelPicker].transform.rotation;
                     returnedGameObject.SetActive(true);
                     cb.rb.isKinematic = false;
                     cb.trailRenderer.Clear();
                     cb.trailRenderer.enabled = true;
-                    cb.rb.AddForce(0, 300, cb.force, ForceMode.Impulse);
+                    cb.rb.AddForce(cb.rb.transform.up * 300, ForceMode.Impulse);
+                    cb.rb.AddForce(cb.rb.transform.forward * cb.force, ForceMode.Impulse);
                     timer= 0;
                 }
             }

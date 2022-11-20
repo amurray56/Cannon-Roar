@@ -23,7 +23,7 @@ public class CannonBall : MonoBehaviour
     {
         if (transform.position.y <= -10)
         {
-            rb.isKinematic = true;
+            rb.velocity = Vector3.zero;
             trailRenderer.enabled = false;
             gameObject.SetActive(false);
         }
@@ -39,11 +39,12 @@ public class CannonBall : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             collision.gameObject.GetComponentInParent<EnemyHealth>().TakeDamage(damage);
+            rb.velocity = rb.velocity / 2;
         }
 
         if (collision.gameObject.CompareTag("Ground") && transform.position.y <= 1)
         {
-            rb.isKinematic = true;
+            rb.velocity = Vector3.zero;
             trailRenderer.enabled = false;
             gameObject.SetActive(false);
         }

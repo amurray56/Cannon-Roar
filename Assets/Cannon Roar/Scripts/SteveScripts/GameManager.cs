@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using Liminal.SDK.Core;
+using Liminal.Core.Fader;
 
 
 public class GameManager : MonoBehaviour
@@ -18,19 +20,13 @@ public class GameManager : MonoBehaviour
 
     public AudioSource gameMusicAudioSource;
 
-    public float timer;
-
     public AudioSource secondTrack;
 
-    void Start()
+    private void Awake()
     {
-        Invoke("PlayTrack", 124f);
-        Invoke("Quit", 255f); 
-    }
-
-    private void Update()
-    {
-        timer = Time.time;
+        Invoke("PlayTrack", 145f);
+        Invoke("Quit", 275f);
+        Invoke("Fader", 273f);
     }
 
     public bool GameMusicToggle()
@@ -61,6 +57,13 @@ public class GameManager : MonoBehaviour
 
     private void Quit()
     {
+        //ExperienceApp.End();
         Application.Quit();
+    }
+
+    private void Fader()
+    {
+        var fader = ScreenFader.Instance;
+        fader.FadeToBlack();
     }
 }

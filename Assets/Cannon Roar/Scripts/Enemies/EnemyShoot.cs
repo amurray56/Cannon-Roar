@@ -16,19 +16,19 @@ public class EnemyShoot : MonoBehaviour
     public GameObject[] targets;
     private int barrelPicker;
     private BoxCollider boxCollider;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         targetManager = GameObject.Find("TargetManager");
         player = GameObject.FindGameObjectWithTag("Player");
         targets = targetManager.GetComponent<TargetManager>().targets;
         boxCollider = GetComponentInChildren<BoxCollider>();
-        Invoke("TimeBetweenShotsIncrease", 125f);
-        Invoke("TimeBetweenShotsIncrease2", 191f);
+        Invoke("TimeBetweenShotsIncrease", 155f);
+        Invoke("TimeBetweenShotsIncrease2", 212f);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         RaycastHit hit;
         timer += Time.deltaTime;

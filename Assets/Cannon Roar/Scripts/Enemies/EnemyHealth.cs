@@ -39,7 +39,7 @@ public class EnemyHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.y <= -49)
+        if(transform.position.y <= -24)
         {
             enemySpawnerScript.enemiesFromThisSpawnerList.Remove(gameObject);
             gameObject.SetActive(false);
@@ -70,11 +70,11 @@ public class EnemyHealth : MonoBehaviour
         Physics.IgnoreCollision(boxCollider, waterCollider);
         Physics.IgnoreCollision(boxCollider, environment);
         Vector3 position = transform.position;
-        Vector3 endPosition = new Vector3(position.x, -50, position.z);
+        Vector3 endPosition = new Vector3(position.x, -25, position.z);
         //agent.enabled = !agent.enabled;
         while (position != endPosition)
         {
-            transform.position = Vector3.Lerp(position, endPosition, time / 10);
+            transform.position = Vector3.Lerp(position, endPosition, time / 5);
             time += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
