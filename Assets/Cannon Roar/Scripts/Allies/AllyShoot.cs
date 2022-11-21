@@ -11,6 +11,7 @@ public class AllyShoot : MonoBehaviour
     private float timeBetweenShots = 0.5f;
     private CannonBall cb;
     private int barrelPicker;
+    private int lastNumber = -1;
 
     // Update is called once per frame
     void Update()
@@ -20,7 +21,7 @@ public class AllyShoot : MonoBehaviour
 
         if (timer > timeBetweenShots)
         {
-            barrelPicker = Random.Range(0, barrellEnd.Length);
+            barrelPicker = GetRandom(0, barrellEnd.Length);
             if (Physics.Raycast(barrellEnd[barrelPicker].transform.position, barrellEnd[barrelPicker].transform.forward, out hit, 500f))
             {
                 if (hit.collider.tag != "Enemy")
@@ -44,5 +45,14 @@ public class AllyShoot : MonoBehaviour
                 }
             }
         }
+    }
+
+    private int GetRandom(int min, int max)
+    {
+        int rand = Random.Range(min, max);
+        while (rand == lastNumber)
+            rand = Random.Range(min, max);
+        lastNumber = rand;
+        return rand;
     }
 }

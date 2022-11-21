@@ -15,7 +15,8 @@ public class EnemyMovement : MonoBehaviour
     private Collider enemyCollider;
     private EnemyHealth enemyHealth;
     private SpawnerManager spawnerManager;
-    private int lastNumber = -1;
+    private int lastNumber;
+    private int currentNumber;
     [HideInInspector]
     public bool isDead = false;
 
@@ -99,7 +100,7 @@ public class EnemyMovement : MonoBehaviour
         //Debug.Log(waypoints.Count);
         if (!isDead && agent.remainingDistance <= agent.stoppingDistance)
         {
-            wayPointIndex = GetRandom(0, spawnerManager.waypoints.Count);
+                wayPointIndex = GetRandom(0, spawnerManager.waypoints.Count);
         }
 
         if (waypoints == null)
@@ -108,7 +109,11 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            NavMeshAgentSettings(waypoints[wayPointIndex].position, enemyWaypointSpeed, enemyWaypointStoppingDistance);
+            if (currentNumber != wayPointIndex)
+            {
+                currentNumber = lastNumber;
+                NavMeshAgentSettings(waypoints[wayPointIndex].position, enemyWaypointSpeed, enemyWaypointStoppingDistance);
+            }
         }
     }
 

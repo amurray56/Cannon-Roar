@@ -42,7 +42,11 @@ public class CannonBall : MonoBehaviour
             rb.velocity = rb.velocity / 2;
         }
 
-        if (collision.gameObject.CompareTag("Ground") && transform.position.y <= 1)
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            rb.velocity = rb.velocity / 2;
+        }
+        else if (collision.gameObject.CompareTag("Ground") && transform.position.y <= 1)
         {
             rb.velocity = Vector3.zero;
             trailRenderer.enabled = false;

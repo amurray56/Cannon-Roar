@@ -16,6 +16,8 @@ public class EnemyShoot : MonoBehaviour
     public GameObject[] targets;
     private int barrelPicker;
     private BoxCollider boxCollider;
+    private int lastNumber;
+    private int currentNumber;
 
     private void Awake()
     {
@@ -35,22 +37,28 @@ public class EnemyShoot : MonoBehaviour
 
         if (timer > timeBetweenShots)
         {
-            barrelPicker = Random.Range(0, barrellEnd.Length);
-            if (Physics.Raycast(barrellEnd[barrelPicker].transform.position, player.transform.position - barrellEnd[barrelPicker].transform.position, out hit, 500f))
+            barrelPicker = GetRandom(0, barrellEnd.Length);
+
+            if(currentNumber != barrelPicker)
             {
-                if (hit.collider.CompareTag("Player"))
+                currentNumber = lastNumber;
+
+                if (Physics.Raycast(barrellEnd[barrelPicker].transform.position, player.transform.position - barrellEnd[barrelPicker].transform.position, out hit, 500f))
                 {
-                    GameObject returnedGameObject = PoolManager.current.GetPooledObject(cannonball.name);
-                    if (returnedGameObject == null) return;
-                    cb = returnedGameObject.GetComponent<EnemyCannonBall>();
-                    cb.startPos = barrellEnd[barrelPicker].transform.position;
-                    cb.transform.position = barrellEnd[barrelPicker].transform.position;
-                    cb.transform.rotation = barrellEnd[barrelPicker].transform.rotation;
-                    targetPicker = Random.Range(0, targets.Length);
-                    cb.targetPos = targets[targetPicker].transform.position;
-                    returnedGameObject.SetActive(true);
-                    //cb.audioSource.Play();
-                    timer = 0f;
+                    if (hit.collider.CompareTag("Player"))
+                    {
+                        GameObject returnedGameObject = PoolManager.current.GetPooledObject(cannonball.name);
+                        if (returnedGameObject == null) return;
+                        cb = returnedGameObject.GetComponent<EnemyCannonBall>();
+                        cb.startPos = barrellEnd[barrelPicker].transform.position;
+                        cb.transform.position = barrellEnd[barrelPicker].transform.position;
+                        cb.transform.rotation = barrellEnd[barrelPicker].transform.rotation;
+                        targetPicker = Random.Range(0, targets.Length);
+                        cb.targetPos = targets[targetPicker].transform.position;
+                        returnedGameObject.SetActive(true);
+                        //cb.audioSource.Play();
+                        timer = 0f;
+                    }
                 }
             }
         }
@@ -64,5 +72,14 @@ public class EnemyShoot : MonoBehaviour
     private void TimeBetweenShotsIncrease2()
     {
         timeBetweenShots = 0.1f;
+    }
+
+    private int GetRandom(int min, int max)
+    {
+        int rand = Random.Range(min, max);
+        while (rand == lastNumber)
+            rand = Random.Range(min, max);
+        lastNumber = rand;
+        return rand;
     }
 }
