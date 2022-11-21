@@ -41,7 +41,7 @@ public class EnemyShoot : MonoBehaviour
 
             if(currentNumber != barrelPicker)
             {
-                currentNumber = lastNumber;
+                currentNumber = barrelPicker;
 
                 if (Physics.Raycast(barrellEnd[barrelPicker].transform.position, player.transform.position - barrellEnd[barrelPicker].transform.position, out hit, 500f))
                 {

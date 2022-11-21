@@ -15,7 +15,9 @@ public class SpawnerManager : MonoBehaviour
     private int maxNumberOfEnemiesAtOneTime = 1;
     [SerializeField]
     private int maxNumberOfAlliesAtOneTime = 15;
-    private int lastNumber = -1;
+    private int lastNumber;
+    private int currentNumber;
+    private int spawnPoint;
 
     //Lists
     private List<Transform> spawnPoints = new List<Transform>(); //List for spawnpoints
@@ -93,29 +95,33 @@ public class SpawnerManager : MonoBehaviour
     //When this function is called, an enemy is instantiated
     private void EnemySetActive()
     {
-        int a = GetRandom(0, spawnPoints.Count);
-        //Set a to a random spawn position
-        GameObject returnedGameObject = PoolManager.current.GetPooledObject(enemyPrefab.name);
-        if (returnedGameObject == null) return;
-        returnedGameObject.transform.position = spawnPoints[a].position;
-        returnedGameObject.transform.rotation = spawnPoints[a].rotation;
-        returnedGameObject.GetComponent<EnemyHealth>().health = 1;
-        returnedGameObject.GetComponent<EnemyMovement>().isDead = false;
-        returnedGameObject.SetActive(true);
-        returnedGameObject.GetComponent<EnemyShoot>().enabled = true;
-        returnedGameObject.GetComponent<NavMeshAgent>().enabled = true;
-        //Passes the waypoints list to the new enemy script
-        EnemyMovement enemyMovement = returnedGameObject.GetComponent<EnemyMovement>();
-        enemyMovement.waypoints = waypoints;
+        spawnPoint = GetRandom(0, spawnPoints.Count);
+        if (currentNumber != spawnPoint)
+        {
+            currentNumber = spawnPoint;
+            //Set a to a random spawn position
+            GameObject returnedGameObject = PoolManager.current.GetPooledObject(enemyPrefab.name);
+            if (returnedGameObject == null) return;
+            returnedGameObject.transform.position = spawnPoints[spawnPoint].position;
+            returnedGameObject.transform.rotation = spawnPoints[spawnPoint].rotation;
+            returnedGameObject.GetComponent<EnemyHealth>().health = 1;
+            returnedGameObject.GetComponent<EnemyMovement>().isDead = false;
+            returnedGameObject.SetActive(true);
+            returnedGameObject.GetComponent<EnemyShoot>().enabled = true;
+            returnedGameObject.GetComponent<NavMeshAgent>().enabled = true;
+            //Passes the waypoints list to the new enemy script
+            EnemyMovement enemyMovement = returnedGameObject.GetComponent<EnemyMovement>();
+            enemyMovement.waypoints = waypoints;
 
-        //Loads a reference to the EnemySpawner Script into the health script so that we can remove objects from the list
-        EnemyHealth enemyHealth = returnedGameObject.GetComponent<EnemyHealth>();
-        enemyHealth.enemySpawnerScript = GetComponent<SpawnerManager>();
+            //Loads a reference to the EnemySpawner Script into the health script so that we can remove objects from the list
+            EnemyHealth enemyHealth = returnedGameObject.GetComponent<EnemyHealth>();
+            enemyHealth.enemySpawnerScript = GetComponent<SpawnerManager>();
 
-        //Allows us to track the number of enemies currently alive
-        enemiesFromThisSpawnerList.Add(returnedGameObject); //Adds enemy count to the enemiesFromThisSpawnerList
-        //Adds the enemy to the main enemy list in the GameController
-        gameManager.enemies.Add(returnedGameObject);
+            //Allows us to track the number of enemies currently alive
+            enemiesFromThisSpawnerList.Add(returnedGameObject); //Adds enemy count to the enemiesFromThisSpawnerList
+                                                                //Adds the enemy to the main enemy list in the GameController
+            gameManager.enemies.Add(returnedGameObject);
+        }
     }
     private void DestroySpawner()
     {
@@ -139,19 +145,23 @@ public class SpawnerManager : MonoBehaviour
 
     private void AllySetActive()
     {
-        int a = GetRandom(0, spawnPoints.Count);
-        //Set a to a random spawn position
-        GameObject returnedGameObject = PoolManager.current.GetPooledObject(allyPrefab.name);
-        if (returnedGameObject == null) return;
-        returnedGameObject.transform.position = spawnPoints[a].position;
-        returnedGameObject.transform.rotation = spawnPoints[a].rotation;
-        returnedGameObject.SetActive(true);
-        //Passes the waypoints list to the new enemy script
-        EnemyMovement enemyMovement = returnedGameObject.GetComponent<EnemyMovement>();
-        enemyMovement.waypoints = waypoints;
+        spawnPoint = GetRandom(0, spawnPoints.Count);
+        if (currentNumber != spawnPoint)
+        {
+            currentNumber = spawnPoint;
+            //Set a to a random spawn position
+            GameObject returnedGameObject = PoolManager.current.GetPooledObject(allyPrefab.name);
+            if (returnedGameObject == null) return;
+            returnedGameObject.transform.position = spawnPoints[spawnPoint].position;
+            returnedGameObject.transform.rotation = spawnPoints[spawnPoint].rotation;
+            returnedGameObject.SetActive(true);
+            //Passes the waypoints list to the new enemy script
+            EnemyMovement enemyMovement = returnedGameObject.GetComponent<EnemyMovement>();
+            enemyMovement.waypoints = waypoints;
 
-        alliesFromThisSpawnerList.Add(returnedGameObject);
-        gameManager.allies.Add(returnedGameObject);
+            alliesFromThisSpawnerList.Add(returnedGameObject);
+            gameManager.allies.Add(returnedGameObject);
+        }
     }
 
     private void ChangeSpawnTime()
