@@ -186,7 +186,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5fd92d3526054b14db6da4937178314f, type: 2}
+  - {fileID: 2100000, guid: cd985ad1b1d6f4766962e14cddc87825, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -423,6 +423,8 @@ MonoBehaviour:
   health: 1
   enemySpawnerScript: {fileID: 0}
   boxCollider: {fileID: 0}
+  bossShip: 0
+  enemyShip: 1
 --- !u!114 &8320729604627551746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,6 +439,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyTarget: {fileID: 0}
   isDead: 0
-  enemyWaypointSpeed: 10
+  enemyWaypointSpeed: 8
   enemyWaypointStoppingDistance: 5
   waypoints: []

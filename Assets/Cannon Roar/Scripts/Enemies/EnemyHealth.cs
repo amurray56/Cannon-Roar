@@ -18,17 +18,29 @@ public class EnemyHealth : MonoBehaviour
     private MeshCollider environment;
     private GameManager gameManager;
     private EnemyMovement enemyMovement;
+    public bool bossShip;
+    public bool enemyShip;
 
 
     // Start is called before the first frame update
     void Awake()
     {
-        boxCollider = GetComponentInChildren<BoxCollider>();
-        agent = GetComponentInChildren<NavMeshAgent>();
-        enemyShoot = GetComponentInChildren<EnemyShoot>();
         waterCollider = GameObject.Find("water").GetComponent<BoxCollider>();
         environment = GameObject.Find("Environment").GetComponent<MeshCollider>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (enemyShip)
+        {
+            boxCollider = GetComponentInChildren<BoxCollider>();
+            agent = GetComponentInChildren<NavMeshAgent>();
+            enemyShoot = GetComponentInChildren<EnemyShoot>();
+            
+        }
+
+        if(bossShip)
+        {
+            boxCollider = GetComponent<BoxCollider>();
+            enemyShoot = GetComponent<EnemyShoot>();
+        }
     }
 
     private void Start()
@@ -41,7 +53,8 @@ public class EnemyHealth : MonoBehaviour
     {
         if(transform.position.y <= -12f)
         {
-            enemySpawnerScript.enemiesFromThisSpawnerList.Remove(gameObject);
+            if(enemyShip)
+                enemySpawnerScript.enemiesFromThisSpawnerList.Remove(gameObject);
             gameObject.SetActive(false);
         }
     }
@@ -59,9 +72,12 @@ public class EnemyHealth : MonoBehaviour
     {
         time = 0;
         gameManager.enemies.Remove(gameObject);
-        enemyMovement.isDead = true;
+        if (enemyShip)
+        {
+            enemyMovement.isDead = true;
+            agent.enabled = false;
+        }
         enemyShoot.enabled = false;
-        agent.enabled = false;
         StartCoroutine(SinkShip());
     }
 

@@ -20,13 +20,14 @@ public class GameManager : MonoBehaviour
 
     public AudioSource gameMusicAudioSource;
 
-    public AudioSource secondTrack;
+    public GameObject bossShip;
 
     private void Awake()
     {
-        Invoke("PlayTrack", 145f);
-        Invoke("Quit", 275f);
-        Invoke("Fader", 273f);
+        Invoke("Quit", 149f);
+        Invoke("Fader", 146f);
+        Invoke("BossShip", 90f);
+        enemies.Add(bossShip);
     }
 
     public bool GameMusicToggle()
@@ -50,11 +51,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void PlayTrack()
-    {
-        secondTrack.Play();
-    }
-
     private void Quit()
     {
         //ExperienceApp.End();
@@ -65,5 +61,10 @@ public class GameManager : MonoBehaviour
     {
         var fader = ScreenFader.Instance;
         fader.FadeToBlack();
+    }
+
+    private void BossShip()
+    {
+        bossShip.SetActive(true);
     }
 }

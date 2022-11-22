@@ -23,10 +23,12 @@ public class EnemyShoot : MonoBehaviour
     {
         targetManager = GameObject.Find("TargetManager");
         player = GameObject.FindGameObjectWithTag("Player");
-        targets = targetManager.GetComponent<TargetManager>().targets;
         boxCollider = GetComponentInChildren<BoxCollider>();
-        Invoke("TimeBetweenShotsIncrease", 155f);
-        Invoke("TimeBetweenShotsIncrease2", 212f);
+    }
+
+    private void Start()
+    {
+        targets = targetManager.GetComponent<TargetManager>().targets;
     }
 
     // Update is called once per frame
@@ -43,16 +45,16 @@ public class EnemyShoot : MonoBehaviour
             {
                 currentNumber = barrelPicker;
 
-                if (Physics.Raycast(barrellEnd[barrelPicker].transform.position, player.transform.position - barrellEnd[barrelPicker].transform.position, out hit, 500f))
+                if (Physics.Raycast(barrellEnd[currentNumber].transform.position, player.transform.position - barrellEnd[currentNumber].transform.position, out hit, 500f))
                 {
                     if (hit.collider.CompareTag("Player"))
                     {
                         GameObject returnedGameObject = PoolManager.current.GetPooledObject(cannonball.name);
                         if (returnedGameObject == null) return;
                         cb = returnedGameObject.GetComponent<EnemyCannonBall>();
-                        cb.startPos = barrellEnd[barrelPicker].transform.position;
-                        cb.transform.position = barrellEnd[barrelPicker].transform.position;
-                        cb.transform.rotation = barrellEnd[barrelPicker].transform.rotation;
+                        cb.startPos = barrellEnd[currentNumber].transform.position;
+                        cb.transform.position = barrellEnd[currentNumber].transform.position;
+                        cb.transform.rotation = barrellEnd[currentNumber].transform.rotation;
                         targetPicker = Random.Range(0, targets.Length);
                         cb.targetPos = targets[targetPicker].transform.position;
                         returnedGameObject.SetActive(true);

@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5fd92d3526054b14db6da4937178314f, type: 2}
+  - {fileID: 2100000, guid: cd985ad1b1d6f4766962e14cddc87825, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -164,7 +164,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5fd92d3526054b14db6da4937178314f, type: 2}
+  - {fileID: 2100000, guid: cd985ad1b1d6f4766962e14cddc87825, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -242,7 +242,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5fd92d3526054b14db6da4937178314f, type: 2}
+  - {fileID: 2100000, guid: cd985ad1b1d6f4766962e14cddc87825, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -323,7 +323,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5fd92d3526054b14db6da4937178314f, type: 2}
+  - {fileID: 2100000, guid: cd985ad1b1d6f4766962e14cddc87825, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -492,7 +492,7 @@ PrefabInstance:
     - target: {fileID: 4061241557131197265, guid: 7199731179794f443bb73662bad23811,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0197
+      value: 0.011
       objectReference: {fileID: 0}
     - target: {fileID: 4061241557131197265, guid: 7199731179794f443bb73662bad23811,
         type: 3}
@@ -502,7 +502,7 @@ PrefabInstance:
     - target: {fileID: 4061241557131197265, guid: 7199731179794f443bb73662bad23811,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.4922
+      value: -1.414
       objectReference: {fileID: 0}
     - target: {fileID: 4061241557131197265, guid: 7199731179794f443bb73662bad23811,
         type: 3}
@@ -542,11 +542,6 @@ PrefabInstance:
     - target: {fileID: 4061241557131197265, guid: 7199731179794f443bb73662bad23811,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1602123104427916702, guid: 7199731179794f443bb73662bad23811,
-        type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

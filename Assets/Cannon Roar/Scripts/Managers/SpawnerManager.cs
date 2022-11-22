@@ -37,11 +37,10 @@ public class SpawnerManager : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         SetUpChildObjects();
-        Invoke("MoreEnemies", 145f);
-        Invoke("ChangeSpawnTime", 155f);
-        Invoke("DisableEnemies", 240f);
+        Invoke("ChangeSpawnTime", 75f);
+        Invoke("DisableEnemies", 110f);
         InvokeRepeating("checkIfObjectShouldBeSpawned", spawnTime, spawnTime);
-        InvokeRepeating("AddEnemy", 12.22f, 12.22f);
+        InvokeRepeating("AddEnemy", 5f, 5f);
     }
 
     public void OnDrawGizmos()
@@ -139,7 +138,7 @@ public class SpawnerManager : MonoBehaviour
 
     private void AddEnemy()
     {
-        if(maxNumberOfEnemiesAtOneTime < 10)
+        if(maxNumberOfEnemiesAtOneTime < 15)
             maxNumberOfEnemiesAtOneTime++;
     }
 
@@ -173,10 +172,5 @@ public class SpawnerManager : MonoBehaviour
     {
         spawnTime = 1f;
         disableEnemies = true;
-    }
-
-    private void MoreEnemies()
-    {
-        maxNumberOfEnemiesAtOneTime = 20;
     }
 }
