@@ -38,6 +38,7 @@ public class CannonBall : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            collision.gameObject.GetComponentInParent<EnemyHealth>().cannonBall = gameObject;
             collision.gameObject.GetComponentInParent<EnemyHealth>().TakeDamage(damage);
             rb.velocity = rb.velocity / 2;
         }

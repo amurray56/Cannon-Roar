@@ -17,7 +17,12 @@ public class EnemyCannonBall : MonoBehaviour
 
     public AudioSource audioSource;
 
-    void Update()
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    private void Update()
     {
         if (count < 1)
         {
@@ -33,16 +38,22 @@ public class EnemyCannonBall : MonoBehaviour
             Arrived();
     }
 
-    void Arrived()
+    private void Arrived()
     {
         count = 0f;
         gameObject.SetActive(false);
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
+        audioSource.Play();
         distance = Vector3.Distance(startPos, targetPos);
         distance = distance / maxDistance;
         distance = Mathf.Clamp01(distance);
+    }
+
+    private void OnDisable()
+    {
+        audioSource.Stop();
     }
 }

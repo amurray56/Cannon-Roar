@@ -249,6 +249,7 @@ GameObject:
   - component: {fileID: 6534914206773942447}
   - component: {fileID: 6330164607336610335}
   - component: {fileID: 4480516353877242781}
+  - component: {fileID: 68536981}
   m_Layer: 0
   m_Name: BossShip
   m_TagString: Enemy
@@ -296,6 +297,8 @@ MonoBehaviour:
   player: {fileID: 0}
   targetManager: {fileID: 0}
   targets: []
+  currentNumber: 0
+  bossShip: 0
 --- !u!114 &3783154476882405667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,6 +317,7 @@ MonoBehaviour:
   boxCollider: {fileID: 0}
   bossShip: 1
   enemyShip: 0
+  cannonBall: {fileID: 0}
 --- !u!114 &4163765580254583115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,7 +335,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  speed: 5
 --- !u!208 &6534914206773942447
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -339,7 +342,7 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6013814477992480731}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 3.435, y: 2.635, z: 6.875}
@@ -377,6 +380,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.64591, y: 4.7917457, z: 13.662469}
   m_Center: {x: 0.22094058, y: 1.8958721, z: 3.7605636}
+--- !u!195 &68536981
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6013814477992480731}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 4
+  m_Speed: 6
+  m_Acceleration: 8
+  avoidancePriority: 0
+  m_AngularSpeed: 30
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 10
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &6444876799569335926
 GameObject:
   m_ObjectHideFlags: 0

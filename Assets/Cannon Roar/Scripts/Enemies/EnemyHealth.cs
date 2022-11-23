@@ -20,6 +20,8 @@ public class EnemyHealth : MonoBehaviour
     private EnemyMovement enemyMovement;
     public bool bossShip;
     public bool enemyShip;
+    [HideInInspector]
+    public GameObject cannonBall;
 
 
     // Start is called before the first frame update
@@ -87,10 +89,12 @@ public class EnemyHealth : MonoBehaviour
         Physics.IgnoreCollision(boxCollider, environment);
         Vector3 position = transform.position;
         Vector3 endPosition = new Vector3(position.x, -12.5f, position.z);
-        //agent.enabled = !agent.enabled;
+        Quaternion startRotation = transform.rotation;
+        Quaternion rotation = new Quaternion(0, 0, -45, transform.rotation.w);
         while (position != endPosition)
         {
-            transform.position = Vector3.Lerp(position, endPosition, time / 2.5f);
+            transform.position = Vector3.Lerp(position, endPosition, time / 5f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.0005f * Time.deltaTime);
             time += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }

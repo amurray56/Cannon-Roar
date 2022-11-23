@@ -24,9 +24,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Invoke("Quit", 149f);
-        Invoke("Fader", 146f);
-        Invoke("BossShip", 90f);
+        Invoke("Quit", 150f);
+        Invoke("Fader", 147f);
+        Invoke("BossShip", 60f);
         enemies.Add(bossShip);
     }
 

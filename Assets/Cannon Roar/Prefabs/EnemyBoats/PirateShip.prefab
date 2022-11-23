@@ -425,6 +425,7 @@ MonoBehaviour:
   boxCollider: {fileID: 0}
   bossShip: 0
   enemyShip: 1
+  cannonBall: {fileID: 0}
 --- !u!114 &8320729604627551746
 MonoBehaviour:
   m_ObjectHideFlags: 0
