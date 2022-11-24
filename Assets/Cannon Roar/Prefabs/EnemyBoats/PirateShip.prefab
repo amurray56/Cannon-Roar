@@ -137,8 +137,8 @@ GameObject:
   - component: {fileID: 8808442054071122345}
   - component: {fileID: 6216944987055027136}
   - component: {fileID: 8472565287446472232}
-  - component: {fileID: 3449321377963931237}
   - component: {fileID: 2269168982152657808}
+  - component: {fileID: 6879958598355488135}
   m_Layer: 0
   m_Name: boatfinished
   m_TagString: Enemy
@@ -206,22 +206,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!54 &3449321377963931237
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3647117096156599903}
-  serializedVersion: 2
-  m_Mass: 1000
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 2
 --- !u!65 &2269168982152657808
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -235,6 +219,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 13.499024, y: 5.016094, z: 3.9704938}
   m_Center: {x: 1.272184, y: -3.611143, z: 0.05460992}
+--- !u!54 &6879958598355488135
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3647117096156599903}
+  serializedVersion: 2
+  m_Mass: 1000
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 3
 --- !u!1 &4453298003267480339
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +407,9 @@ MonoBehaviour:
   player: {fileID: 0}
   targetManager: {fileID: 0}
   targets: []
+  currentNumber: 0
+  bossShip: 0
+  reverseShot: 0
 --- !u!114 &2122034443036215323
 MonoBehaviour:
   m_ObjectHideFlags: 0

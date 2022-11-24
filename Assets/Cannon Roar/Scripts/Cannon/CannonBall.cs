@@ -30,7 +30,7 @@ public class CannonBall : MonoBehaviour
     {
         if (transform.position.y <= -10)
         {
-            ResetBall();
+            Invoke("ResetBall", 1.5f);
         }
     }
 
@@ -57,7 +57,7 @@ public class CannonBall : MonoBehaviour
             rb.velocity = rb.velocity / 2;
         }
         
-        if (collision.gameObject.CompareTag("Ground") && transform.position.y <= 1)
+        if (collision.gameObject.CompareTag("Ground") && transform.position.y < 1)
         {
             Invoke("ResetBall", 1.5f);
         }
@@ -65,7 +65,7 @@ public class CannonBall : MonoBehaviour
 
     private void OnTriggerEnter(Collider trigger)
     {
-        if (trigger.gameObject.CompareTag("Water"))
+        if (trigger.CompareTag("Water"))
         {
             waterHit.Play();
         }
