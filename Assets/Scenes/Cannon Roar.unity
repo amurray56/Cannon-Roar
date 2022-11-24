@@ -1359,6 +1359,11 @@ PrefabInstance:
       propertyPath: m_PolyMesh.m_Mesh
       value: 
       objectReference: {fileID: 1135221762}
+    - target: {fileID: 2383181117020230308, guid: b73f827b360ba7d44b28dbf2a7806b7f,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b73f827b360ba7d44b28dbf2a7806b7f, type: 3}
 --- !u!1001 &4184553760457944726

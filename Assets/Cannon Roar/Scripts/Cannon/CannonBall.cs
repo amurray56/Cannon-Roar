@@ -36,7 +36,7 @@ public class CannonBall : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Water") || collision.gameObject.CompareTag("Ally"))
+        if(collision.gameObject.CompareTag("Ally"))
         {
             Physics.IgnoreCollision(collision.collider, sphereCollider);
         }
@@ -59,18 +59,24 @@ public class CannonBall : MonoBehaviour
         
         if (collision.gameObject.CompareTag("Ground") && transform.position.y <= 1)
         {
-            Debug.Log("Bottom of Ocean Collided");
-            waterHit.Play();
-
-            Invoke("ResetBall", 1f);
+            Invoke("ResetBall", 1.5f);
         }
     }
 
-    private void ResetBall() //added this method because for some reason waterHit was only ever playing once, this seemed to have fixed it
+    private void OnTriggerEnter(Collider trigger)
     {
-        Debug.Log("Reset ball");
+        if (trigger.gameObject.CompareTag("Water"))
+        {
+            waterHit.Play();
+        }
+    }
+
+    void ResetBall() // added for Better Particle Display Lifetime
+    {
+        Debug.Log("ResetBall");
         rb.velocity = Vector3.zero;
         trailRenderer.enabled = false;
         gameObject.SetActive(false);
     }
+
 }
