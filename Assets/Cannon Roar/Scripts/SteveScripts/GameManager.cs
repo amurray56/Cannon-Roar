@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Invoke("Quit", 150f);
-        Invoke("Fader", 147f);
+        //Invoke("Quit", 150f);
+        //Invoke("Fader", 147f);
         Invoke("BossShip", 60f);
         enemies.Add(bossShip);
     }
@@ -51,13 +51,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Quit()
+    public void Quit()
     {
         //ExperienceApp.End();
         Application.Quit();
     }
 
-    private void Fader()
+    public void Fader()
     {
         var fader = ScreenFader.Instance;
         fader.FadeToBlack();

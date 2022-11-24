@@ -72,6 +72,11 @@ public class EnemyHealth : MonoBehaviour
 
     public void Death()
     {
+        if(bossShip)
+        {
+            gameManager.Invoke("Fader", 3f);
+            Invoke("Quit", 6f);
+        }
         time = 0;
         gameManager.enemies.Remove(gameObject);
         if (enemyShip)

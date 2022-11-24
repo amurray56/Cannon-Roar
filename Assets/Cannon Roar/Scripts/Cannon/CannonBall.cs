@@ -30,7 +30,7 @@ public class CannonBall : MonoBehaviour
     {
         if (transform.position.y <= -10)
         {
-            Invoke("ResetBall", 1.5f);
+            ResetBall();
         }
     }
 
@@ -74,7 +74,10 @@ public class CannonBall : MonoBehaviour
     void ResetBall() // added for Better Particle Display Lifetime
     {
         Debug.Log("ResetBall");
-        rb.velocity = Vector3.zero;
+        waterHit.Stop();
+        rockHit.Stop();
+        shipHit.Stop();
+        rb.isKinematic = true;
         trailRenderer.enabled = false;
         gameObject.SetActive(false);
     }
