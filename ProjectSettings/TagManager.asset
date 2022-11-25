@@ -12,6 +12,7 @@ TagManager:
   - Waypoint
   - SpawnPoint
   - Ally
+  - EnemyCannonBall
   layers:
   - Default
   - TransparentFX
