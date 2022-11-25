@@ -53,8 +53,8 @@ public class GameManager : MonoBehaviour
 
     public void Quit()
     {
-        //ExperienceApp.End();
-        Application.Quit();
+        ExperienceApp.End();
+        //Application.Quit();
     }
 
     public void Fader()
