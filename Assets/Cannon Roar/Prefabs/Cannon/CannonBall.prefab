@@ -95,7 +95,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.19
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &470433367355224518
 Rigidbody:
@@ -231,6 +231,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7631248479265808528}
     m_Modifications:
+    - target: {fileID: 1480925450122551300, guid: 44c0c129973459947a65431364068097,
+        type: 3}
+      propertyPath: m_Name
+      value: RockHit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1480925450122551300, guid: 44c0c129973459947a65431364068097,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1480925450122551299, guid: 44c0c129973459947a65431364068097,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -285,16 +295,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1480925450122551300, guid: 44c0c129973459947a65431364068097,
-        type: 3}
-      propertyPath: m_Name
-      value: RockHit
-      objectReference: {fileID: 0}
-    - target: {fileID: 1480925450122551300, guid: 44c0c129973459947a65431364068097,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1480925450122551298, guid: 44c0c129973459947a65431364068097,
         type: 3}

@@ -39,7 +39,7 @@ public class SpawnerManager : MonoBehaviour
         SetUpChildObjects();
         Invoke("DisableEnemies", 110f);
         InvokeRepeating("checkIfObjectShouldBeSpawned", spawnTime, spawnTime);
-        InvokeRepeating("AddEnemy", 5f, 5f);
+        InvokeRepeating("AddEnemy", 10f, 10f);
     }
 
     public void OnDrawGizmos()
