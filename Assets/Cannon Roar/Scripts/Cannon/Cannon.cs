@@ -127,6 +127,7 @@ public class Cannon : MonoBehaviour
         cb.trailRenderer.enabled = true;
         cb.rb.AddForce(cb.rb.transform.forward * cb.force, ForceMode.Impulse);
         particleSystem.Play();
+        cb.smokeEffect.Play();
         audio.Play();
         cannonReload = true;
     }

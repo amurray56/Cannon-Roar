@@ -12,6 +12,9 @@ public class CannonBall : MonoBehaviour
     ParticleSystem shipHit;
     ParticleSystem waterHit;
     ParticleSystem rockHit;
+    [HideInInspector]
+    public ParticleSystem smokeEffect;
+   
 
 
     // Start is called before the first frame update
@@ -23,6 +26,7 @@ public class CannonBall : MonoBehaviour
         shipHit = transform.GetChild(0).GetComponent<ParticleSystem>();
         waterHit = transform.GetChild(1).GetComponent<ParticleSystem>();
         rockHit = transform.GetChild(2).GetComponent<ParticleSystem>();
+        smokeEffect = transform.GetChild(3).GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -50,7 +54,7 @@ public class CannonBall : MonoBehaviour
             rb.velocity = rb.velocity / 2;
         }
 
-        if (collision.gameObject.CompareTag("Ground") && transform.position.y >= 1)
+        if (collision.gameObject.CompareTag("Ground") && transform.position.y >= 10)
         {
             Debug.Log("Cliff Collided");
             rockHit.Play();
@@ -59,7 +63,7 @@ public class CannonBall : MonoBehaviour
         
         if (collision.gameObject.CompareTag("Ground") && transform.position.y < 1)
         {
-            Invoke("ResetBall", 1.5f);
+            Invoke("ResetBall", 2f);
         }
     }
 
